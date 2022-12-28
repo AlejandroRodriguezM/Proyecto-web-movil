@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <title>Tienda virtual</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style/normalize.min.css">
-  <link rel='stylesheet' href='style/bootstrap.min.css'>
+  <link rel="stylesheet" href="assets/style/normalize.min.css">
+  <link rel='stylesheet' href='assets/style/bootstrap.min.css'>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300'>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,700,300'>
-  <link rel='stylesheet' href='style/font-awesome.min.css'>
-  <link rel="stylesheet" href="style/style.css">
+  <link rel='stylesheet' href='assets/style/font-awesome.min.css'>
+  <link rel="stylesheet" href="assets/style/style.css">
 </head>
 
 <body>
