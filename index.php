@@ -11,9 +11,11 @@
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,700,300'>
   <link rel='stylesheet' href='assets/style/font-awesome.min.css'>
   <link rel="stylesheet" href="assets/style/style.css">
+  <script src="assets/js/sweetalert2.all.min.js"></script>
 </head>
 
 <body>
+
   <div class="signup__container">
     <div class="container__child signup__thumbnail">
       <div class="thumbnail__content text-center">
@@ -23,7 +25,7 @@
       <div class="signup__overlay"></div>
     </div>
     <div class="container__child signup__form">
-      <form action="#">
+      <form action="#" id="formulario">
         <div class="form-group">
           <label for="username">Nombre</label>
           <input class="form-control" type="text" name="username" id="username" placeholder="Ponga su nombre" required />
@@ -43,16 +45,14 @@
         <div class="m-t-lg">
           <ul class="list-inline">
             <li>
-              <input class="btn btn--form" type="submit" value="Iniciar sesión" />
-            </li>
-            <li>
-              <a class="signup__link" href="#">Crear cuenta</a>
+              <input class="btn btn--form" id="submitBtn" type="submit" value="Iniciar sesión" />
             </li>
           </ul>
         </div>
       </form>
     </div>
   </div>
+  <script src="assets/js/login.js"></script>
 
 </body>
 
