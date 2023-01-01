@@ -1,10 +1,9 @@
+/* Estilo de las tarjetas insertar, gestionar */
+
 :root{
     --background-dark: #2d3548;
-    --text-light: rgba(255,255,255,0.6);
-    --text-lighter: rgba(255,255,255,0.9);
-    --spacing-l: 24px;
-    --spacing-xxl: 64px;
-    --width-container: 1200px;
+    --spacing-l: 54px;
+    --spacing-xxl: 20px;
   }
   
   *{
@@ -33,12 +32,11 @@
   
   .card-grid{
     display: grid;
-    
     grid-column-gap: var(--spacing-l);
     width: 100%;
   }
   
-  @media(min-width: 540px){
+  @media(min-width: 440px){
     .card-grid{
       grid-template-columns: repeat(2, 1fr); 
     }
@@ -65,7 +63,7 @@
   .card__background{
     background-size: cover;
     background-position: center;
-    border-radius: var(--spacing-l);
+    border-radius: 25px;
     bottom: 0;
     left: 0;
     position: absolute;
@@ -93,13 +91,87 @@
     top: 0;
   }
   
-  
   .card__heading{
     color: rgb(49, 42, 42);
     background-color: white;
-    margin-top: 70px;
-    margin-left: 45px;
-    border-radius: var(--spacing-l);
-    font-size: 30px;
-    word-spacing: 100vw;
+    margin-top: 50px;
+    margin-left: 10px;
+    font-size: 35px;
   }
+
+                               /*  Estilo del formulario insertar */
+
+display-flex, .form-flex, .form-row, .add-info-link {
+  display: flex;
+  display: -webkit-flex; }
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  src: url("../fonts/montserrat/Montserrat-SemiBold.ttf");}
+
+body {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #222;
+  font-weight: 600;
+  font-family: 'Montserrat';
+  background: rgb(78, 72, 72);
+  padding: 115px 0; }
+
+.container {
+  width: 600px;
+  position: relative;
+  border-radius: 25px;
+  margin: 0 auto;
+  background: #fff; }
+
+.signup-form {
+  padding: 50px 55px 20px 55px;
+  height: 500px;
+  overflow-y: auto; }
+
+label, input {
+  display: block;
+  width: 100%; }
+
+label {
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-bottom: 3px; }
+
+input {
+  border: 1px solid #ebebeb;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -o-border-radius: 5px;
+  -ms-border-radius: 5px;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  font-size: 14px;
+  font-family: 'Montserrat'; }
+
+.form-row .form-group, .form-row .form-radio {
+    width: 50%;
+    padding: 0 11px; }
+
+.form-group, .form-radio {
+  margin-bottom: 30px;
+  position: relative; }
+
+.form-submit {
+  width: auto;
+  background: rgb(78, 72, 72);
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  padding: 16px 50px;
+  float: right;
+  border: none;
+  margin-top: 37px;
+  cursor: pointer; }
+
+
+
