@@ -1,6 +1,12 @@
+<?php
+session_start();
+include_once 'php/funciones/funciones.php';
+include_once 'php/funciones/funciones_csv.php';
+checkCookiesUser();
+$user = $_SESSION['user'];
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <title>Card Hover</title>
 </head>
-<body>
+<body onload="comprobarSesion()">
     <section class="hero-section">
         <div class="card-grid">
             <a class="card" href="#">
