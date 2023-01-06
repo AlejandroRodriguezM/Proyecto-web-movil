@@ -3,9 +3,10 @@
 var sesion = localStorage.getItem('sesionUserName');
 
 const comprobarSesion = () => {
-    if (sesion != null) {
-        window.location.href = "inicio.php";
+    if (sesion == null) {
+        window.location.href = "login.php";
     }
+    document.querySelector('#user').innerHTML = sesion;
 }
 
 const login = async () => {
@@ -45,7 +46,7 @@ const login = async () => {
 
     if (result.success == true) {
         Swal.fire({
-            icon: "succes",
+            icon: "success",
             title: "Great",
             text: result.mensaje,
             footer: "Tienda Virual Reparación de móviles"

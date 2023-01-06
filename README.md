@@ -25,3 +25,9 @@ Renombrar archivos de estilo para que quede más claro:
 - style.css es el estilo general para el menú de navegación, logo, footer, que se repite en las páginas inicio y crud
 - el styleCrud y styleInicio, los estilos individuales de cada una de las pags
 
+--> 06/01/2023 Log 1
+Cambios en ficheros PHP en las variables $session.
+Ahora el nombre de usuario se muestra usando JavaScript
+Se ha solucionado el bug visual de inicio de sesion(icono de success)
+
+

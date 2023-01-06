@@ -14,7 +14,7 @@ if ($_POST){
         $validate['mensaje'] = "Usuario correcto";
         $validate['userName'] = $nombre;
         $_SESSION['user'] = $nombre;
-        $_SESSION['hour'] = date('H:i:s');
+        $_SESSION['conexion'] = date('H:i:s');
         cookiesUser($nombre, $password);
     }
     else{

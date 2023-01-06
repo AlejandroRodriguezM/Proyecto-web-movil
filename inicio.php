@@ -3,8 +3,7 @@ session_start();
 include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
-$user = $_SESSION['user'];
-$_SESSION['time'] = date("H:i", time());
+$conexion = $_SESSION['conexion'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,11 +31,11 @@ $_SESSION['time'] = date("H:i", time());
                 <li><a href="#!">Acerca de</a></li>
             </ul>
             <div class="sesion border-right">
-                <p>Hora de conexión: <?php echo $_SESSION['time'] ?></p>
+                <p>Hora de conexión: <?php echo $conexion ?></p>
 
             </div>
             <div class="sesion">
-                <p>Bienvenido <?php echo $_SESSION['user'] ?></p>
+            Bienvenido<p id="user"></p>
             </div>
 
             <!-- LOGO -->
@@ -169,6 +168,7 @@ $_SESSION['time'] = date("H:i", time());
     </footer>
 
     <!-- SCRIPTS -->
+    <script src="./assets/js/login.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
 </body>
