@@ -4,6 +4,10 @@ Proyecto WEB para php y JavaScript para clase como proyecto de reparacion de tel
 Subida del diseño y estilo del index.
 Javascript para la verificación del formulario de login
 
+--> 02/01/23 Antonia Log 1
+Se subió el CRUD
+Se renombró el inicio y login
+
 -->02/01/2023 Alejandro Log 1
 Crear cockies
 Validacion de datos mediante JS front-end
