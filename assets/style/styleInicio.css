@@ -1,0 +1,80 @@
+/*******************************
+*** CARDS INSETAR Y GESTIONAR***
+*******************************/
+.card-category-3 ul {
+  padding: 0;
+}
+
+
+.card-category-3 ul li {
+  list-style-type: none;
+  display: inline-block;
+  vertical-align: top;
+  margin: 100px 5px;
+}
+
+
+.card-category-3 {
+  font-family: sans-serif;
+  margin-bottom: 45px;
+  text-align: center;
+}
+
+.ioverlay-card {
+  position: relative;
+  text-align: left;
+}
+
+.ioverlay-card img {
+  height: auto;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.ioverlay-card .card-content {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+}
+
+.ioverlay-card .card-content .card-title {
+  font-size: 25px;
+}
+
+
+.io-card-2 .card-content {
+  color: #fff;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
+
+.io-card-2 .card-link {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+}
+
+.io-card-2 .card-link a {
+  background-color: white;
+  color: #333;
+  text-decoration: none;
+  padding: 10px;
+  border: 1px solid #333;
+  border-radius: 4px;
+
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.io-card-2 .card-link a:hover {
+  color: #e91e63;
+  border: 1px solid #e91e63;
+  background-color: rgb(255, 225, 170);
+}
+
+.io-card-2 .card-content .card-text {
+  line-height: 1.5;
+  padding-bottom: 10px;
+  text-shadow: black 0.1em 0.1em 0.2em;
+}
