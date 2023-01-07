@@ -21,40 +21,37 @@ $conexion = $_SESSION['conexion'];
 
 </head>
 
-<body onload="comprobarSesion()">
+<body onload="comprobarLogin()">
     <!-- NAVEGACION -->
-    <nav>
-        <div class="countainer">
-            <ul class="menu">
-                <li><a href="inicio.php">Inicio</a></li>
-                <li><a href="crud.php">Gestionar</a></li>
-                <li><a href="#!">Acerca de</a></li>
-            </ul>
-            <div class="sesion border-right">
-                <p>Hora de conexión: <?php echo $conexion ?></p>
-
-            </div>
-            <div class="sesion">
+    <div class="countainer">
+        <ul class="menu navbar-collapse">
+            <li><a href="inicio.php">Inicio</a></li>
+            <li><a href="crud.php">Gestionar</a></li>
+            <li><a href="#!">Acerca de</a></li>
+            <li><p onclick="closeSesion()">Salir</p></li>
+        </ul>
+        <div class="sesion border-left">
+            <p>Hora de conexión: <?php echo $conexion ?></p>
+        </div>
+        <div class="sesion border-left">
             Bienvenido<p id="user"></p>
-            </div>
+        </div>
+        <!-- LOGO -->
+        <div class="container-logo">
+            <div class="box">
 
-            <!-- LOGO -->
-            <div class="container-logo">
-                <div class="box">
+                <div class="title">
+                    <span class="block"></span>
+                    <h1>Reparación de Móviles<span></span></h1>
+                </div>
 
-                    <div class="title">
-                        <span class="block"></span>
-                        <h1>Reparación de Móviles<span></span></h1>
-                    </div>
-
-                    <div class="role">
-                        <div class="block"></div>
-                        <p>Tienda Virtual</p>
-                    </div>
-
+                <div class="role">
+                    <div class="block"></div>
+                    <p>Tienda Virtual</p>
                 </div>
             </div>
         </div>
+    </div>
     </nav>
 
     <!-- CARDS INSERTAR Y GESTIONAR -->
@@ -102,7 +99,7 @@ $conexion = $_SESSION['conexion'];
     <div id="insertar" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form>
+                <form method="post" id="formInsert" onsubmit="return false;">
                     <div class="modal-header">
                         <h4 class="modal-title">Insertar</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -110,28 +107,24 @@ $conexion = $_SESSION['conexion'];
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Nombre Completo</label>
-                            <input type="text" class="form-control" required>
+                            <input type="text" id="nombre_cliente" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" class="form-control">
+                            <input type="email" id="email_cliente" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Problema del móvil</label>
-                            <textarea class="form-control"></textarea>
+                            <textarea class="form-control" id="problema_cliente" style="resize:none;"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Fecha Actual</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Resuelto</label>
-                            <input type="text" class="form-control">
+                            <input type="date" id="fechaEntrega_cliente" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                        <input type="submit" class="btn btn-info" value="Guardar">
+                        <input type="submit" class="btn btn-info" value="Guardar" onclick="insert_request()">
                     </div>
                 </form>
             </div>
@@ -171,6 +164,7 @@ $conexion = $_SESSION['conexion'];
     <script src="./assets/js/login.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

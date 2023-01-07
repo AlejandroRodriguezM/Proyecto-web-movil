@@ -19,7 +19,7 @@ $conexion = $_SESSION['conexion'];
 	<link rel="stylesheet" href="assets/style/styleCrud.css">
 	<link rel="stylesheet" href="assets/style/style.css">
 
-<body onload="comprobarSesion()">
+<body onload="comprobarLogin()">
 	<!-- NAVEGACION -->
 	<nav>
 		<div class="countainer">

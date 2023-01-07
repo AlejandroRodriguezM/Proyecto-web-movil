@@ -10,14 +10,14 @@ function destroyCookiesUser()
 {
 	setcookie('loginUser', '', time() - 3600, '/');
 	setcookie('passwordUser', '', time() - 3600, '/');
+	echo '<script type="text/JavaScript"> 
+	localStorage.clear();
+ </script>';
 }
 
 function checkCookiesUser()
 {
 	if (!isset($_SESSION['user']) || !isset($_COOKIE['loginUser'])) {
-		echo '<script type="text/JavaScript"> 
-		localStorage.clear();
-     </script>';
 		die("Error. You are not logged <a href='logOut.php'>Log in</a>");
 	}
 }
@@ -53,9 +53,8 @@ function reservedWords()
 		"xp_filelist", "xp_cmdshell", "xp_regread", "xp_regwrite", "xp_fileexist", "xp_dirtree", "xp_filelist", "xp_cmdshell",
 		"xp_regread", "xp_regwrite", "xp_fileexist", "xp_dirtree", "xp_filelist", "xp_cmdshell", "xp_regread", "xp_regwrite",
 		"xp_fileexist", "xp_dirtree", "xp_filelist", "xp_cmdshell", "xp_regread", "xp_regwrite", "xp_fileexist", "xp_dirtree",
-		"xp_filelist", "xp_cmdshell", "xp_regread", "xp_regwrite", "xp_fileexist", "xp_dirtree", "xp_filelist". "puto","gilipollas",
-        "cabron","cabrona","cabronazo","idiota","pringado","tonto","tonta"
+		"xp_filelist", "xp_cmdshell", "xp_regread", "xp_regwrite", "xp_fileexist", "xp_dirtree", "xp_filelist" . "puto", "gilipollas",
+		"cabron", "cabrona", "cabronazo", "idiota", "pringado", "tonto", "tonta"
 	);
 	return $palabras;
 }
-
