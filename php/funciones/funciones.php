@@ -18,6 +18,9 @@ function destroyCookiesUser()
 function checkCookiesUser()
 {
 	if (!isset($_SESSION['user']) || !isset($_COOKIE['loginUser'])) {
+		echo '<script type="text/JavaScript"> 
+		localStorage.clear();
+     </script>';
 		die("Error. You are not logged <a href='logOut.php'>Log in</a>");
 	}
 }

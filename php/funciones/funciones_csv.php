@@ -40,7 +40,7 @@ function checkCSV(){
 	if(!file_exists('../../csv/moviles.csv')){
 		$fp = fopen('../../csv/moviles.csv', 'w');
 		//add this
-		$campos = array('Nombre','Email','Problema','Fecha','Estado','Solucion');
+		$campos = array('ID','Nombre','Email','Problema','Fecha','Estado','Solucion');
 		fputcsv($fp, $campos, ',');
 		fclose($fp);
 	}
@@ -49,7 +49,30 @@ function checkCSV(){
 function createMovilRequest(){
 	checkCSV();
 	$moviles = csvtoarray('../../csv/moviles.csv');
-	$moviles[] = array($_POST['nombre_cliente'],$_POST['email_cliente'],$_POST['problema_cliente'],$_POST['fecha_entrega_cliente'],"","");
+	//count numRows
+	$numRows = countRowsCSV('../../csv/moviles.csv');
+	//add new row
+	if($numRows == 1){
+		$ID = 1;
+	}
+	else{
+		$ID = $numRows;
+	}
+	$nombre = $_POST['nombre_cliente'];
+	$email = $_POST['email_cliente'];
+	$problema = $_POST['problema_cliente'];
+	$fecha = $_POST['fecha_entrega_cliente'];
+	$resuelto = "No";
+	$tecnico = "Sin asignar";
+
+	$moviles[] = array($ID,$nombre,$email,$problema,$fecha,$resuelto,$tecnico);
 	arraytocsv($moviles,'../../csv/moviles.csv');
+}
+
+//contar cuantos rows hay dentro de un csv sin contar la primera linea
+function countRowsCSV($archivo){
+	$csv = csvtoarray($archivo);
+	$numero = count($csv);
+	return $numero;
 }
 

@@ -30,9 +30,14 @@ Cambios en ficheros PHP en las variables $session.
 Ahora el nombre de usuario se muestra usando JavaScript
 Se ha solucionado el bug visual de inicio de sesion(icono de success)
 
---> 07/01/2023 Alejandro Log 2
+--> 07/01/2023 Alejandro Log 1
 Arreglado bug a la hora de acceder al login
 Funcionalidad de insertar peticion de movil creada.
+
+--> 07/01/2023 Alejandro Log 2
+Se ha añadido un ID a la hora de crear peticion de telefono.
+Se ha agregado la funcionalidad de gestion de telefonos.
+Queda por arreglar a la hora de modificar que no solamente tenga en cuenta el ultimo row del bucle
 
 
 

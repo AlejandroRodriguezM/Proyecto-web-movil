@@ -32,9 +32,9 @@ $conexion = $_SESSION['conexion'];
 				<p>Hora de conexión: <?php $conexion ?></p>
 
 			</div>
-            <div class="sesion">
-            Bienvenido<p id="user"></p>
-            </div>
+			<div class="sesion">
+				Bienvenido<p id="user"></p>
+			</div>
 
 			<!-- LOGO -->
 			<div class="container-logo">
@@ -65,39 +65,50 @@ $conexion = $_SESSION['conexion'];
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<th>Nombre</th>
-							<th>Email</th>
-							<th>Problema del móvil</th>
-							<th>Fecha</th>
-							<th>Resuelto</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Antonio</td>
-							<td>antonioruiz@mail.com</td>
-							<td>No conecta internet</td>
-							<td>12/12/2022</td>
-							<td>Sí</td>
-							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-							</td>
-						</tr>
-						<tr>
-							<td>María Soler</td>
-							<td>mariasoler@mail.com</td>
-							<td>Bloqueo de pantalla</td>
-							<td>30/12/2022</td>
-							<td>No</td>
-							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Editar">&#xE254;</i></a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Eliminar">&#xE872;</i></a>
-							</td>
-						</tr>
-					</tbody>
+
+					<?php
+					//mostrar todo apartir del 1º row
+					if (!file_exists('./csv/moviles.csv')) {
+						echo "<h2>No hay datos</h2>";
+					} else {
+					?>
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Email</th>
+								<th>Problema del móvil</th>
+								<th>Fecha</th>
+								<th>Resuelto</th>
+							</tr>
+						</thead>
+						<tbody>
+						<?php
+						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
+						$csv = array_slice($csv, 1);
+						foreach ($csv as $row) {
+							$id = $row[0];
+							$nombre = $row[1];
+							$email = $row[2];
+							$problema = $row[3];
+							$fecha = $row[4];
+							$resuelto = $row[5];
+							echo "<tr>";
+							echo "<td>$id</td>";
+							echo "<td>$nombre</td>";
+							echo "<td>$email</td>";
+							echo "<td>$problema</td>";
+							echo "<td>$fecha</td>";
+							echo "<td>$resuelto</td>";
+							echo "<td>";
+							echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+							echo "<a href='#deleteEmployeeModal' class='delete' data-toggle='modal'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+							echo "</td>";
+							echo "</tr>";
+						}
+					}
+						?>
+						</tbody>
 				</table>
 			</div>
 		</div>
@@ -115,23 +126,23 @@ $conexion = $_SESSION['conexion'];
 					<div class="modal-body">
 						<div class="form-group">
 							<label>Nombre</label>
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" value="<?php echo $nombre ?>">
 						</div>
 						<div class="form-group">
 							<label>Email</label>
-							<input type="email" class="form-control">
+							<input type="email" class="form-control" value="<?php echo $email ?>">
 						</div>
 						<div class="form-group">
 							<label>Problema del móvil</label>
-							<textarea class="form-control"></textarea>
+							<textarea class="form-control"><?php echo $problema ?></textarea>
 						</div>
 						<div class="form-group">
 							<label>Fecha</label>
-							<input type="date" class="form-control">
+							<input type="date" class="form-control" value="<?php echo $fecha ?>">
 						</div>
 						<div class="form-group">
 							<label>Resuelto</label>
-							<input type="text" class="form-control">
+							<input type="text" class="form-control" value="<?php echo $resuelto ?>">
 						</div>
 					</div>
 					<div class="modal-footer">
