@@ -115,7 +115,7 @@ $conexion = $_SESSION['conexion'];
 									echo "<td>$resuelto</td>";
 									echo "<td>";
 									echo "<a class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-									echo "<a href='#deleteEmployeeModal' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+									echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 									echo "</td>";
 									echo "</tr>";
 								}
@@ -199,6 +199,7 @@ $conexion = $_SESSION['conexion'];
 						<p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
 					</div>
 					<div class="modal-footer">
+						<input type="hidden" class="form-control" name="id_eliminar" id="id_eliminar" value="">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-danger" value="Eliminar" onclick=delete_slice_CSV()>
 					</div>
@@ -247,8 +248,6 @@ $conexion = $_SESSION['conexion'];
 			var fecha = button.data('fecha');
 			var resuelto = button.data('resuelto');
 
-			console.log(id, nombre, email, problema, fecha, resuelto)
-
 			populateModalForm(id, nombre, email, problema, fecha, resuelto);
 		});
 
@@ -259,6 +258,16 @@ $conexion = $_SESSION['conexion'];
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
 			$('#editEmployeeModal input[name="fecha"]').val(fecha);
 			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
+		}
+
+		$('#deleteEmployeeModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget); // Button that triggered the modal
+			var id = button.data('id_delete');
+			deleteModalForm(id);
+		});
+
+		function deleteModalForm(id) {
+			$('#deleteEmployeeModal input[name="id_eliminar"]').val(id);
 		}
 	</script>
 	<script src="./assets/js/login.js"></script>

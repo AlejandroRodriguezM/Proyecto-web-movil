@@ -19,7 +19,7 @@ $conexion = $_SESSION['conexion'];
 	<link rel="stylesheet" href="assets/style/styleCrud.css">
 	<link rel="stylesheet" href="assets/style/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
+</head>
 <body onload="comprobarLogin()">
 	<!-- NAVEGACION -->
 	<nav>
@@ -198,6 +198,7 @@ $conexion = $_SESSION['conexion'];
 						<p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
 					</div>
 					<div class="modal-footer">
+						<input type="hidden" class="form-control" name="id_eliminar" id="id_eliminar" value="">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-danger" value="Eliminar" onclick=delete_slice_CSV()>
 					</div>
@@ -245,8 +246,6 @@ $conexion = $_SESSION['conexion'];
 			var problema = button.data('problema');
 			var fecha = button.data('fecha');
 			var resuelto = button.data('resuelto');
-
-			console.log(id, nombre, email, problema, fecha, resuelto)
 
 			populateModalForm(id, nombre, email, problema, fecha, resuelto);
 		});
