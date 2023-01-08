@@ -222,7 +222,7 @@ const updateCSV = async () => {
     data.append('resuelto', resuelto);
 
 
-    var respond = await fetch("php/user/movil_request.php", {
+    var respond = await fetch("php/user/edit_csv.php", {
         method: "POST",
         body: data
     });

@@ -17,8 +17,5 @@ updateCSV();
 $validate['success'] = true;
 $validate['mensaje'] = "Usuario correcto";
 
-// Close the CSV file
-fclose($fp);
-
 // Return a response indicating that the update was successful
 echo json_encode($validate);

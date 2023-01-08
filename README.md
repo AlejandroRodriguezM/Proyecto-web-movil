@@ -44,5 +44,10 @@ Se puede ver los datos del fichero csv
 A la hora de editar, se puede ver en el model los datos del row especifico
 Queda por arreglar la edicion, para que modifique un row especifico en vez de añadir nuevos datos como row independiente
 
+--> 08/01/2023 Alejandro Log 2
+Se ha eliminado la linea de descripcion en el CSV
+Se ha corregido la modificacion de datos del csv, ahora puede editar solamente la linea deseada de forma correcta(faltara debugear)
+Arreglado unn bug donde nunca se modificaba el row y solamente se creaba uno nuevo
+
 
 

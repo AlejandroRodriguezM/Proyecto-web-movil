@@ -3,7 +3,6 @@ session_start();
 include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
-$conexion = $_SESSION['conexion'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +85,7 @@ $conexion = $_SESSION['conexion'];
 						<tbody>
 						<?php
 						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
-						$csv = array_slice($csv, 1);
+						// $csv = array_slice($csv, 1);
 						foreach ($csv as $row) {
 							$id = $row[0];
 							$nombre = $row[1];
@@ -129,6 +128,8 @@ $conexion = $_SESSION['conexion'];
 							<label>Nombre</label>
 							<input type="text" class="form-control" name="nombre" value="" id="nombre_cliente">
 							<input type="hidden" id="id_movil" value="" name="id">
+							<input type="hidden" id="tecnico" value="<?php echo $_SESSION['user']; ?>" name="tecnico">
+
 						</div>
 						<div class="form-group">
 							<label>Email</label>
