@@ -28,21 +28,20 @@ $conexion = $_SESSION['conexion'];
             <li><a href="inicio.php">Inicio</a></li>
             <li><a href="crud.php">Gestionar</a></li>
             <li><a href="#!">Acerca de</a></li>
-            <li><p onclick="closeSesion()">Salir</p></li>
+            <li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
         </ul>
-        <div class="sesion border-left">
+        <div class="sesion">
             <p>Hora de conexión: <?php echo $conexion ?></p>
         </div>
-        <div class="sesion border-left">
+        <div class="sesion">
             Bienvenido<p id="user"></p>
         </div>
         <!-- LOGO -->
         <div class="container-logo">
             <div class="box">
-
                 <div class="title">
-                    <span class="block"></span>
-                    <h1>Reparación de Móviles<span></span></h1>
+                    <span class="block" ></span>
+                    <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
                 </div>
 
                 <div class="role">

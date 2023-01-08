@@ -12,7 +12,7 @@ $conexion = $_SESSION['conexion'];
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tienda Virtual de Reparación de Móviles - Gestionar</title>
+	<title>Tienda Virtual de Reparación de Móviles - Reparacion</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="assets/style/font-awesome.min.css">
 	<link rel="stylesheet" href="assets/style/bootstrap3.min.css">
@@ -23,38 +23,35 @@ $conexion = $_SESSION['conexion'];
 
 <body onload="comprobarLogin()">
 	<!-- NAVEGACION -->
-	<nav>
-		<div class="countainer">
-			<ul class="menu">
-				<li><a href="inicio.php">Inicio</a></li>
-				<li><a href="crud.php">Gestionar</a></li>
-				<li><a href="#!">Acerca de</a></li>
-			</ul>
-
-			<div class="sesion border-right">
-				<p>Hora de conexión: <?php echo $conexion ?></p>
-
-			</div>
-			<div class="sesion">
-				Bienvenido<p id="user"></p>
-			</div>
-			<!-- LOGO -->
-			<div class="container-logo">
-				<div class="box">
-
-					<div class="title">
-						<span class="block"></span>
-						<h1>Reparación de Móviles<span></span></h1>
-					</div>
-
-					<div class="role">
-						<div class="block"></div>
-						<p>Tienda Virtual</p>
-					</div>
-
+	<div class="countainer">
+		<ul class="menu navbar-collapse">
+			<li><a href="inicio.php">Inicio</a></li>
+			<li><a href="crud.php">Gestionar</a></li>
+			<li><a href="#!">Acerca de</a></li>
+			<li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
+		</ul>
+		<div class="sesion">
+			<p>Hora de conexión: <?php echo $conexion ?></p>
+		</div>
+		<div class="sesion">
+			Bienvenido<p id="user"></p>
+		</div>
+		<!-- LOGO -->
+		<div class="container-logo">
+			<div class="box">
+				<div class="title">
+					<span class="block"></span>
+					<h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
 				</div>
+
+				<div class="role">
+					<div class="block"></div>
+					<p>Tienda Virtual</p>
+				</div>
+
 			</div>
 		</div>
+	</div>
 	</nav>
 	<!-- center the nav  -->
 	<nav class="center">
@@ -122,7 +119,7 @@ $conexion = $_SESSION['conexion'];
 							}
 							echo "</tbody>";
 						} else {
-							echo "<h2>No hay datos</h2>";
+							echo "<h2>No hay moviles reparados</h2>";
 						}
 					}
 						?>
@@ -145,7 +142,6 @@ $conexion = $_SESSION['conexion'];
 							<label>Nombre</label>
 							<input type="text" class="form-control" name="nombre" id="nombre_cliente" value="">
 							<input type="hidden" class="form-control" name="id" id="id" value="">
-							<input type="hidden" class="form-control" name="tecnico" id="tecnico" value="<?php echo $_SESSION['user']; ?>">
 						</div>
 						<div class="form-group">
 							<label>Email</label>
@@ -180,28 +176,6 @@ $conexion = $_SESSION['conexion'];
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- Delete Modal HTML -->
-	<div id="deleteEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form method="post" onsubmit="return false;">
-					<div class="modal-header">
-						<h4 class="modal-title">Eliminar</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<p>¿Estás seguro/a que quieres eliminarlo?</p>
-						<p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
-					</div>
-					<div class="modal-footer">
-						<input type="hidden" class="form-control" name="id_eliminar" id="id_eliminar" value="">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-danger" value="Eliminar" onclick=delete_slice_CSV()>
 					</div>
 				</form>
 			</div>
@@ -246,7 +220,6 @@ $conexion = $_SESSION['conexion'];
 			var email = button.data('email');
 			var problema = button.data('problema');
 			var fecha = button.data('fecha');
-			var resuelto = button.data('resuelto');
 
 			populateModalForm(id, nombre, email, problema, fecha, resuelto);
 		});
@@ -257,7 +230,6 @@ $conexion = $_SESSION['conexion'];
 			$('#editEmployeeModal input[name="email"]').val(email);
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
 			$('#editEmployeeModal input[name="fecha"]').val(fecha);
-			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
 		}
 
 		$('#deleteEmployeeModal').on('show.bs.modal', function(event) {

@@ -12,7 +12,7 @@ $conexion = $_SESSION['conexion'];
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tienda Virtual de Reparación de Móviles - Gestionar</title>
+	<title>Tienda Virtual de Reparación de Móviles - Todos</title>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="assets/style/font-awesome.min.css">
 	<link rel="stylesheet" href="assets/style/bootstrap3.min.css">
@@ -23,38 +23,34 @@ $conexion = $_SESSION['conexion'];
 
 <body onload="comprobarLogin()">
 	<!-- NAVEGACION -->
-	<nav>
-		<div class="countainer">
-			<ul class="menu">
-				<li><a href="inicio.php">Inicio</a></li>
-				<li><a href="crud.php">Gestionar</a></li>
-				<li><a href="#!">Acerca de</a></li>
-			</ul>
+	<div class="countainer">
+		<ul class="menu navbar-collapse">
+			<li><a href="inicio.php">Inicio</a></li>
+			<li><a href="crud.php">Gestionar</a></li>
+			<li><a href="#!">Acerca de</a></li>
+			<li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
+		</ul>
+		<div class="sesion">
+			<p>Hora de conexión: <?php echo $conexion ?></p>
+		</div>
+		<div class="sesion">
+			Bienvenido<p id="user"></p>
+		</div>
+		<!-- LOGO -->
+		<div class="container-logo">
+			<div class="box">
+				<div class="title">
+					<span class="block"></span>
+					<h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
+				</div>
 
-			<div class="sesion border-right">
-				<p>Hora de conexión: <?php echo $conexion ?></p>
-
-			</div>
-			<div class="sesion">
-				Bienvenido<p id="user"></p>
-			</div>
-			<!-- LOGO -->
-			<div class="container-logo">
-				<div class="box">
-
-					<div class="title">
-						<span class="block"></span>
-						<h1>Todos los moviles<span></span></h1>
-					</div>
-
-					<div class="role">
-						<div class="block"></div>
-						<p>Tienda Virtual</p>
-					</div>
-
+				<div class="role">
+					<div class="block"></div>
+					<p>Tienda Virtual</p>
 				</div>
 			</div>
 		</div>
+	</div>
 	</nav>
 	<!-- center the nav  -->
 	<nav class="center">
@@ -121,9 +117,9 @@ $conexion = $_SESSION['conexion'];
 							echo "</td>";
 							echo "</tr>";
 						}
+						echo "</tbody>";
 					}
 						?>
-						</tbody>
 				</table>
 			</div>
 		</div>
