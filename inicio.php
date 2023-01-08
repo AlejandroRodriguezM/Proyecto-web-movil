@@ -119,7 +119,7 @@ $conexion = $_SESSION['conexion'];
                         </div>
                         <div class="form-group">
                             <label>Fecha Actual</label>
-                            <input type="date" id="fechaEntrega_cliente" class="form-control">
+                            <input type="date" id="fecha_entrega_cliente" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">

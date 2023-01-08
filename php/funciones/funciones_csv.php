@@ -1,6 +1,7 @@
 <?php
 
-function arraytocsv($array,$archivo,$delimitador = ","){
+function arraytocsv($array, $archivo, $delimitador = ",")
+{
 	$fp = fopen($archivo, 'w');
 	foreach ($array as $campos) {
 		fputcsv($fp, $campos, $delimitador);
@@ -8,14 +9,15 @@ function arraytocsv($array,$archivo,$delimitador = ","){
 	fclose($fp);
 }
 
-function csvtoarray($archivo,$delimitador = ","){
+function csvtoarray($archivo, $delimitador = ",")
+{
 	$fila = 1;
 	$array = array();
 	if (($gestor = fopen($archivo, "r")) !== FALSE) {
 		while (($datos = fgetcsv($gestor, 1000, $delimitador)) !== FALSE) {
 			$numero = count($datos);
 			$fila++;
-			for ($c=0; $c < $numero; $c++) {
+			for ($c = 0; $c < $numero; $c++) {
 				$array[$fila][$c] = $datos[$c];
 			}
 		}
@@ -24,38 +26,40 @@ function csvtoarray($archivo,$delimitador = ","){
 	return $array;
 }
 
-function comprobarUsuarioCSV($usuario,$password){
+function comprobarUsuarioCSV($usuario, $password)
+{
 	$usuarios = csvtoarray('../../csv/usuarios.csv');
 	$encontrado = false;
 	foreach ($usuarios as $key => $value) {
-		if($value[0] == $usuario && $value[1] == $password){
+		if ($value[0] == $usuario && $value[1] == $password) {
 			$encontrado = true;
 		}
 	}
 	return $encontrado;
 }
 
-function checkCSV(){
+function checkCSV()
+{
 	//comprobar si existe ../../csv/moviles.csv si no crear
-	if(!file_exists('../../csv/moviles.csv')){
+	if (!file_exists('../../csv/moviles.csv')) {
 		$fp = fopen('../../csv/moviles.csv', 'w');
 		//add this
-		$campos = array('ID','Nombre','Email','Problema','Fecha','Estado','Solucion');
+		$campos = array('ID', 'Nombre', 'Email', 'Problema', 'Fecha', 'Estado', 'Solucion');
 		fputcsv($fp, $campos, ',');
 		fclose($fp);
 	}
 }
 
-function createMovilRequest(){
+function createMovilRequest()
+{
 	checkCSV();
 	$moviles = csvtoarray('../../csv/moviles.csv');
 	//count numRows
 	$numRows = countRowsCSV('../../csv/moviles.csv');
 	//add new row
-	if($numRows == 1){
+	if ($numRows == 1) {
 		$ID = 1;
-	}
-	else{
+	} else {
 		$ID = $numRows;
 	}
 	$nombre = $_POST['nombre_cliente'];
@@ -65,14 +69,44 @@ function createMovilRequest(){
 	$resuelto = "No";
 	$tecnico = "Sin asignar";
 
-	$moviles[] = array($ID,$nombre,$email,$problema,$fecha,$resuelto,$tecnico);
-	arraytocsv($moviles,'../../csv/moviles.csv');
+	$moviles[] = array($ID, $nombre, $email, $problema, $fecha, $resuelto, $tecnico);
+	arraytocsv($moviles, '../../csv/moviles.csv');
 }
 
 //contar cuantos rows hay dentro de un csv sin contar la primera linea
-function countRowsCSV($archivo){
+function countRowsCSV($archivo)
+{
 	$csv = csvtoarray($archivo);
 	$numero = count($csv);
 	return $numero;
 }
 
+function updateCSV()
+{
+	//check f file exist
+	checkCSV();
+	//get the csv file
+	$moviles = csvtoarray('../../csv/moviles.csv');
+	//get the id
+	$id = $_POST['id_cliente'];
+	//get the new values
+	$nombre = $_POST['nombre_cliente'];
+	$email = $_POST['email_cliente'];
+	$problema = $_POST['problema_cliente'];
+	$fecha = $_POST['fecha_entrega_cliente'];
+	$resuelto = $_POST['resuelto'];
+	$tecnico = $_SESSION['user'];
+	//update the data when id is the same
+	foreach ($moviles as $key => $value) {
+		if ($value[0] == $id) {
+			$moviles[$key][1] = $nombre;
+			$moviles[$key][2] = $email;
+			$moviles[$key][3] = $problema;
+			$moviles[$key][4] = $fecha;
+			$moviles[$key][5] = $resuelto;
+			$moviles[$key][6] = $tecnico;
+		}
+	}
+	//save the new data
+	arraytocsv($moviles, '../../csv/moviles.csv');
+}

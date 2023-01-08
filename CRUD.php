@@ -18,6 +18,7 @@ $conexion = $_SESSION['conexion'];
 	<link rel="stylesheet" href="assets/style/bootstrap3.min.css">
 	<link rel="stylesheet" href="assets/style/styleCrud.css">
 	<link rel="stylesheet" href="assets/style/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <body onload="comprobarLogin()">
 	<!-- NAVEGACION -->
@@ -101,7 +102,7 @@ $conexion = $_SESSION['conexion'];
 							echo "<td>$fecha</td>";
 							echo "<td>$resuelto</td>";
 							echo "<td>";
-							echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+							echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
 							echo "<a href='#deleteEmployeeModal' class='delete' data-toggle='modal'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 							echo "</td>";
 							echo "</tr>";
@@ -118,7 +119,7 @@ $conexion = $_SESSION['conexion'];
 	<div id="editEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form method="post" id="editForm" onsubmit="return false;">
 					<div class="modal-header">
 						<h4 class="modal-title">Editar</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -126,28 +127,29 @@ $conexion = $_SESSION['conexion'];
 					<div class="modal-body">
 						<div class="form-group">
 							<label>Nombre</label>
-							<input type="text" class="form-control" value="<?php echo $nombre ?>">
+							<input type="text" class="form-control" name="nombre" value="" id="nombre_cliente">
+							<input type="hidden" id="id_movil" value="" name="id">
 						</div>
 						<div class="form-group">
 							<label>Email</label>
-							<input type="email" class="form-control" value="<?php echo $email ?>">
+							<input type="email" class="form-control" name="email" value="" id="email_cliente">
 						</div>
 						<div class="form-group">
 							<label>Problema del móvil</label>
-							<textarea class="form-control"><?php echo $problema ?></textarea>
+							<textarea class="form-control" name="problema" id="problema_cliente"></textarea>
 						</div>
 						<div class="form-group">
 							<label>Fecha</label>
-							<input type="date" class="form-control" value="<?php echo $fecha ?>">
+							<input type="date" class="form-control" name="fecha" value="" id="fecha_entrega_cliente">
 						</div>
 						<div class="form-group">
 							<label>Resuelto</label>
-							<input type="text" class="form-control" value="<?php echo $resuelto ?>">
+							<input type="text" class="form-control" name="resuelto" value="" id="resuelto">
 						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-info" value="Guardar">
+						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
 					</div>
 				</form>
 			</div>
@@ -205,9 +207,31 @@ $conexion = $_SESSION['conexion'];
 	</footer>
 
 	<!-- SCRIPTS -->
+	<script>
+		$('#editEmployeeModal').on('show.bs.modal', function(event) {
+			var button = $(event.relatedTarget); // Button that triggered the modal
+			var id = button.data('id');
+			var nombre = button.data('nombre');
+			var email = button.data('email');
+			var problema = button.data('problema');
+			var fecha = button.data('fecha');
+			var resuelto = button.data('resuelto');
+
+			populateModalForm(id, nombre, email, problema, fecha, resuelto);
+		});
+
+		function populateModalForm(id, nombre, email, problema, fecha, resuelto) {
+			$('#editEmployeeModal input[name="id"]').val(id);
+			$('#editEmployeeModal input[name="nombre"]').val(nombre);
+			$('#editEmployeeModal input[name="email"]').val(email);
+			$('#editEmployeeModal textarea[name="problema"]').val(problema);
+			$('#editEmployeeModal input[name="fecha"]').val(fecha);
+			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
+		}
+	</script>
 	<script src="./assets/js/login.js"></script>
-	<script src="./assets/js/jquery.min.js"></script>
 	<script src="./assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

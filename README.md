@@ -39,5 +39,10 @@ Se ha añadido un ID a la hora de crear peticion de telefono.
 Se ha agregado la funcionalidad de gestion de telefonos.
 Queda por arreglar a la hora de modificar que no solamente tenga en cuenta el ultimo row del bucle
 
+--> 08/01/2023 Alejandro Log 1
+Se puede ver los datos del fichero csv
+A la hora de editar, se puede ver en el model los datos del row especifico
+Queda por arreglar la edicion, para que modifique un row especifico en vez de añadir nuevos datos como row independiente
+
 
 
