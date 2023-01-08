@@ -43,7 +43,7 @@ $conexion = $_SESSION['conexion'];
 
 					<div class="title">
 						<span class="block"></span>
-						<h1>Todos los moviles<span></span></h1>
+						<h1>Reparación de Móviles<span></span></h1>
 					</div>
 
 					<div class="role">
@@ -70,59 +70,61 @@ $conexion = $_SESSION['conexion'];
 				<div class="table-title">
 					<div class="row">
 						<div class="col-sm-6">
-							<h2>Reparación de móviles</h2>
+							<h2>Telefonos reparados</h2>
 						</div>
 					</div>
 				</div>
 				<table class="table table-striped table-hover">
 					<?php
+					$file = './csv/moviles.csv';
 					//mostrar todo apartir del 1º row
-					if (!file_exists('./csv/moviles.csv')) {
+					if (!file_exists($file)) {
 						echo "<h2>No hay datos</h2>";
 					} else {
-					?>
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Nombre</th>
-								<th>Email</th>
-								<th>Problema del móvil</th>
-								<th>Fecha</th>
-								<th>Resuelto</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php
 						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
-						// $csv = array_slice($csv, 1);
-						foreach ($csv as $row) {
-							$id = $row[0];
-							$nombre = $row[1];
-							$email = $row[2];
-							$problema = $row[3];
-							$fecha = $row[4];
-							$resuelto = $row[5];
-							echo "<tr>";
-							echo "<td>$id</td>";
-							echo "<td>$nombre</td>";
-							echo "<td>$email</td>";
-							echo "<td>$problema</td>";
-							echo "<td>$fecha</td>";
-							echo "<td>$resuelto</td>";
-							echo "<td>";
-							if ($resuelto == 'Si') {
-								echo "<a class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-								echo "<a href='#deleteEmployeeModal' data-id='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
-							} else {
-								echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto'  ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-								echo "<a class='delete'  data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+						if (countRowsCSVResueltos($file) >= 1) {
+					?>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Email</th>
+									<th>Problema del móvil</th>
+									<th>Fecha</th>
+									<th>Resuelto</th>
+								</tr>
+							</thead>
+							<tbody>
+						<?php
+
+							foreach ($csv as $row) {
+								$id = $row[0];
+								$nombre = $row[1];
+								$email = $row[2];
+								$problema = $row[3];
+								$fecha = $row[4];
+								$resuelto = $row[5];
+								if ($resuelto == 'Si') {
+									echo "<tr>";
+									echo "<td>$id</td>";
+									echo "<td>$nombre</td>";
+									echo "<td>$email</td>";
+									echo "<td>$problema</td>";
+									echo "<td>$fecha</td>";
+									echo "<td>$resuelto</td>";
+									echo "<td>";
+									echo "<a class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+									echo "<a href='#deleteEmployeeModal' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+									echo "</td>";
+									echo "</tr>";
+								}
 							}
-							echo "</td>";
-							echo "</tr>";
+							echo "</tbody>";
+						} else {
+							echo "<h2>No hay datos</h2>";
 						}
 					}
 						?>
-						</tbody>
 				</table>
 			</div>
 		</div>
@@ -196,7 +198,6 @@ $conexion = $_SESSION['conexion'];
 						<p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
 					</div>
 					<div class="modal-footer">
-						<input type="hidden" class="form-control" name="id" id="id" value="">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-danger" value="Eliminar" onclick=delete_slice_CSV()>
 					</div>
@@ -257,17 +258,6 @@ $conexion = $_SESSION['conexion'];
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
 			$('#editEmployeeModal input[name="fecha"]').val(fecha);
 			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
-		}
-
-		$('#deleteEmployeeModal').on('show.bs.modal', function(event) {
-			var button = $(event.relatedTarget); // Button that triggered the modal
-			var id = button.data('id');
-
-			populateModalForm(id);
-		});
-
-		function populateModalForm(id) {
-			$('#deleteEmployeeModal input[name="id"]').val(id);
 		}
 	</script>
 	<script src="./assets/js/login.js"></script>

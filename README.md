@@ -53,6 +53,11 @@ Arreglado unn bug donde nunca se modificaba el row y solamente se creaba uno nue
 Arreglado bug que no actualizaba correctamente los slce del csv cuando se modificaba uno que no fuese el primero
 Arreglado bug qaue hacia que todos los ID fuesen 1
 
+--> 08/01/2023 Alejandro Log 4
+Añadidos 2 paginas mas, que son crud pero que muestran solamente los telefonos arreglados o averiados.
+Se ha arreglado varias funciones de creacion de csv.
+
+
 
 
 

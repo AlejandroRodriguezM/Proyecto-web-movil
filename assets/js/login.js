@@ -243,4 +243,31 @@ const updateCSV = async () => {
     }
 }
 
+const delete_slice_CSV = async () => {
+    var id_cliente = document.querySelector("#id").value;
+    // Serialize the form data
+    const data = new FormData();
+    data.append('id_cliente', id_cliente);
+
+    var respond = await fetch("php/user/delete_slice_csv.php", {
+        method: "POST",
+        body: data
+    });
+
+    var result = await respond.json();
+    
+    if (result.success == true) {
+        Swal.fire({
+            icon: "success",
+            title: "Great",
+            text: result.mensaje,
+            footer: "Tienda Virtual Reparación de móviles"
+        })
+        document.querySelector('#editForm').reset();
+        setTimeout(() => {
+            window.location.href = "crud.php";
+        }, 2000);
+    }
+}
+
 
