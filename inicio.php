@@ -34,7 +34,7 @@ $conexion = $_SESSION['conexion'];
             <p>Hora de conexión: <?php echo $conexion ?></p>
         </div>
         <div class="sesion">
-            Bienvenido<p id="user"></p>
+        <p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
         </div>
         <!-- LOGO -->
         <div class="container-logo">

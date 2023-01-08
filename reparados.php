@@ -34,7 +34,7 @@ $conexion = $_SESSION['conexion'];
 			<p>Hora de conexión: <?php echo $conexion ?></p>
 		</div>
 		<div class="sesion">
-			Bienvenido<p id="user"></p>
+		<p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
 		</div>
 		<!-- LOGO -->
 		<div class="container-logo">
@@ -128,54 +128,22 @@ $conexion = $_SESSION['conexion'];
 		</div>
 	</div>
 
-	<!-- Edit Modal HTML -->
-	<div id="editEmployeeModal" class="modal fade">
+	<div id="deleteEmployeeModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form method="post" id="editForm" onsubmit="return false;">
+				<form method="post" onsubmit="return false;">
 					<div class="modal-header">
-						<h4 class="modal-title">Editar</h4>
+						<h4 class="modal-title">Eliminar</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-						<div class="form-group">
-							<label>Nombre</label>
-							<input type="text" class="form-control" name="nombre" id="nombre_cliente" value="">
-							<input type="hidden" class="form-control" name="id" id="id" value="">
-						</div>
-						<div class="form-group">
-							<label>Email</label>
-							<input type="email" class="form-control" name="email" value="" id="email_cliente">
-						</div>
-						<div class="form-group">
-							<label>Problema del móvil</label>
-							<textarea class="form-control" name="problema" id="problema_cliente"></textarea>
-						</div>
-						<div class="form-group">
-							<label>Fecha</label>
-							<input type="date" class="form-control" name="fecha" value="" id="fecha_entrega_cliente">
-						</div>
-						<?php
-						echo "<div class='form-group'>
-						<label>Resuelto</label>
-						<select class='form-control' name='resuelto' id='resuelto'>
-						<option value='Si'";
-						if ($resuelto == "Si") {
-							echo " selected";
-						}
-						echo ">Si</option>
-						<option value='No'";
-						if ($resuelto == "No") {
-							echo " selected";
-						}
-						echo ">No</option>
-						</select>
-						</div>";
-						?>
+						<p>¿Estás seguro/a que quieres eliminarlo?</p>
+						<p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
 					</div>
 					<div class="modal-footer">
+						<input type="hidden" class="form-control" name="id_eliminar" id="id_eliminar" value="">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
+						<input type="submit" class="btn btn-danger" value="Eliminar" onclick=delete_slice_CSV()>
 					</div>
 				</form>
 			</div>
@@ -213,25 +181,6 @@ $conexion = $_SESSION['conexion'];
 
 	<!-- SCRIPTS -->
 	<script>
-		$('#editEmployeeModal').on('show.bs.modal', function(event) {
-			var button = $(event.relatedTarget); // Button that triggered the modal
-			var id = button.data('id');
-			var nombre = button.data('nombre');
-			var email = button.data('email');
-			var problema = button.data('problema');
-			var fecha = button.data('fecha');
-
-			populateModalForm(id, nombre, email, problema, fecha, resuelto);
-		});
-
-		function populateModalForm(id, nombre, email, problema, fecha, resuelto) {
-			$('#editEmployeeModal input[name="id"]').val(id);
-			$('#editEmployeeModal input[name="nombre"]').val(nombre);
-			$('#editEmployeeModal input[name="email"]').val(email);
-			$('#editEmployeeModal textarea[name="problema"]').val(problema);
-			$('#editEmployeeModal input[name="fecha"]').val(fecha);
-		}
-
 		$('#deleteEmployeeModal').on('show.bs.modal', function(event) {
 			var button = $(event.relatedTarget); // Button that triggered the modal
 			var id = button.data('id_delete');

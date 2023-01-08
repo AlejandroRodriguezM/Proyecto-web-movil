@@ -33,8 +33,7 @@ $conexion = $_SESSION['conexion'];
             <p>Hora de conexión: <?php echo $conexion ?></p>
         </div>
         <div class="sesion">
-            Bienvenido<p id="user"></p>
-        </div>
+		<p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>        </div>
         <!-- LOGO -->
         <div class="container-logo">
             <div class="box">
@@ -176,28 +175,6 @@ $conexion = $_SESSION['conexion'];
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	<!-- Delete Modal HTML -->
-	<div id="deleteEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form method="post" onsubmit="return false;">
-					<div class="modal-header">
-						<h4 class="modal-title">Eliminar</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<p>¿Estás seguro/a que quieres eliminarlo?</p>
-						<p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
-					</div>
-					<div class="modal-footer">
-						<input type="hidden" class="form-control" name="id_eliminar" id="id_eliminar" value="">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-danger" value="Eliminar" onclick=delete_slice_CSV()>
 					</div>
 				</form>
 			</div>
