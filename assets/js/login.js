@@ -155,7 +155,7 @@ const insert_request = async () => {
 }
 
 const updateCSV = async () => {
-    var id_cliente = document.querySelector("#id_movil").value;
+    var id_cliente = document.querySelector("#id").value;
     var nombre_cliente = document.querySelector("#nombre_cliente").value;
     var email_cliente = document.querySelector("#email_cliente").value;
     var problema_cliente = document.querySelector("#problema_cliente").value;

@@ -126,10 +126,9 @@ checkCookiesUser();
 					<div class="modal-body">
 						<div class="form-group">
 							<label>Nombre</label>
-							<input type="text" class="form-control" name="nombre" value="" id="nombre_cliente">
-							<input type="hidden" id="id_movil" value="" name="id">
-							<input type="hidden" id="tecnico" value="<?php echo $_SESSION['user']; ?>" name="tecnico">
-
+							<input type="text" class="form-control" name="nombre" id="nombre_cliente" value="" >
+							<input type="hidden" class="form-control" name="id" id="id" value="" >
+							<input type="hidden" class="form-control" name="tecnico" id="tecnico" value="<?php echo $_SESSION['user']; ?>" >
 						</div>
 						<div class="form-group">
 							<label>Email</label>
@@ -217,6 +216,8 @@ checkCookiesUser();
 			var problema = button.data('problema');
 			var fecha = button.data('fecha');
 			var resuelto = button.data('resuelto');
+
+			console.log(id, nombre, email, problema, fecha, resuelto)
 
 			populateModalForm(id, nombre, email, problema, fecha, resuelto);
 		});

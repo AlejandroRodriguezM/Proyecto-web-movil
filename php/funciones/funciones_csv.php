@@ -56,12 +56,7 @@ function createMovilRequest()
 	$moviles = csvtoarray('../../csv/moviles.csv');
 	//count numRows
 	$numRows = countRowsCSV('../../csv/moviles.csv');
-	//add new row
-	if ($numRows == 1) {
-		$ID = 1;
-	} else {
-		$ID = $numRows;
-	}
+	$ID = $numRows + 1;
 	$nombre = $_POST['nombre_cliente'];
 	$email = $_POST['email_cliente'];
 	$problema = $_POST['problema_cliente'];
@@ -73,7 +68,6 @@ function createMovilRequest()
 	arraytocsv($moviles, '../../csv/moviles.csv');
 }
 
-//contar cuantos rows hay dentro de un csv sin contar la primera linea
 function countRowsCSV($archivo)
 {
 	$csv = csvtoarray($archivo);
@@ -81,43 +75,33 @@ function countRowsCSV($archivo)
 	return $numero;
 }
 
-function updateCSV()
+function updateCSV($array_movil)
 {
-	$id = $_POST['id_cliente'];
-	//get the new values
-	$nombre = $_POST['nombre_cliente'];
-	$email = $_POST['email_cliente'];
-	$problema = $_POST['problema_cliente'];
-	$fecha = $_POST['fecha_entrega_cliente'];
-	$resuelto = $_POST['resuelto'];
+	$id = $array_movil['id'];
+	$nombre = $array_movil['nombre'];
+	$email = $array_movil['email'];
+	$problema = $array_movil['problema'];
+	$fecha = $array_movil['fecha'];
+	$resuelto = $array_movil['resuelto'];
 	$tecnico = $_SESSION['user'];
-
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file('../../csv/moviles.csv'));
-	// $csv = array_slice($csv, 1);
 	// Loop through the rows of the array
-	foreach ($csv as &$row) {
-		// Check if the ID column matches the desired value
+	foreach ($csv as $key => $row) {
+		// If the ID of the current row matches the ID of the row we're looking for
 		if ($row[0] == $id) {
-			// Update the values in the row
-			$row[1] = $nombre;
-			$row[2] = $email;
-			$row[3] = $problema;
-			$row[4] = $fecha;
-			$row[5] = $resuelto;
-			$row[6] = $tecnico;
-			break;
+			// Update the row
+			$csv[$key] = array($id, $nombre, $email, $problema, $fecha, $resuelto, $tecnico);
 		}
 	}
 
-	// Open the CSV file for writing
+	// Write the CSV back to the file
 	$fp = fopen('../../csv/moviles.csv', 'w');
 
-	// Write the rows of the array back to the CSV file
 	foreach ($csv as $row) {
 		fputcsv($fp, $row);
 	}
 
-	// Close the file
 	fclose($fp);
+
 }

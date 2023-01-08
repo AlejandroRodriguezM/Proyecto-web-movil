@@ -49,5 +49,10 @@ Se ha eliminado la linea de descripcion en el CSV
 Se ha corregido la modificacion de datos del csv, ahora puede editar solamente la linea deseada de forma correcta(faltara debugear)
 Arreglado unn bug donde nunca se modificaba el row y solamente se creaba uno nuevo
 
+--> 08/01/2023 Alejandro Log 3
+Arreglado bug que no actualizaba correctamente los slce del csv cuando se modificaba uno que no fuese el primero
+Arreglado bug qaue hacia que todos los ID fuesen 1
+
+
 
 
