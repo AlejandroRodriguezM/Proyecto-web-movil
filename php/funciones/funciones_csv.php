@@ -98,9 +98,9 @@ function updateCSV($array_movil)
 
 function deleteSliceCSV($id, $file)
 {
+	// die($id);
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file($file));
-
 	// Initialize a new array to store the updated rows
 	$updated_csv = array();
 

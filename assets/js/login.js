@@ -244,7 +244,7 @@ const updateCSV = async () => {
 }
 
 const delete_slice_CSV = async () => {
-    var id_cliente = document.querySelector("#id").value;
+    var id_cliente = document.querySelector("#id_eliminar").value;
     // Serialize the form data
     const data = new FormData();
     data.append('id_cliente', id_cliente);

@@ -57,6 +57,10 @@ Arreglado bug qaue hacia que todos los ID fuesen 1
 Añadidos 2 paginas mas, que son crud pero que muestran solamente los telefonos arreglados o averiados.
 Se ha arreglado varias funciones de creacion de csv.
 
+--> 08/01/2023 Alejandro Log 5
+Modificado el valor de id para el form de eliminacion, la funcion async referente a la eliminacion de un slice funciona y capta correctamente los datos.
+Elimina un slice concreto de forma correcta
+
 
 
 

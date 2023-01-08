@@ -112,7 +112,7 @@ $conexion = $_SESSION['conexion'];
 							echo "<td>";
 							if ($resuelto == 'Si') {
 								echo "<a class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-								echo "<a href='#deleteEmployeeModal' data-id='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+								echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 							} else {
 								echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto'  ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
 								echo "<a class='delete'  data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
@@ -175,6 +175,7 @@ $conexion = $_SESSION['conexion'];
 						?>
 					</div>
 					<div class="modal-footer">
+						<input type="hidden" class="form-control" name="id" id="id" value="">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
 					</div>
@@ -196,7 +197,7 @@ $conexion = $_SESSION['conexion'];
 						<p class="text-warning"><small>Esta acción no se puede deshacer</small></p>
 					</div>
 					<div class="modal-footer">
-						<input type="hidden" class="form-control" name="id" id="id" value="">
+						<input type="hidden" class="form-control" name="id_eliminar" id="id_eliminar" value="">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-danger" value="Eliminar" onclick=delete_slice_CSV()>
 					</div>
@@ -245,8 +246,6 @@ $conexion = $_SESSION['conexion'];
 			var fecha = button.data('fecha');
 			var resuelto = button.data('resuelto');
 
-			console.log(id, nombre, email, problema, fecha, resuelto)
-
 			populateModalForm(id, nombre, email, problema, fecha, resuelto);
 		});
 
@@ -261,13 +260,12 @@ $conexion = $_SESSION['conexion'];
 
 		$('#deleteEmployeeModal').on('show.bs.modal', function(event) {
 			var button = $(event.relatedTarget); // Button that triggered the modal
-			var id = button.data('id');
-
-			populateModalForm(id);
+			var id = button.data('id_delete');
+			deleteModalForm(id);
 		});
 
-		function populateModalForm(id) {
-			$('#deleteEmployeeModal input[name="id"]').val(id);
+		function deleteModalForm(id) {
+			$('#deleteEmployeeModal input[name="id_eliminar"]').val(id);
 		}
 	</script>
 	<script src="./assets/js/login.js"></script>
