@@ -70,7 +70,7 @@ $conexion = $_SESSION['conexion'];
 						</div>
 					</div>
 				</div>
-				<table class="table table-striped table-hover">
+				<table class="table table-striped table-hover" style="width: 78%;">
 					<?php
 					$file = './csv/moviles.csv';
 					//mostrar todo apartir del 1º row

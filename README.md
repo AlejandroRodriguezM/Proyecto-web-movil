@@ -62,6 +62,9 @@ Modificado el valor de id para el form de eliminacion, la funcion async referent
 Elimina un slice concreto de forma correcta
 Actualizado el resto de ficheros con crud
 
+--> 08/01/2023 Alejandro Log 6
+Arreglado bug visual de las tablas
+
 
 
 
