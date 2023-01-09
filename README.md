@@ -67,6 +67,7 @@ Arreglado bug visual de las tablas
 
 --> 09/01/2023 Alejandro Log 2
 Modificadas las funciones de edicion y borrado y añadir datos de moviles.
+Eliminado bug que no permitia el uso correcto del fichero csv moviles.csv
 
 
 

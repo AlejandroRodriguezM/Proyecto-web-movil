@@ -12,20 +12,16 @@ if ($_POST) {
     $fecha_cliente = $_POST['fecha_entrega_cliente'];
 
     $file = '../../csv/moviles.csv';
-    if (checkFile($file)) {
-        if (!empty($nombre_cliente) && !empty($email_cliente) && !empty($problema_cliente) && !empty($fecha_cliente)) {
 
-            $validate['success'] = true;
-            $validate['mensaje'] = "Peticion de telefono enviada";
-            $validate['userName'] = $nombre_cliente;
-            createMovilRequest();
-        } else {
-            $validate['success'] = false;
-            $validate['mensaje'] = "Usuario incorrecto";
-        }
+    if (!empty($nombre_cliente) && !empty($email_cliente) && !empty($problema_cliente) && !empty($fecha_cliente)) {
+
+        $validate['success'] = true;
+        $validate['mensaje'] = "Peticion de telefono enviada";
+        $validate['userName'] = $nombre_cliente;
+        createMovilRequest();
     } else {
         $validate['success'] = false;
-        $validate['mensaje'] = "ERROR. El fichero no existe o ha sido borrado. Hable con un administrador";
+        $validate['mensaje'] = "Usuario incorrecto";
     }
 }
 
