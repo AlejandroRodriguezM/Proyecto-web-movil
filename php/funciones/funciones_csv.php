@@ -47,6 +47,19 @@ function checkCSV()
 	}
 }
 
+function checkCSVUser()
+{
+	if (!file_exists('../../csv/usuarios.csv')) {
+		$fp = fopen('../../csv/moviles.csv', 'w');
+		// create user Usuario, Password and TEst,TEst
+		$usuarios[] = array("Usuario", "Password");
+		$usuarios[] = array("Test", "Test");
+		arraytocsv($usuarios, '../../csv/usuarios.csv');
+		fclose($fp);
+		chmod('../../csv/moviles.csv', 0777);
+	}
+}
+
 function createMovilRequest()
 {
 	checkCSV();
@@ -64,8 +77,6 @@ function createMovilRequest()
 	$moviles[] = array($ID, $nombre, $email, $problema, $fecha, $resuelto, $tecnico);
 	arraytocsv($moviles, '../../csv/moviles.csv');
 }
-
-
 
 function updateCSV($array_movil)
 {
@@ -96,9 +107,18 @@ function updateCSV($array_movil)
 	fclose($fp);
 }
 
+function checkFile($file){
+
+	$exist = True;
+	if (!file_exists($file)) {
+		$exist = False;
+	}
+	return $exist;
+
+}
+
 function deleteSliceCSV($id, $file)
 {
-	// die($id);
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file($file));
 	// Initialize a new array to store the updated rows
@@ -120,7 +140,6 @@ function deleteSliceCSV($id, $file)
 		// Write the values of the row to the CSV file
 		fputcsv($fp, $row);
 	}
-
 	// Close the file
 	fclose($fp);
 }

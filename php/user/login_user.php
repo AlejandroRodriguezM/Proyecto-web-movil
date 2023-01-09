@@ -8,7 +8,7 @@ $validate['success'] = array('success' => false, 'mensaje' => "", "userName" => 
 if ($_POST){
     $nombre = $_POST['user'];
     $password = $_POST['password'];
-
+    checkCSVUser();
     if(comprobarUsuarioCSV($nombre,$password)){
         $validate['success'] = true;
         $validate['mensaje'] = "Usuario correcto";

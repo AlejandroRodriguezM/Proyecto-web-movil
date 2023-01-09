@@ -12,19 +12,28 @@ if ($_POST) {
     $problema = $_POST['problema_cliente'];
     $fecha = $_POST['fecha_entrega_cliente'];
     $resuelto = $_POST['resuelto'];
+    $file = '../../csv/moviles.csv';
 
-    if (!empty($nombre) && !empty($email) && !empty($problema) && !empty($fecha) && !empty($resuelto)) {
+    if(checkFile($file)){
+        if (!empty($nombre) && !empty($email) && !empty($problema) && !empty($fecha) && !empty($resuelto)) {
 
-        $datos_movil = array('id' => $id, 'nombre' => $nombre, 'email' => $email, 'problema' => $problema, 'fecha' => $fecha, 'resuelto' => $resuelto);
-
-        $validate['success'] = true;
-        $validate['mensaje'] = "Peticion de arreglo solucionado";
-        $validate['userName'] = $nombre;
-        updateCsv($datos_movil);
-    } else {
-        $validate['success'] = false;
-        $validate['mensaje'] = "No se ha podido solucionar el arreglo, faltan datos";
+            $datos_movil = array('id' => $id, 'nombre' => $nombre, 'email' => $email, 'problema' => $problema, 'fecha' => $fecha, 'resuelto' => $resuelto);
+    
+            $validate['success'] = true;
+            $validate['mensaje'] = "Peticion de arreglo solucionado";
+            $validate['userName'] = $nombre;
+            updateCsv($datos_movil);
+        } else {
+            $validate['success'] = false;
+            $validate['mensaje'] = "No se ha podido solucionar el arreglo, faltan datos";
+        }
     }
+    else{
+        $validate['success'] = false;
+        $validate['mensaje'] = "ERROR. El fichero no existe o ha sido borrado. Hable con un administrador";
+    }
+
+    
 }
 
 echo json_encode($validate);
