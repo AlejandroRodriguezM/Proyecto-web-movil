@@ -69,6 +69,9 @@ Arreglado bug visual de las tablas
 Modificadas las funciones de edicion y borrado y añadir datos de moviles.
 Eliminado bug que no permitia el uso correcto del fichero csv moviles.csv
 
+--> 13/01/2023 Alejandro Log 1
+Se ha añadido un nunevo campo a la hora de dar por resuleto un telefono, ahora se puede de añadir coste de reparacion
+
 
 
 

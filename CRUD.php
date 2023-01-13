@@ -153,6 +153,10 @@ $conexion = $_SESSION['conexion'];
 							<label>Fecha</label>
 							<input type="date" class="form-control" name="fecha" value="" id="fecha_entrega_cliente">
 						</div>
+						<div class="form-group">
+							<label>Coste</label>
+							<input type="number" class="form-control" name="coste" placeholder="Precio de reparacion del telefono" value="" id="coste_entrega_cliente">
+						</div>
 						<?php
 						echo "<div class='form-group'>
 						<label>Resuelto</label>

@@ -160,7 +160,9 @@ const updateCSV = async () => {
     var email_cliente = document.querySelector("#email_cliente").value;
     var problema_cliente = document.querySelector("#problema_cliente").value;
     var fecha_entrega_cliente = document.querySelector("#fecha_entrega_cliente").value;
+    var coste = document.querySelector("#coste_entrega_cliente").value;
     var resuelto = document.querySelector("#resuelto").value;
+
 
     if (nombre_cliente.trim() === '') {
         Swal.fire({
@@ -202,6 +204,16 @@ const updateCSV = async () => {
         return;
     }
 
+    if (coste.trim() === '') {
+        Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "coste No dejes vacio esto",
+            footer: "Tienda Virual Reparación de móviles"
+        })
+        return;
+    }
+
     if (resuelto.trim() === '') {
         Swal.fire({
             icon: "error",
@@ -219,6 +231,7 @@ const updateCSV = async () => {
     data.append('email_cliente', email_cliente);
     data.append('problema_cliente', problema_cliente);
     data.append('fecha_entrega_cliente', fecha_entrega_cliente);
+    data.append('coste_entrega_cliente', coste);
     data.append('resuelto', resuelto);
 
 

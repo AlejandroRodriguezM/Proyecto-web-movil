@@ -20,36 +20,38 @@ $conexion = $_SESSION['conexion'];
 	<link rel="stylesheet" href="assets/style/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
+
 <body onload="comprobarLogin()">
-    <!-- NAVEGACION -->
-    <div class="countainer">
-        <ul class="menu navbar-collapse">
-            <li><a href="inicio.php">Inicio</a></li>
-            <li><a href="crud.php">Gestionar</a></li>
-            <li><a href="#!">Acerca de</a></li>
-            <li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
-        </ul>
-        <div class="sesion">
-            <p>Hora de conexión: <?php echo $conexion ?></p>
-        </div>
-        <div class="sesion">
-		<p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>        </div>
-        <!-- LOGO -->
-        <div class="container-logo">
-            <div class="box">
-					<div class="title">
-						<span class="block"></span>
-						<h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
-					</div>
-
-					<div class="role">
-						<div class="block"></div>
-						<p>Tienda Virtual</p>
-					</div>
-
+	<!-- NAVEGACION -->
+	<div class="countainer">
+		<ul class="menu navbar-collapse">
+			<li><a href="inicio.php">Inicio</a></li>
+			<li><a href="crud.php">Gestionar</a></li>
+			<li><a href="#!">Acerca de</a></li>
+			<li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
+		</ul>
+		<div class="sesion">
+			<p>Hora de conexión: <?php echo $conexion ?></p>
+		</div>
+		<div class="sesion">
+			<p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
+		</div>
+		<!-- LOGO -->
+		<div class="container-logo">
+			<div class="box">
+				<div class="title">
+					<span class="block"></span>
+					<h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
 				</div>
+
+				<div class="role">
+					<div class="block"></div>
+					<p>Tienda Virtual</p>
+				</div>
+
 			</div>
 		</div>
+	</div>
 	</nav>
 	<!-- center the nav  -->
 	<nav class="center">
@@ -153,6 +155,10 @@ $conexion = $_SESSION['conexion'];
 						<div class="form-group">
 							<label>Fecha</label>
 							<input type="date" class="form-control" name="fecha" value="" id="fecha_entrega_cliente">
+						</div>
+						<div class="form-group">
+							<label>Coste</label>
+							<input type="number" class="form-control" name="coste" placeholder="Precio de reparacion del telefono" value="" id="coste_entrega_cliente">
 						</div>
 						<?php
 						echo "<div class='form-group'>

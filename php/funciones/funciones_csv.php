@@ -85,6 +85,7 @@ function updateCSV($array_movil)
 	$email = $array_movil['email'];
 	$problema = $array_movil['problema'];
 	$fecha = $array_movil['fecha'];
+	$coste = $array_movil['coste'];
 	$resuelto = $array_movil['resuelto'];
 	$tecnico = $_SESSION['user'];
 	// Read the CSV file into an array
@@ -94,7 +95,7 @@ function updateCSV($array_movil)
 		// If the ID of the current row matches the ID of the row we're looking for
 		if ($row[0] == $id) {
 			// Update the row
-			$csv[$key] = array($id, $nombre, $email, $problema, $fecha, $resuelto, $tecnico);
+			$csv[$key] = array($id, $nombre, $email, $problema, $fecha,$coste, $resuelto, $tecnico);
 		}
 	}
 	// Write the CSV back to the file
