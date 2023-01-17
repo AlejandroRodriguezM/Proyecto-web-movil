@@ -78,7 +78,7 @@ function createMovilRequest()
 	$resuelto = "No";
 	$tecnico = "Sin asignar";
 
-	$moviles[] = array($ID, $nombre, $email, $problema, $fecha,$precio_hora_estimado, $resuelto, $tecnico);
+	$moviles[] = array($ID, $nombre, $email, $problema, $fecha,$precio_hora_estimado,"", $resuelto, $tecnico);
 	arraytocsv($moviles, '../../csv/moviles.csv');
 }
 
@@ -89,12 +89,11 @@ function updateCSV($array_movil)
 	$email = $array_movil['email'];
 	$problema = $array_movil['problema'];
 	$fecha = $array_movil['fecha'];
+	$precio_hora_estimado = $array_movil['horas_estimadas'];
 
-	$horas_estimadas = $_POST['horas_estimadas'];
-	$precio_hora_estimado = $horas_estimadas * precio_hora;
+	$horas_trabajadas = $array_movil['horas_trabajadas'];
+	$precio_hora_total = (int)$horas_trabajadas * precio_hora;
 
-	$horas_trabajadas = $_POST['horas_trabajadas'];
-	$precio_hora_total = $horas_trabajadas * precio_hora;
 	$resuelto = $array_movil['resuelto'];
 	$tecnico = $_SESSION['user'];
 	// Read the CSV file into an array
@@ -133,7 +132,6 @@ function deleteSliceCSV($id, $file)
 	$csv = array_map('str_getcsv', file($file));
 	// Initialize a new array to store the updated rows
 	$updated_csv = array();
-
 	// Loop through the rows of the array
 	foreach ($csv as $row) {
 		// If the ID of the current row does not match the ID of the row we're looking for, add it to the updated array
@@ -141,8 +139,6 @@ function deleteSliceCSV($id, $file)
 			$updated_csv[] = $row;
 		}
 	}
-	//make a die with array content
-
 	// Open the CSV file for writing
 	$fp = fopen($file, 'w');
 	// Loop through the rows of the updated array
@@ -153,19 +149,6 @@ function deleteSliceCSV($id, $file)
 	// Close the file
 	fclose($fp);
 }
-
-function countRowsCSVResueltos($archivo)
-{
-	$csv = csvtoarray($archivo);
-	$numero_resueltos = 0;
-	foreach ($csv as $key => $value) {
-		if ($value[5] == "Si") {
-			$numero_resueltos++;
-		}
-	}
-	return $numero_resueltos;
-}
-
 function countRowsCSV($archivo)
 {
 	$csv = csvtoarray($archivo);
@@ -173,12 +156,24 @@ function countRowsCSV($archivo)
 	return $numero;
 }
 
+function countRowsCSVResueltos($archivo)
+{
+	$csv = csvtoarray($archivo);
+	$numero_resueltos = 0;
+	foreach ($csv as $row) {
+		if ($row[7] == "Si") {
+			$numero_resueltos++;
+		}
+	}
+	return $numero_resueltos;
+}
+
 function countRowsCSVAveriados($archivo)
 {
 	$csv = csvtoarray($archivo);
 	$numero_averiados = 0;
-	foreach ($csv as $key => $value) {
-		if ($value[5] == "No") {
+	foreach ($csv as $row) {
+		if ($row[7] == "No") {
 			$numero_averiados++;
 		}
 	}

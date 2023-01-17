@@ -75,12 +75,11 @@ $conexion = $_SESSION['conexion'];
 					<?php
 					$file = './csv/moviles.csv';
 					//mostrar todo apartir del 1º row
-					if (!file_exists('./csv/moviles.csv')) {
+					if (!file_exists($file)) {
 						echo "<h2>No hay datos</h2>";
 					} else {
 						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
-
-						if (countRowsCSVAveriados($file) >= 1) {
+						if (countRowsCSV($file) >= 1) {
 					?>
 							<thead>
 								<tr>
@@ -94,7 +93,6 @@ $conexion = $_SESSION['conexion'];
 							</thead>
 							<tbody>
 						<?php
-							$csv = array_map('str_getcsv', file('csv/moviles.csv'));
 							$csv = array_map('str_getcsv', file('csv/moviles.csv'));
 
 							foreach ($csv as $row) {
@@ -114,11 +112,11 @@ $conexion = $_SESSION['conexion'];
 								echo "<td>$resuelto</td>";
 								echo "<td>";
 								if ($resuelto == 'Si') {
-									echo "<a class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas = '$horas_estimadas' data-resuelto='$resuelto' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+									echo "<a class='edit' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
 									echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 								} else {
-									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas = '$horas_estimadas' data-resuelto='$resuelto'  ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-									echo "<a class='delete'  data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";									
+									echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 								}
 								echo "</td>";
 								echo "</tr>";
@@ -164,8 +162,8 @@ $conexion = $_SESSION['conexion'];
 						</div>
 						<div class="form-group">
 							<label>Tiempo de trabajo</label>
-							<input type="hidden" name="horas_estimadas" value="" id="horas_estimadas">
-							<input type="number" class="form-control" name="horas_trabajadas" placeholder="Precio de reparacion del telefono" value="" id="horas_trabajadas">
+							<input type="hidden" class="form-control" name="horas_estimadas" id="horas_estimadas" value="">
+							<input type="number" class="form-control" name="horas_trabajadas" placeholder="Horas de reparacion del telefono" value="" id="horas_trabajadas">
 						</div>
 						<?php
 						echo "<div class='form-group'>
@@ -256,20 +254,18 @@ $conexion = $_SESSION['conexion'];
 			var problema = button.data('problema');
 			var fecha = button.data('fecha');
 			var horas_estimadas = button.data('horas_estimadas');
-			var horas_trabajadas = button.data('horas_trabajadas');
 			var resuelto = button.data('resuelto');
 
-			populateModalForm(id, nombre, email, problema, fecha, resuelto);
+			populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto);
 		});
 
-		function populateModalForm(id, nombre, email, problema, fecha, resuelto) {
+		function populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto) {
 			$('#editEmployeeModal input[name="id"]').val(id);
 			$('#editEmployeeModal input[name="nombre"]').val(nombre);
 			$('#editEmployeeModal input[name="email"]').val(email);
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
 			$('#editEmployeeModal input[name="fecha"]').val(fecha);
 			$('#editEmployeeModal input[name="horas_estimadas"]').val(horas_estimadas);
-			$('#editEmployeeModal input[name="horas_trabajadas"]').val(horas_trabajadas);
 			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
 		}
 

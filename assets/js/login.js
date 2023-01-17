@@ -162,6 +162,7 @@ const updateCSV = async () => {
     var email_cliente = document.querySelector("#email_cliente").value;
     var problema_cliente = document.querySelector("#problema_cliente").value;
     var fecha_entrega_cliente = document.querySelector("#fecha_entrega_cliente").value;
+    var horas_estimadas = document.querySelector("#horas_estimadas").value;
     var horas_trabajadas = document.querySelector("#horas_trabajadas").value;
     var resuelto = document.querySelector("#resuelto").value;
 
@@ -222,6 +223,7 @@ const updateCSV = async () => {
     data.append('email_cliente', email_cliente);
     data.append('problema_cliente', problema_cliente);
     data.append('fecha_entrega_cliente', fecha_entrega_cliente);
+    data.append('horas_estimadas', horas_estimadas);
     data.append('horas_trabajadas', horas_trabajadas);
     data.append('resuelto', resuelto);
 

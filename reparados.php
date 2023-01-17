@@ -94,14 +94,13 @@ $conexion = $_SESSION['conexion'];
 							</thead>
 							<tbody>
 						<?php
-
 							foreach ($csv as $row) {
 								$id = $row[0];
 								$nombre = $row[1];
 								$email = $row[2];
 								$problema = $row[3];
 								$fecha = $row[4];
-								$resuelto = $row[5];
+								$resuelto = $row[7];
 								if ($resuelto == 'Si') {
 									echo "<tr>";
 									echo "<td>$id</td>";

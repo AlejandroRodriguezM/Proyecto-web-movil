@@ -75,6 +75,9 @@ Se ha añadido un nunevo campo a la hora de dar por resuleto un telefono, ahora 
 --> 17/01/2023 Alejandro Log 1
 Cambio en funciones para añadir tiempo estimado de reparacion y tiempo total real de reparacion, aun no funciona correctamente
 
+--> 17/01/2023 Alejandro Log 2
+Ya se guarda correctamente el total de precio/hora trabajado y estimado.
+
 
 
 
