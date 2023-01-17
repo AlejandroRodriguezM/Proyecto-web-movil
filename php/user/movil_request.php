@@ -10,10 +10,11 @@ if ($_POST) {
     $email_cliente = $_POST['email_cliente'];
     $problema_cliente = $_POST['problema_cliente'];
     $fecha_cliente = $_POST['fecha_entrega_cliente'];
+    $horas_estimadas = $_POST['horas_estimadas'];
 
     $file = '../../csv/moviles.csv';
 
-    if (!empty($nombre_cliente) && !empty($email_cliente) && !empty($problema_cliente) && !empty($fecha_cliente)) {
+    if (!empty($nombre_cliente) && !empty($email_cliente) && !empty($problema_cliente) && !empty($fecha_cliente) && !empty($horas_estimadas)) {
 
         $validate['success'] = true;
         $validate['mensaje'] = "Peticion de telefono enviada";

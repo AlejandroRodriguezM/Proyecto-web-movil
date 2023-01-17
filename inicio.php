@@ -21,7 +21,7 @@ $conexion = $_SESSION['conexion'];
 
 </head>
 
-<body onload="comprobarLogin()">
+<body>
     <!-- NAVEGACION -->
     <div class="countainer">
         <ul class="menu navbar-collapse">
@@ -115,6 +115,10 @@ $conexion = $_SESSION['conexion'];
                         <div class="form-group">
                             <label>Problema del móvil</label>
                             <textarea class="form-control" id="problema_cliente" style="resize:none;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Horas estimadas de trabajo</label>
+                            <input type="number" id="horas_cliente" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Fecha Actual</label>

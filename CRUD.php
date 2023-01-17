@@ -21,7 +21,7 @@ $conexion = $_SESSION['conexion'];
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 
-<body onload="comprobarLogin()">
+<body>
 	<!-- NAVEGACION -->
 	<div class="countainer">
 		<ul class="menu navbar-collapse">
@@ -34,7 +34,7 @@ $conexion = $_SESSION['conexion'];
 			<p>Hora de conexión: <?php echo $conexion ?></p>
 		</div>
 		<div class="sesion">
-		<p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
+			<p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
 		</div>
 		<!-- LOGO -->
 		<div class="container-logo">
@@ -73,51 +73,60 @@ $conexion = $_SESSION['conexion'];
 				</div>
 				<table class="table table-striped table-hover" style="width: 78%;">
 					<?php
+					$file = './csv/moviles.csv';
 					//mostrar todo apartir del 1º row
 					if (!file_exists('./csv/moviles.csv')) {
 						echo "<h2>No hay datos</h2>";
 					} else {
-					?>
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Nombre</th>
-								<th>Email</th>
-								<th>Problema del móvil</th>
-								<th>Fecha</th>
-								<th>Resuelto</th>
-							</tr>
-						</thead>
-						<tbody>
-						<?php
 						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
-						// $csv = array_slice($csv, 1);
-						foreach ($csv as $row) {
-							$id = $row[0];
-							$nombre = $row[1];
-							$email = $row[2];
-							$problema = $row[3];
-							$fecha = $row[4];
-							$resuelto = $row[5];
-							echo "<tr>";
-							echo "<td>$id</td>";
-							echo "<td>$nombre</td>";
-							echo "<td>$email</td>";
-							echo "<td>$problema</td>";
-							echo "<td>$fecha</td>";
-							echo "<td>$resuelto</td>";
-							echo "<td>";
-							if ($resuelto == 'Si') {
-								echo "<a class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-								echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
-							} else {
-								echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto'  ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-								echo "<a class='delete'  data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+
+						if (countRowsCSVAveriados($file) >= 1) {
+					?>
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Nombre</th>
+									<th>Email</th>
+									<th>Problema del móvil</th>
+									<th>Fecha</th>
+									<th>Resuelto</th>
+								</tr>
+							</thead>
+							<tbody>
+						<?php
+							$csv = array_map('str_getcsv', file('csv/moviles.csv'));
+							$csv = array_map('str_getcsv', file('csv/moviles.csv'));
+
+							foreach ($csv as $row) {
+								$id = $row[0];
+								$nombre = $row[1];
+								$email = $row[2];
+								$problema = $row[3];
+								$fecha = $row[4];
+								$horas_estimadas = $row[5];
+								$resuelto = $row[7];
+								echo "<tr>";
+								echo "<td>$id</td>";
+								echo "<td>$nombre</td>";
+								echo "<td>$email</td>";
+								echo "<td>$problema</td>";
+								echo "<td>$fecha</td>";
+								echo "<td>$resuelto</td>";
+								echo "<td>";
+								if ($resuelto == 'Si') {
+									echo "<a class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas = '$horas_estimadas' data-resuelto='$resuelto' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+									echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+								} else {
+									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas = '$horas_estimadas' data-resuelto='$resuelto'  ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+									echo "<a class='delete'  data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+								}
+								echo "</td>";
+								echo "</tr>";
 							}
-							echo "</td>";
-							echo "</tr>";
+							echo "</tbody>";
+						} else {
+							echo "<h2>No hay ningun movil para gestionar</h2>";
 						}
-						echo "</tbody>";
 					}
 						?>
 				</table>
@@ -154,8 +163,9 @@ $conexion = $_SESSION['conexion'];
 							<input type="date" class="form-control" name="fecha" value="" id="fecha_entrega_cliente">
 						</div>
 						<div class="form-group">
-							<label>Coste</label>
-							<input type="number" class="form-control" name="coste" placeholder="Precio de reparacion del telefono" value="" id="coste_entrega_cliente">
+							<label>Tiempo de trabajo</label>
+							<input type="hidden" name="horas_estimadas" value="" id="horas_estimadas">
+							<input type="number" class="form-control" name="horas_trabajadas" placeholder="Precio de reparacion del telefono" value="" id="horas_trabajadas">
 						</div>
 						<?php
 						echo "<div class='form-group'>
@@ -245,6 +255,8 @@ $conexion = $_SESSION['conexion'];
 			var email = button.data('email');
 			var problema = button.data('problema');
 			var fecha = button.data('fecha');
+			var horas_estimadas = button.data('horas_estimadas');
+			var horas_trabajadas = button.data('horas_trabajadas');
 			var resuelto = button.data('resuelto');
 
 			populateModalForm(id, nombre, email, problema, fecha, resuelto);
@@ -256,6 +268,8 @@ $conexion = $_SESSION['conexion'];
 			$('#editEmployeeModal input[name="email"]').val(email);
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
 			$('#editEmployeeModal input[name="fecha"]').val(fecha);
+			$('#editEmployeeModal input[name="horas_estimadas"]').val(horas_estimadas);
+			$('#editEmployeeModal input[name="horas_trabajadas"]').val(horas_trabajadas);
 			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
 		}
 

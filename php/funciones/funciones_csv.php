@@ -1,5 +1,7 @@
 <?php
 
+const precio_hora = 10;
+
 function arraytocsv($array, $archivo, $delimitador = ",")
 {
 	$fp = fopen($archivo, 'w');
@@ -71,10 +73,12 @@ function createMovilRequest()
 	$email = $_POST['email_cliente'];
 	$problema = $_POST['problema_cliente'];
 	$fecha = $_POST['fecha_entrega_cliente'];
+	$horas_estimadas = $_POST['horas_estimadas'];
+	$precio_hora_estimado = $horas_estimadas * precio_hora;
 	$resuelto = "No";
 	$tecnico = "Sin asignar";
 
-	$moviles[] = array($ID, $nombre, $email, $problema, $fecha, $resuelto, $tecnico);
+	$moviles[] = array($ID, $nombre, $email, $problema, $fecha,$precio_hora_estimado, $resuelto, $tecnico);
 	arraytocsv($moviles, '../../csv/moviles.csv');
 }
 
@@ -85,7 +89,12 @@ function updateCSV($array_movil)
 	$email = $array_movil['email'];
 	$problema = $array_movil['problema'];
 	$fecha = $array_movil['fecha'];
-	$coste = $array_movil['coste'];
+
+	$horas_estimadas = $_POST['horas_estimadas'];
+	$precio_hora_estimado = $horas_estimadas * precio_hora;
+
+	$horas_trabajadas = $_POST['horas_trabajadas'];
+	$precio_hora_total = $horas_trabajadas * precio_hora;
 	$resuelto = $array_movil['resuelto'];
 	$tecnico = $_SESSION['user'];
 	// Read the CSV file into an array
@@ -95,7 +104,7 @@ function updateCSV($array_movil)
 		// If the ID of the current row matches the ID of the row we're looking for
 		if ($row[0] == $id) {
 			// Update the row
-			$csv[$key] = array($id, $nombre, $email, $problema, $fecha,$coste, $resuelto, $tecnico);
+			$csv[$key] = array($id, $nombre, $email, $problema, $fecha,$precio_hora_estimado,$precio_hora_total, $resuelto, $tecnico);
 		}
 	}
 	// Write the CSV back to the file

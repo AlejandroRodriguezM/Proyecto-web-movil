@@ -11,14 +11,15 @@ if ($_POST) {
     $email = $_POST['email_cliente'];
     $problema = $_POST['problema_cliente'];
     $fecha = $_POST['fecha_entrega_cliente'];
-    $coste = $_POST['coste_entrega_cliente'];
+    $horas_estimadas = $_POST['horas_estimadas'];
+    $horas_trabajadas = $_POST['horas_trabajadas'];
     $resuelto = $_POST['resuelto'];
     $file = '../../csv/moviles.csv';
 
     if(checkFile($file)){
         if (!empty($nombre) && !empty($email) && !empty($problema) && !empty($fecha) && !empty($resuelto)) {
 
-            $datos_movil = array('id' => $id, 'nombre' => $nombre, 'email' => $email, 'problema' => $problema, 'fecha' => $fecha, 'coste' => $coste, 'resuelto' => $resuelto);
+            $datos_movil = array('id' => $id, 'nombre' => $nombre, 'email' => $email, 'problema' => $problema, 'fecha' => $fecha,'horas_estimadas' => $horas_estimadas,'horas_trabajadas' => $horas_trabajadas, 'resuelto' => $resuelto);
     
             $validate['success'] = true;
             $validate['mensaje'] = "Peticion de arreglo solucionado";
