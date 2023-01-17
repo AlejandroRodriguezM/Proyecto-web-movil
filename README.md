@@ -72,6 +72,9 @@ Eliminado bug que no permitia el uso correcto del fichero csv moviles.csv
 --> 13/01/2023 Alejandro Log 1
 Se ha añadido un nunevo campo a la hora de dar por resuleto un telefono, ahora se puede de añadir coste de reparacion
 
+--> 17/01/2023 Alejandro Log 1
+Cambio en funciones para añadir tiempo estimado de reparacion y tiempo total real de reparacion, aun no funciona correctamente
+
 
 
 
