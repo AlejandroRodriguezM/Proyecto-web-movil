@@ -234,12 +234,12 @@ const updateCSV = async () => {
     });
 
     var result = await respond.json();
-    
+
     if (result.success == true) {
         Swal.fire({
             icon: "success",
             title: "Great",
-            text: 'juja',
+            text: result.mensaje,
             footer: "Tienda Virual Reparación de móviles"
         })
         document.querySelector('#editForm').reset();
@@ -261,7 +261,7 @@ const delete_slice_CSV = async () => {
     });
 
     var result = await respond.json();
-    
+
     if (result.success == true) {
         Swal.fire({
             icon: "success",
@@ -275,5 +275,45 @@ const delete_slice_CSV = async () => {
         }, 2000);
     }
 }
+
+const callPHPScript = async () => {
+    var nombre_cliente = document.querySelector("#nombre_cliente_test").value;
+    var email_cliente = document.querySelector("#email_cliente_test").value;
+    var problema_cliente = document.querySelector("#problema_cliente_test").value;
+    var fecha_entrega_cliente = document.querySelector("#fecha_cliente_test").value;
+    var horas_trabajadas = document.querySelector("#horas_reales_test").value;
+    var trabajador = document.querySelector("#tecnico_test").value;
+
+    // Serialize the form data
+    const data = new FormData();
+    data.append('nombre_cliente', nombre_cliente);
+    data.append('email_cliente', email_cliente);
+    data.append('problema_cliente', problema_cliente);
+    data.append('fecha_entrega_cliente', fecha_entrega_cliente);
+    data.append('horas_trabajadas', horas_trabajadas);
+    data.append('trabajador', trabajador);
+
+    var respond = await fetch("./factura.php", {
+        method: "POST",
+        body: data
+    });
+
+    var result = await respond.json();
+
+    if (result.success == true) {
+        Swal.fire({
+            icon: "success",
+            title: "Great",
+            text: result.message,
+            footer: "Tienda Virtual Reparación de móviles"
+        })
+        document.querySelector('#editForm').reset();
+        setTimeout(() => {
+            window.location.href = "crud.php";
+        }, 2000);
+    }
+
+
+};
 
 

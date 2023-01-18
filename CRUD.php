@@ -92,41 +92,55 @@ $conexion = $_SESSION['conexion'];
 								</tr>
 							</thead>
 							<tbody>
-						<?php
-							$csv = array_map('str_getcsv', file('csv/moviles.csv'));
+								<?php
+								$csv = array_map('str_getcsv', file('csv/moviles.csv'));
 
-							foreach ($csv as $row) {
-								$id = $row[0];
-								$nombre = $row[1];
-								$email = $row[2];
-								$problema = $row[3];
-								$fecha = $row[4];
-								$horas_estimadas = $row[5];
-								$resuelto = $row[7];
-								echo "<tr>";
-								echo "<td>$id</td>";
-								echo "<td>$nombre</td>";
-								echo "<td>$email</td>";
-								echo "<td>$problema</td>";
-								echo "<td>$fecha</td>";
-								echo "<td>$resuelto</td>";
-								echo "<td>";
-								if ($resuelto == 'Si') {
-									echo "<a class='edit' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-									echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
-								} else {
-									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";									
-									echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+								foreach ($csv as $row) {
+									$id = $row[0];
+									$nombre = $row[1];
+									$email = $row[2];
+									$problema = $row[3];
+									$fecha = $row[4];
+									$horas_estimadas = $row[5];
+									$horas_reales = $row[6];
+									$resuelto = $row[7];
+									$tecnico = $row[8];
+									echo "<tr>";
+									echo "<td>$id</td>";
+									echo "<td>$nombre</td>";
+									echo "<td>$email</td>";
+									echo "<td>$problema</td>";
+									echo "<td>$fecha</td>";
+									echo "<td>$resuelto</td>";
+								?>
+									<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+
+							<?php
+									echo "<input type='hidden' name='nombre_cliente_test' id='nombre_cliente_test' value='$nombre'>";
+									echo "<input type='hidden' name='email_cliente_test' id='email_cliente_test' value='$email'>";
+									echo "<input type='hidden' name='problema_cliente_test' id='problema_cliente_test' value='$problema'>";
+									echo "<input type='hidden' name='fecha_cliente_test' id='fecha_cliente_test' value='$fecha'>";
+									echo "<input type='hidden' name='horas_reales_test' id='horas_reales_test' value='$horas_reales'>";
+									echo "<input type='hidden' name='tecnico_test' id='tecnico_test' value='$tecnico'>";
+									echo "<td>";
+									echo "</form>";
+									if ($resuelto == 'Si') {
+										echo "<a class='edit' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+										echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+										echo "<button class='edit' onClick='callPHPScript()' >Imprimir</button>";
+									} else {
+										echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+										echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+									}
+									echo "</td>";
+									echo "</tr>";
 								}
-								echo "</td>";
-								echo "</tr>";
+								echo "</tbody>";
+							} else {
+								echo "<h2>No hay ningun movil para gestionar</h2>";
 							}
-							echo "</tbody>";
-						} else {
-							echo "<h2>No hay ningun movil para gestionar</h2>";
 						}
-					}
-						?>
+							?>
 				</table>
 			</div>
 		</div>
@@ -256,10 +270,10 @@ $conexion = $_SESSION['conexion'];
 			var horas_estimadas = button.data('horas_estimadas');
 			var resuelto = button.data('resuelto');
 
-			populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto);
+			populateModalForm(id, nombre, email, problema, fecha, horas_estimadas, resuelto);
 		});
 
-		function populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto) {
+		function populateModalForm(id, nombre, email, problema, fecha, horas_estimadas, resuelto) {
 			$('#editEmployeeModal input[name="id"]').val(id);
 			$('#editEmployeeModal input[name="nombre"]').val(nombre);
 			$('#editEmployeeModal input[name="email"]').val(email);

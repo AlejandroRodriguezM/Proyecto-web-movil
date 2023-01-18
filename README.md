@@ -78,6 +78,9 @@ Cambio en funciones para añadir tiempo estimado de reparacion y tiempo total re
 --> 17/01/2023 Alejandro Log 2
 Ya se guarda correctamente el total de precio/hora trabajado y estimado.
 
+--> 18/01/2023 Alejandro Log 1
+Aun no funciona, crear pdf de la factura especifica
+
 
 
 

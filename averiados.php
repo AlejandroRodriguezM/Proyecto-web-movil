@@ -100,17 +100,18 @@ $conexion = $_SESSION['conexion'];
 								$email = $row[2];
 								$problema = $row[3];
 								$fecha = $row[4];
+								$horas_estimadas = $row[5];
 								$resuelto = $row[7];
+								echo "<tr>";
+								echo "<td>$id</td>";
+								echo "<td>$nombre</td>";
+								echo "<td>$email</td>";
+								echo "<td>$problema</td>";
+								echo "<td>$fecha</td>";
+								echo "<td>$resuelto</td>";
+								echo "<td>";
 								if ($resuelto == 'No') {
-									echo "<tr>";
-									echo "<td>$id</td>";
-									echo "<td>$nombre</td>";
-									echo "<td>$email</td>";
-									echo "<td>$problema</td>";
-									echo "<td>$fecha</td>";
-									echo "<td>$resuelto</td>";
-									echo "<td>";
-									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-resuelto='$resuelto'  ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";									
 									echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 									echo "</td>";
 									echo "</tr>";
@@ -216,6 +217,7 @@ $conexion = $_SESSION['conexion'];
 	</footer>
 
 	<!-- SCRIPTS -->
+	<!-- SCRIPTS -->
 	<script>
 		$('#editEmployeeModal').on('show.bs.modal', function(event) {
 			var button = $(event.relatedTarget); // Button that triggered the modal
@@ -224,17 +226,19 @@ $conexion = $_SESSION['conexion'];
 			var email = button.data('email');
 			var problema = button.data('problema');
 			var fecha = button.data('fecha');
+			var horas_estimadas = button.data('horas_estimadas');
 			var resuelto = button.data('resuelto');
 
-			populateModalForm(id, nombre, email, problema, fecha, resuelto);
+			populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto);
 		});
 
-		function populateModalForm(id, nombre, email, problema, fecha, resuelto) {
+		function populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto) {
 			$('#editEmployeeModal input[name="id"]').val(id);
 			$('#editEmployeeModal input[name="nombre"]').val(nombre);
 			$('#editEmployeeModal input[name="email"]').val(email);
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
 			$('#editEmployeeModal input[name="fecha"]').val(fecha);
+			$('#editEmployeeModal input[name="horas_estimadas"]').val(horas_estimadas);
 			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
 		}
 	</script>
