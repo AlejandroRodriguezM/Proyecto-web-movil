@@ -1,6 +1,8 @@
 <?php
 
+include_once 'funciones.php';
 const precio_hora = 10;
+
 
 function arraytocsv($array, $archivo, $delimitador = ",")
 {
@@ -96,6 +98,7 @@ function updateCSV($array_movil)
 
 	$resuelto = $array_movil['resuelto'];
 	$tecnico = $_SESSION['user'];
+	$numFactura = createInvocieNumer();
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file('../../csv/moviles.csv'));
 	// Loop through the rows of the array
@@ -103,7 +106,7 @@ function updateCSV($array_movil)
 		// If the ID of the current row matches the ID of the row we're looking for
 		if ($row[0] == $id) {
 			// Update the row
-			$csv[$key] = array($id, $nombre, $email, $problema, $fecha,$precio_hora_estimado,$precio_hora_total, $resuelto, $tecnico);
+			$csv[$key] = array($id, $nombre, $email, $problema, $fecha,$precio_hora_estimado,$precio_hora_total, $resuelto, $tecnico, $numFactura);
 		}
 	}
 	// Write the CSV back to the file

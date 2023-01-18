@@ -293,27 +293,10 @@ const callPHPScript = async () => {
     data.append('horas_trabajadas', horas_trabajadas);
     data.append('trabajador', trabajador);
 
-    var respond = await fetch("./factura.php", {
+    var respond = await fetch("php/funciones/factura.php", {
         method: "POST",
         body: data
     });
-
-    var result = await respond.json();
-
-    if (result.success == true) {
-        Swal.fire({
-            icon: "success",
-            title: "Great",
-            text: result.message,
-            footer: "Tienda Virtual Reparación de móviles"
-        })
-        document.querySelector('#editForm').reset();
-        setTimeout(() => {
-            window.location.href = "crud.php";
-        }, 2000);
-    }
-
-
 };
 
 

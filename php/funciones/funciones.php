@@ -61,3 +61,10 @@ function reservedWords()
 	);
 	return $palabras;
 }
+
+function createInvocieNumer(){
+	$number = rand(100000, 999999);
+	$letter = chr(rand(65, 90));
+	$number = $letter . $number;
+	return $number;
+}

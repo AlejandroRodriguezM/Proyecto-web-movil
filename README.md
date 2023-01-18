@@ -81,6 +81,9 @@ Ya se guarda correctamente el total de precio/hora trabajado y estimado.
 --> 18/01/2023 Alejandro Log 1
 Aun no funciona, crear pdf de la factura especifica
 
+--> 18/01/2023 Alejandro Log 2
+Ya se pueden descargar facturas de telefonos ya solucionados
+
 
 
 
