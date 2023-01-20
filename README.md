@@ -84,6 +84,9 @@ Aun no funciona, crear pdf de la factura especifica
 --> 18/01/2023 Alejandro Log 2
 Ya se pueden descargar facturas de telefonos ya solucionados
 
+--> 20/01/2023 Alejandro Log 2
+Cambios importantes, mas detalles mas adelante(no funciona bien descargar estadisticas)
+
 
 
 

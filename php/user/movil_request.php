@@ -11,6 +11,7 @@ if ($_POST) {
     $problema_cliente = $_POST['problema_cliente'];
     $fecha_cliente = $_POST['fecha_entrega_cliente'];
     $horas_estimadas = $_POST['horas_estimadas'];
+    $num_factura = $_POST['num_factura'];
 
     $file = '../../csv/moviles.csv';
 

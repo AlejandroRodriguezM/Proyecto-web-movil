@@ -27,6 +27,11 @@ $conexion = $_SESSION['conexion'];
 		<ul class="menu navbar-collapse">
 			<li><a href="inicio.php">Inicio</a></li>
 			<li><a href="crud.php">Gestionar</a></li>
+			<?php
+            if ($_SESSION['user'] == 'admin') {
+                echo '<li><a href="panel_usuario.php">Panel de usuarios</a></li>';
+            }
+            ?>
 			<li><a href="#!">Acerca de</a></li>
 			<li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
 		</ul>
@@ -92,59 +97,56 @@ $conexion = $_SESSION['conexion'];
 								</tr>
 							</thead>
 							<tbody>
-								<?php
-								$csv = array_map('str_getcsv', file('csv/moviles.csv'));
+						<?php
+							foreach ($csv as $row) {
+								$id = $row[0];
+								$nombre = $row[1];
+								$email = $row[2];
+								$problema = $row[3];
+								$fecha_entrega = $row[4];
+								$fecha_terminado = $row[5];
+								$horas_estimadas = $row[6];
+								$horas_reales = $row[7];
+								$resuelto = $row[8];
+								$tecnico = $row[9];
+								$num_factura = $row[10];
+								echo "<tr>";
+								echo "<td>$id</td>";
+								echo "<td>$nombre</td>";
+								echo "<td>$email</td>";
+								echo "<td>$problema</td>";
+								echo "<td>$fecha_entrega</td>";
+								echo "<td>$resuelto</td>";
+								echo "<td>";
+								if ($resuelto == 'Si') {
+									echo "<a class='edit' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+									echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 
-								foreach ($csv as $row) {
-									$id = $row[0];
-									$nombre = $row[1];
-									$email = $row[2];
-									$problema = $row[3];
-									$fecha = $row[4];
-									$horas_estimadas = $row[5];
-									$horas_reales = $row[6];
-									$resuelto = $row[7];
-									$tecnico = $row[8];
-									
-									echo "<tr>";
-									echo "<td>$id</td>";
-									echo "<td>$nombre</td>";
-									echo "<td>$email</td>";
-									echo "<td>$problema</td>";
-									echo "<td>$fecha</td>";
-									echo "<td>$resuelto</td>";
-									echo "<td>";
-									if ($resuelto == 'Si') {
-										$numFactara = $row[9];
-										echo "<a class='edit' style='cursor: not-allowed' ><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-										echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
-
-										//make input submit
-										echo "<form method='post' action='php/funciones/factura.php'>";
-										echo "<input type='hidden' name='nombre_cliente_test' id='nombre_cliente_test' value='$nombre'>";
-										echo "<input type='hidden' name='email_cliente_test' id='email_cliente_test' value='$email'>";
-										echo "<input type='hidden' name='problema_cliente_test' id='problema_cliente_test' value='$problema'>";
-										echo "<input type='hidden' name='fecha_cliente_test' id='fecha_cliente_test' value='$fecha'>";
-										echo "<input type='hidden' name='horas_reales_test' id='horas_reales_test' value='$horas_reales'>";
-										echo "<input type='hidden' name='tecnico_test' id='tecnico_test' value='$tecnico'>";
-										echo "<input type='hidden' name='numFactura_test' id='numFactura_test' value='$numFactara'>";
-										echo "<td><button type='submit' class='edit' name='submit' value='submit'>Generar PDF</button></td>";
-										echo "</form>";
-
-
-									} else {
-										echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-										echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
-									}
-									echo "</td>";
-									echo "</tr>";
+									//make input submit
+									echo "<form method='post' action='php/funciones/factura.php'>";
+									echo "<input type='hidden' name='nombre_cliente_test' id='nombre_cliente_test' value='$nombre'>";
+									echo "<input type='hidden' name='email_cliente_test' id='email_cliente_test' value='$email'>";
+									echo "<input type='hidden' name='problema_cliente_test' id='problema_cliente_test' value='$problema'>";
+									echo "<input type='hidden' name='fecha_cliente_test' id='fecha_cliente_test' value='$fecha_entrega'>";
+									echo "<input type='hidden' name='fecha_terminado_test' id='fecha_terminado_test' value='$fecha_terminado'>";
+									echo "<input type='hidden' name='horas_reales_test' id='horas_reales_test' value='$horas_reales'>";
+									echo "<input type='hidden' name='tecnico_test' id='tecnico_test' value='$tecnico'>";
+									echo "<input type='hidden' name='numFactura_test' id='numFactura_test' value='$num_factura'>";
+									echo "<td><button type='submit' class='edit' name='submit' value='submit'>Generar PDF</button></td>";
+									echo "</form>";
+								} else {
+									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha_entrega' data-fecha_terminado='$fecha_terminado' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto' data-num_factura='$num_factura'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+									echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 								}
-								echo "</tbody>";
-							} else {
-								echo "<h2>No hay ningun movil para gestionar</h2>";
+								echo "</td>";
+								echo "</tr>";
 							}
+							echo "</tbody>";
+						} else {
+							echo "<h2>No hay ningun movil para gestionar</h2>";
 						}
-							?>
+					}
+						?>
 				</table>
 			</div>
 		</div>
@@ -165,6 +167,8 @@ $conexion = $_SESSION['conexion'];
 							<input type="text" class="form-control" name="nombre" id="nombre_cliente" value="">
 							<input type="hidden" class="form-control" name="id" id="id" value="">
 							<input type="hidden" class="form-control" name="tecnico" id="tecnico" value="<?php echo $_SESSION['user']; ?>">
+							<input type="hidden" name="num_factura" id="num_factura" value="">
+
 						</div>
 						<div class="form-group">
 							<label>Email</label>
@@ -175,8 +179,9 @@ $conexion = $_SESSION['conexion'];
 							<textarea class="form-control" name="problema" id="problema_cliente"></textarea>
 						</div>
 						<div class="form-group">
-							<label>Fecha</label>
-							<input type="date" class="form-control" name="fecha" value="" id="fecha_entrega_cliente">
+							<label>Fecha de reparación</label>
+							<input type="hidden" class="form-control" name="fecha_entrega" id="fecha_entrega" value="">
+							<input type="date" class="form-control" name="fecha_terminado" id="fecha_terminado" value="">
 						</div>
 						<div class="form-group">
 							<label>Tiempo de trabajo</label>
@@ -202,7 +207,6 @@ $conexion = $_SESSION['conexion'];
 						?>
 					</div>
 					<div class="modal-footer">
-						<input type="hidden" class="form-control" name="id" id="id" value="">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
 						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
 					</div>
@@ -270,21 +274,25 @@ $conexion = $_SESSION['conexion'];
 			var nombre = button.data('nombre');
 			var email = button.data('email');
 			var problema = button.data('problema');
-			var fecha = button.data('fecha');
+			var fecha_entrega = button.data('fecha');
+			var fecha_terminado = button.data('fecha_terminado');
 			var horas_estimadas = button.data('horas_estimadas');
 			var resuelto = button.data('resuelto');
+			var num_factura = button.data('num_factura');
 
-			populateModalForm(id, nombre, email, problema, fecha, horas_estimadas, resuelto);
+			populateModalForm(id, nombre, email, problema, fecha_entrega, fecha_terminado, horas_estimadas, resuelto, num_factura);
 		});
 
-		function populateModalForm(id, nombre, email, problema, fecha, horas_estimadas, resuelto) {
+		function populateModalForm(id, nombre, email, problema, fecha_entrega, fecha_terminado, horas_estimadas, resuelto, num_factura) {
 			$('#editEmployeeModal input[name="id"]').val(id);
 			$('#editEmployeeModal input[name="nombre"]').val(nombre);
 			$('#editEmployeeModal input[name="email"]').val(email);
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
-			$('#editEmployeeModal input[name="fecha"]').val(fecha);
+			$('#editEmployeeModal input[name="fecha_entrega"]').val(fecha_entrega);
+			$('#editEmployeeModal input[name="fecha_terminado"]').val(fecha_terminado);
 			$('#editEmployeeModal input[name="horas_estimadas"]').val(horas_estimadas);
 			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
+			$('#editEmployeeModal input[name="num_factura"]').val(num_factura);
 		}
 
 		$('#deleteEmployeeModal').on('show.bs.modal', function(event) {

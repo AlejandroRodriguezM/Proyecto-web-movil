@@ -6,6 +6,11 @@ function cookiesUser($user, $password)
 	setcookie('passwordUser', $password, time() + 3600, '/');
 }
 
+function cookiesUserAdmin($user)
+{
+	setcookie('adminUser', $user, time() + 3600, '/');
+}
+
 function destroyCookiesUser()
 {
 	setcookie('loginUser', '', time() - 3600, '/');

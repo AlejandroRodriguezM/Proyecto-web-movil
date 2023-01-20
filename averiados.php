@@ -27,6 +27,11 @@ $conexion = $_SESSION['conexion'];
 		<ul class="menu navbar-collapse">
 			<li><a href="inicio.php">Inicio</a></li>
 			<li><a href="crud.php">Gestionar</a></li>
+			<?php
+			if ($_SESSION['user'] == 'admin') {
+				echo '<li><a href="panel_usuario.php">Panel de usuarios</a></li>';
+			}
+			?>
 			<li><a href="#!">Acerca de</a></li>
 			<li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
 		</ul>
@@ -99,22 +104,27 @@ $conexion = $_SESSION['conexion'];
 								$nombre = $row[1];
 								$email = $row[2];
 								$problema = $row[3];
-								$fecha = $row[4];
-								$horas_estimadas = $row[5];
-								$resuelto = $row[7];
-								echo "<tr>";
-								echo "<td>$id</td>";
-								echo "<td>$nombre</td>";
-								echo "<td>$email</td>";
-								echo "<td>$problema</td>";
-								echo "<td>$fecha</td>";
-								echo "<td>$resuelto</td>";
-								echo "<td>";
+								$fecha_entrega = $row[4];
+								$fecha_terminado = $row[5];
+								$horas_estimadas = $row[6];
+								$horas_reales = $row[7];
+								$resuelto = $row[8];
+								$tecnico = $row[9];
 								if ($resuelto == 'No') {
-									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";									
-									echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
-									echo "</td>";
-									echo "</tr>";
+									echo "<tr>";
+									echo "<td>$id</td>";
+									echo "<td>$nombre</td>";
+									echo "<td>$email</td>";
+									echo "<td>$problema</td>";
+									echo "<td>$fecha_entrega</td>";
+									echo "<td>$resuelto</td>";
+									echo "<td>";
+									if ($resuelto == 'No') {
+										echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha_entrega' data-fecha_terminado='$fecha_terminado' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
+										echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+										echo "</td>";
+										echo "</tr>";
+									}
 								}
 							}
 							echo "</tbody>";
@@ -143,6 +153,7 @@ $conexion = $_SESSION['conexion'];
 							<input type="text" class="form-control" name="nombre" id="nombre_cliente" value="">
 							<input type="hidden" class="form-control" name="id" id="id" value="">
 							<input type="hidden" class="form-control" name="tecnico" id="tecnico" value="<?php echo $_SESSION['user']; ?>">
+
 						</div>
 						<div class="form-group">
 							<label>Email</label>
@@ -153,12 +164,14 @@ $conexion = $_SESSION['conexion'];
 							<textarea class="form-control" name="problema" id="problema_cliente"></textarea>
 						</div>
 						<div class="form-group">
-							<label>Fecha</label>
-							<input type="date" class="form-control" name="fecha" value="" id="fecha_entrega_cliente">
+							<label>Fecha de reparación</label>
+							<input type="hidden" class="form-control" name="fecha_entrega" id="fecha_entrega" value="">
+							<input type="date" class="form-control" name="fecha_terminado" id="fecha_terminado" value="">
 						</div>
 						<div class="form-group">
-							<label>Coste</label>
-							<input type="number" class="form-control" name="coste" placeholder="Precio de reparacion del telefono" value="" id="coste_entrega_cliente">
+							<label>Tiempo de trabajo</label>
+							<input type="hidden" class="form-control" name="horas_estimadas" id="horas_estimadas" value="">
+							<input type="number" class="form-control" name="horas_trabajadas" placeholder="Horas de reparacion del telefono" value="" id="horas_trabajadas">
 						</div>
 						<?php
 						echo "<div class='form-group'>
@@ -225,19 +238,21 @@ $conexion = $_SESSION['conexion'];
 			var nombre = button.data('nombre');
 			var email = button.data('email');
 			var problema = button.data('problema');
-			var fecha = button.data('fecha');
+			var fecha_entrega = button.data('fecha');
+			var fecha_terminado = button.data('fecha_terminado');
 			var horas_estimadas = button.data('horas_estimadas');
 			var resuelto = button.data('resuelto');
 
-			populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto);
+			populateModalForm(id, nombre, email, problema, fecha_entrega, fecha_terminado, horas_estimadas, resuelto);
 		});
 
-		function populateModalForm(id, nombre, email, problema, fecha,horas_estimadas, resuelto) {
+		function populateModalForm(id, nombre, email, problema, fecha_entrega, fecha_terminado, horas_estimadas, resuelto) {
 			$('#editEmployeeModal input[name="id"]').val(id);
 			$('#editEmployeeModal input[name="nombre"]').val(nombre);
 			$('#editEmployeeModal input[name="email"]').val(email);
 			$('#editEmployeeModal textarea[name="problema"]').val(problema);
-			$('#editEmployeeModal input[name="fecha"]').val(fecha);
+			$('#editEmployeeModal input[name="fecha_entrega"]').val(fecha_entrega);
+			$('#editEmployeeModal input[name="fecha_terminado"]').val(fecha_terminado);
 			$('#editEmployeeModal input[name="horas_estimadas"]').val(horas_estimadas);
 			$('#editEmployeeModal input[name="resuelto"]').val(resuelto);
 		}

@@ -87,6 +87,7 @@ const insert_request = async () => {
     var problema_cliente = document.querySelector("#problema_cliente").value;
     var fecha_entrega_cliente = document.querySelector("#fecha_entrega_cliente").value;
     var horas_estimadas = document.querySelector("#horas_cliente").value;
+    var num_factura = document.querySelector("#num_factura").value;
 
     if (nombre_cliente.trim() === '') {
         Swal.fire({
@@ -134,6 +135,7 @@ const insert_request = async () => {
     data.append('problema_cliente', problema_cliente);
     data.append('fecha_entrega_cliente', fecha_entrega_cliente);
     data.append('horas_estimadas', horas_estimadas);
+    data.append('num_factura', num_factura);
 
     var respond = await fetch("php/user/movil_request.php", {
         method: "POST",
@@ -161,10 +163,12 @@ const updateCSV = async () => {
     var nombre_cliente = document.querySelector("#nombre_cliente").value;
     var email_cliente = document.querySelector("#email_cliente").value;
     var problema_cliente = document.querySelector("#problema_cliente").value;
-    var fecha_entrega_cliente = document.querySelector("#fecha_entrega_cliente").value;
+    var fecha_entrega_cliente = document.querySelector("#fecha_entrega").value;
+    var fecha_terminado_cliente = document.querySelector("#fecha_terminado").value;
     var horas_estimadas = document.querySelector("#horas_estimadas").value;
     var horas_trabajadas = document.querySelector("#horas_trabajadas").value;
     var resuelto = document.querySelector("#resuelto").value;
+    var num_factura = document.querySelector("#num_factura").value;
 
     if (nombre_cliente.trim() === '') {
         Swal.fire({
@@ -196,7 +200,7 @@ const updateCSV = async () => {
         return;
     }
 
-    if (fecha_entrega_cliente.trim() === '') {
+    if (fecha_terminado_cliente.trim() === '') {
         Swal.fire({
             icon: "error",
             title: "ERROR",
@@ -223,10 +227,11 @@ const updateCSV = async () => {
     data.append('email_cliente', email_cliente);
     data.append('problema_cliente', problema_cliente);
     data.append('fecha_entrega_cliente', fecha_entrega_cliente);
+    data.append('fecha_terminado_cliente', fecha_terminado_cliente);
     data.append('horas_estimadas', horas_estimadas);
     data.append('horas_trabajadas', horas_trabajadas);
     data.append('resuelto', resuelto);
-
+    data.append('num_factura', num_factura);
 
     var respond = await fetch("php/user/edit_csv.php", {
         method: "POST",
@@ -281,6 +286,7 @@ const callPHPScript = async () => {
     var email_cliente = document.querySelector("#email_cliente_test").value;
     var problema_cliente = document.querySelector("#problema_cliente_test").value;
     var fecha_entrega_cliente = document.querySelector("#fecha_cliente_test").value;
+    var fecha_terminado_test = document.querySelector("#fecha_terminado_test").value;
     var horas_trabajadas = document.querySelector("#horas_reales_test").value;
     var trabajador = document.querySelector("#tecnico_test").value;
 
@@ -290,6 +296,7 @@ const callPHPScript = async () => {
     data.append('email_cliente', email_cliente);
     data.append('problema_cliente', problema_cliente);
     data.append('fecha_entrega_cliente', fecha_entrega_cliente);
+    data.append('fecha_terminado_test', fecha_terminado_test);
     data.append('horas_trabajadas', horas_trabajadas);
     data.append('trabajador', trabajador);
 

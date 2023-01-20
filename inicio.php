@@ -3,7 +3,7 @@ session_start();
 include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
-$conexion = $_SESSION['conexion'];
+$hora_conexion = $_SESSION['conexion'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,20 +27,25 @@ $conexion = $_SESSION['conexion'];
         <ul class="menu navbar-collapse">
             <li><a href="inicio.php">Inicio</a></li>
             <li><a href="crud.php">Gestionar</a></li>
+            <?php
+            if ($_SESSION['user'] == 'admin') {
+                echo '<li><a href="panel_usuario.php">Panel de usuarios</a></li>';
+            }
+            ?>
             <li><a href="#!">Acerca de</a></li>
             <li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
         </ul>
         <div class="sesion">
-            <p>Hora de conexión: <?php echo $conexion ?></p>
+            <p>Hora de conexión: <?php echo $hora_conexion ?></p>
         </div>
         <div class="sesion">
-        <p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
+            <p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
         </div>
         <!-- LOGO -->
         <div class="container-logo">
             <div class="box">
                 <div class="title">
-                    <span class="block" ></span>
+                    <span class="block"></span>
                     <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
                 </div>
 
@@ -121,8 +126,12 @@ $conexion = $_SESSION['conexion'];
                             <input type="number" id="horas_cliente" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Fecha Actual</label>
-                            <input type="date" id="fecha_entrega_cliente" class="form-control">
+                            <!-- /$date with year month and day  -->
+                            <?php
+                            $fecha_entrega = date('Y-m-d');
+                            ?>
+                            <input type="hidden" id="fecha_entrega_cliente" class="form-control" value="<?php echo $fecha_entrega ?>">
+                            <input type="hidden" id="num_factura" value="<?php echo createInvocieNumer() ?>">
                         </div>
                     </div>
                     <div class="modal-footer">
