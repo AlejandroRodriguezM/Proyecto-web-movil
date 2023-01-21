@@ -96,6 +96,11 @@ Hay un nuevo csv donde se guarda dicha info para verla en la tabla, se actualiza
 Instalada la libreria phpspreadsheet con composer para la descarga de ficheros excel
 Nuevas funciones para calcular el porcentaje correspondiente a cada campo
 
+--> 21/01/2023 Alejandro Log 2
+Se pueden crear usuarios
+Se pueden borrar usuarios
+
+
 
 
 

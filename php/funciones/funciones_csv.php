@@ -288,9 +288,14 @@ function porcentaje_horas($id, $file)
 {
 	$horas_trabajadas = estadisticas_trabajador($id, $file)[2];
 	$total_horas = total_horas($file);
-	$porcentaje = ($horas_trabajadas / $total_horas) * 100;
-	//redondear con 2 digitos
-	$porcentaje = round($porcentaje, 2);
+	if($total_horas > 0){
+		$porcentaje = ($horas_trabajadas / $total_horas) * 100;
+		//redondear con 2 digitos
+		$porcentaje = round($porcentaje, 2);
+	}
+	else{
+		$porcentaje = 'No ha trabajado aún';
+	}
 	return $porcentaje;
 }
 
@@ -298,7 +303,55 @@ function porcentaje_moviles($id, $file)
 {
 	$moviles_arreglados = estadisticas_trabajador($id, $file)[3];
 	$total_moviles = total_moviles($file);
+	if($total_moviles > 0){
 	$porcentaje = ($moviles_arreglados / $total_moviles) * 100;
 	$porcentaje = round($porcentaje, 2);
+	}
+	else{
+		$porcentaje = 'No ha arreglado móviles aún';
+	}
 	return $porcentaje;
+}
+
+function num_id(){
+	$csv = csvtoarray('./csv/usuarios.csv');
+	$numero = count($csv);
+	return $numero + 1;
+}
+
+function create_new_user($id,$nombre,$password){
+	$csv = csvtoarray('../../csv/usuarios.csv');
+	$csv[] = array($id,$nombre,$password);
+	$fp = fopen('../../csv/usuarios.csv', 'w');
+	foreach ($csv as $row) {
+		fputcsv($fp, $row);
+	}
+	fclose($fp);
+}
+
+function create_new_datos($id,$nombre){
+	$csv = csvtoarray('../../csv/datos_usuarios.csv');
+	$csv[] = array($id,$nombre,0,0);
+	$fp = fopen('../../csv/datos_usuarios.csv', 'w');
+	foreach ($csv as $row) {
+		fputcsv($fp, $row);
+	}
+	fclose($fp);
+}
+
+function num_users(){
+	$csv = csvtoarray('./csv/usuarios.csv');
+	$numero = count($csv);
+	return $numero;
+}
+
+function comprobar_nombre($nombre){
+	$csv = csvtoarray('../../csv/usuarios.csv');
+	$existe = false;
+	foreach ($csv as $row) {
+		if($row[1] == $nombre){
+			$existe = true;
+		}
+	}
+	return $existe;
 }

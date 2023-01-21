@@ -306,4 +306,63 @@ const callPHPScript = async () => {
     });
 };
 
+const new_user = async () => {
+    var id_user = document.querySelector("#id_usuario").value;
+    var nombre_user = document.querySelector("#nombre_user").value;
+    var password_user = document.querySelector("#password_user").value;
+    if (nombre_user.trim() === '') {
+        Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "Nombre cliente No dejes vacio esto",
+            footer: "Tienda Virual Reparación de móviles"
+        })
+        return;
+    }
+
+    if (password_user.trim() === '') {
+        Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: "email_cliente No dejes vacio esto",
+            footer: "Tienda Virual Reparación de móviles"
+        })
+        return;
+    }
+
+    const data = new FormData();
+    data.append('id_user', id_user);
+    data.append('nombre_user', nombre_user);
+    data.append('password_user', password_user);
+
+    var respond = await fetch("php/user/new_user.php", {
+        method: "POST",
+        body: data
+    });
+
+    var result = await respond.json();
+
+    if (result.success == true) {
+        Swal.fire({
+            icon: "success",
+            title: "Great",
+            text: result.mensaje,
+            footer: "Tienda Virtual Reparación de móviles"
+        })
+        document.querySelector('#formInsert').reset();
+        setTimeout(() => {
+            window.location.href = "panel_usuario.php";
+        }, 2000);
+    }
+    else{
+        Swal.fire({
+            icon: "error",
+            title: "ERROR",
+            text: result.mensaje,
+            footer: "Tienda Virual Reparación de móviles"
+        })
+        return;
+    }
+}
+
 
