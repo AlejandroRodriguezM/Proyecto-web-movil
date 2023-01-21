@@ -84,9 +84,17 @@ Aun no funciona, crear pdf de la factura especifica
 --> 18/01/2023 Alejandro Log 2
 Ya se pueden descargar facturas de telefonos ya solucionados
 
---> 20/01/2023 Alejandro Log 2
+--> 20/01/2023 Alejandro Log 1
 Cambios importantes, mas detalles mas adelante(no funciona bien descargar estadisticas)
 
+--> 21/01/2023 Alejandro Log 1
+El csv de usuarios ahora tiene ID
+Ahora hay un nuevo user que es un administrador
+Hay panel de control de usuarios, para ver de los trabajadores en la ficha, cuántos móviles han arreglado y cuántas horas han trabajado
+Se puede descargar Excel sobre cada trabajador y sus logros de trabajo
+Hay un nuevo csv donde se guarda dicha info para verla en la tabla, se actualiza cada vez que se edite un teléfono como terminado
+Instalada la libreria phpspreadsheet con composer para la descarga de ficheros excel
+Nuevas funciones para calcular el porcentaje correspondiente a cada campo
 
 
 

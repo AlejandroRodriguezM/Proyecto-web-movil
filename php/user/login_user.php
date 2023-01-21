@@ -9,6 +9,7 @@ if ($_POST){
     $nombre = $_POST['user'];
     $password = $_POST['password'];
     checkCSVUser();
+    checkCSVdatos();
     if(comprobarUsuarioCSV($nombre,$password)){
         $validate['success'] = true;
         $validate['mensaje'] = "Usuario correcto";

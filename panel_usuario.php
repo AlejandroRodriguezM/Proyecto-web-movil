@@ -29,7 +29,7 @@ if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser'])) {
 
 if(isset($_POST['estadistica'])){
     $id = $_POST['id'];
-    descargar_fichero_trabajador($id);
+    header("Location: phpspreadsheet/datos_excel.php?id=$id");
 }
 
 ?>
@@ -83,6 +83,7 @@ if(isset($_POST['estadistica'])){
                     </div>
                 </div>
                 <?php
+                $file_datos_usuario = "./csv/datos_usuarios.csv";
                 $csv = array_map('str_getcsv', file('csv/datos_usuarios.csv'));
 
                 echo "<table class='table table-striped table-hover' style='width: 78%;'>";
@@ -92,6 +93,8 @@ if(isset($_POST['estadistica'])){
                 echo "<th>Nombre del trabajador</th>";
                 echo "<th>Numero de horas trabajadas</th>";
                 echo "<th>Numero de telefonos arreglados</th>";
+                echo "<th>Porcentaje de horas trabajadas</th>";
+                echo "<th>Porcentaje de moviles trabajados</th>";
                 echo "<th>Acción</th>";
                 echo "</tr>";
                 echo "</thead>";
@@ -101,14 +104,18 @@ if(isset($_POST['estadistica'])){
                     $nombre = $row[1];
                     $horas_trabajadas = $row['2'];
                     $telefono_arreglados = $row['3'];
+                    $porcentaje_horas =  porcentaje_horas($id,$file_datos_usuario);
+                    $porcentaje_telefonos = porcentaje_moviles($id,$file_datos_usuario);
                     echo "<tr>";
                     echo "<td>$id</td>";
                     echo "<td>$nombre</td>";
                     echo "<td>" . $horas_trabajadas . "</td>";
                     echo "<td>" . $telefono_arreglados . "</td>";
+                    echo "<td>" . $porcentaje_horas . "%</td>";
+                    echo "<td>" . $porcentaje_telefonos . "%</td>";
                     echo "<form action='panel_usuario.php' method='post'>";
                     echo "<input type='hidden' name='id' value='$id'>";
-                    echo "<td><input type='submit' name='estadistica' onClick='downloadWorkerData(this.form.id.value)' value='Descargar estadistica'></td>";
+                    echo "<td><input type='submit' name='estadistica' value='Descargar estadistica'></td>";
 
                     echo "</form>";
                 }

@@ -1,6 +1,7 @@
 <?php
 
 include_once 'funciones.php';
+
 const precio_hora = 10;
 
 
@@ -54,7 +55,7 @@ function checkCSV()
 function checkCSVUser()
 {
 	if (!file_exists('../../csv/usuarios.csv')) {
-		$fp = fopen('../../csv/moviles.csv', 'w');
+		$fp = fopen('../../csv/usuarios.csv', 'w');
 
 		$usuarios[] = array("1", "admin", "admin");
 		arraytocsv($usuarios, '../../csv/usuarios.csv');
@@ -62,6 +63,19 @@ function checkCSVUser()
 		chmod('../../csv/moviles.csv', 0777);
 	}
 }
+
+function checkCSVdatos()
+{
+	if (!file_exists('../../csv/datos_usuarios.csv')) {
+		$fp = fopen('../../csv/datos_usuarios.csv', 'w');
+
+		$usuarios[] = array("1", "admin", 0, 0);
+		arraytocsv($usuarios, '../../csv/datos_usuarios.csv');
+		fclose($fp);
+		chmod('../../csv/moviles.csv', 0777);
+	}
+}
+
 
 function createMovilRequest()
 {
@@ -103,7 +117,8 @@ function updateCSV($array_movil)
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file('../../csv/moviles.csv'));
 	// Loop through the rows of the array
-	updateCSVDatos($tecnico);
+
+
 	foreach ($csv as $key => $row) {
 		// If the ID of the current row matches the ID of the row we're looking for
 		if ($row[0] == $id) {
@@ -117,7 +132,9 @@ function updateCSV($array_movil)
 	foreach ($csv as $row) {
 		fputcsv($fp, $row);
 	}
-
+	if ($resuelto == "Si") {
+		updateCSVDatos($tecnico);
+	}
 	fclose($fp);
 }
 
@@ -233,10 +250,10 @@ function numero_moviles_arreglados($nombre)
 	return $moviles_arreglados;
 }
 
-function estadisticas_trabajador($id)
+function estadisticas_trabajador($id, $file)
 {
 	// Read the CSV file into an array
-	$csv = array_map('str_getcsv', file('./csv/datos_usuarios.csv'));
+	$csv = array_map('str_getcsv', file($file));
 
 	// Iterate through the array to find the worker with the matching ID
 	foreach ($csv as $row) {
@@ -247,40 +264,41 @@ function estadisticas_trabajador($id)
 	}
 }
 
-function descargar_fichero_trabajador($id)
+function total_horas($file)
 {
-    // Get worker data
-    $data = estadisticas_trabajador($id);
-    if (is_string($data)) {
-        return $data;
-    }
-
-    // Create a new temporary CSV file
-    $tempName = tempnam(sys_get_temp_dir(), 'csv');
-    $file = fopen($tempName, 'w');
-
-    // Add the relevant data to a new array
-    $relevantData = array($data[1], $data[2], $data[3]);
-
-    // Add the relevant data to the CSV file
-    fputcsv($file, array("Nombre","Horas trabajadas","Moviles arreglados"));
-    fputcsv($file, $relevantData);
-
-    // Close the file
-    fclose($file);
-    clearstatcache();
-
-    // Rename the temporary file
-    $fileName = $data[0] . '_' . $data[1] . '.csv';
-    rename($tempName, $fileName);
-
-    // Set the appropriate headers to trigger a download in the browser
-    header('Content-Type: application/csv');
-    header('Content-Disposition: attachment; filename="' . $fileName . '";');
-
-    // Read the file and output its contents
-    readfile($fileName);
-    unlink($fileName); // delete the created file after download
+	$csv = csvtoarray($file);
+	$horas_trabajadas = 0;
+	foreach ($csv as $row) {
+		$horas_trabajadas += (int)$row[2];
+	}
+	return $horas_trabajadas;
 }
 
+function total_moviles($file)
+{
+	$csv = csvtoarray($file);
+	$moviles_arreglados = 0;
+	foreach ($csv as $row) {
+		$moviles_arreglados += (int)$row[3];
+	}
+	return $moviles_arreglados;
+}
 
+function porcentaje_horas($id, $file)
+{
+	$horas_trabajadas = estadisticas_trabajador($id, $file)[2];
+	$total_horas = total_horas($file);
+	$porcentaje = ($horas_trabajadas / $total_horas) * 100;
+	//redondear con 2 digitos
+	$porcentaje = round($porcentaje, 2);
+	return $porcentaje;
+}
+
+function porcentaje_moviles($id, $file)
+{
+	$moviles_arreglados = estadisticas_trabajador($id, $file)[3];
+	$total_moviles = total_moviles($file);
+	$porcentaje = ($moviles_arreglados / $total_moviles) * 100;
+	$porcentaje = round($porcentaje, 2);
+	return $porcentaje;
+}
