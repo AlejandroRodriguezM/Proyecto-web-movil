@@ -120,8 +120,9 @@ $conexion = $_SESSION['conexion'];
 								echo "<td>";
 								if ($resuelto == 'Si') {
 									echo "<a class='edit' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-									echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
-
+									if($_SESSION['user'] == 'admin'){
+										echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
+									}
 									//make input submit
 									echo "<form method='post' action='php/funciones/factura.php'>";
 									echo "<input type='hidden' name='nombre_cliente_test' id='nombre_cliente_test' value='$nombre'>";
@@ -136,8 +137,8 @@ $conexion = $_SESSION['conexion'];
 									echo "</form>";
 								} else {
 									echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha_entrega' data-fecha_terminado='$fecha_terminado' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto' data-num_factura='$num_factura'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-									echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 								}
+
 								echo "</td>";
 								echo "</tr>";
 							}
@@ -166,7 +167,7 @@ $conexion = $_SESSION['conexion'];
 							<label>Nombre</label>
 							<input type="text" class="form-control" name="nombre" id="nombre_cliente" value="">
 							<input type="hidden" class="form-control" name="id" id="id" value="">
-							<input type="hidden" class="form-control" name="tecnico" id="tecnico" value="<?php echo $_SESSION['user']; ?>">
+							<input type="hidden" class="form-control" name="tecnico_firma" id="tecnico_firma" value="<?php echo $_SESSION['user']; ?>">
 							<input type="hidden" name="num_factura" id="num_factura" value="">
 
 						</div>
@@ -208,7 +209,7 @@ $conexion = $_SESSION['conexion'];
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
+						<input type="submit" class="btn btn-info" onclick="editCSV()" value="Guardar">
 					</div>
 				</form>
 			</div>

@@ -149,7 +149,7 @@ $hora_conexion = $_SESSION['conexion'];
             <div class="box">
                 <figure>
                     <a href="inicio.php">
-                        <img src="assets/img/logo.png" alt="Logo de SLee Dw">
+                        <img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
                     </a>
                 </figure>
             </div>

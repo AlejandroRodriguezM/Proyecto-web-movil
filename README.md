@@ -100,6 +100,13 @@ Nuevas funciones para calcular el porcentaje correspondiente a cada campo
 Se pueden crear usuarios
 Se pueden borrar usuarios
 
+--> 21/01/2023 Alejandro Log 3
+Se pueden descargar un excel completo de todos los trabajadores
+Se pueden modificar datos de los trabajadores, como el nombre y password
+Solamente el administrador puede modificar los datos de un movil ya reparado
+Solamente el administrador puede borrar moviles
+
+
 
 
 

@@ -10,9 +10,6 @@ if ($_POST) {
     $nombre_user = $_POST['nombre_user'];
     $password_user = $_POST['password_user'];
 
-    $file = '../../csv/datos_usuarios.csv';
-    $file = '../../csv/usuarios.csv';
-
     if (!empty($id_user) && !empty($nombre_user) && !empty($password_user)) {
         if (comprobar_nombre($nombre_user)) {
             $validate['success'] = false;

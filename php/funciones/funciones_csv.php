@@ -43,6 +43,17 @@ function comprobarUsuarioCSV($usuario, $password)
 	return $encontrado;
 }
 
+function check_nombre($nombre){
+	$usuarios = csvtoarray('../../csv/usuarios.csv');
+	$encontrado = false;
+	foreach ($usuarios as $key => $value) {
+		if ($value[1] == $nombre) {
+			$encontrado = true;
+		}
+	}
+	return $encontrado;
+}
+
 function checkCSV()
 {
 	if (!file_exists('../../csv/moviles.csv')) {
@@ -72,7 +83,7 @@ function checkCSVdatos()
 		$usuarios[] = array("1", "admin", 0, 0);
 		arraytocsv($usuarios, '../../csv/datos_usuarios.csv');
 		fclose($fp);
-		chmod('../../csv/moviles.csv', 0777);
+		chmod('../../csv/datos_usuarios.csv', 0777);
 	}
 }
 
@@ -112,7 +123,47 @@ function updateCSV($array_movil)
 	$precio_hora_total = (int)$horas_trabajadas * precio_hora;
 
 	$resuelto = $array_movil['resuelto'];
-	$tecnico = $_SESSION['user'];
+	$tecnico = $array_movil['tecnico'];
+	$numFactura = $array_movil['num_factura'];
+	// Read the CSV file into an array
+	$csv = array_map('str_getcsv', file('../../csv/moviles.csv'));
+	// Loop through the rows of the array
+
+
+	foreach ($csv as $key => $row) {
+		// If the ID of the current row matches the ID of the row we're looking for
+		if ($row[0] == $id) {
+			// Update the row
+			$csv[$key] = array($id, $nombre, $email, $problema, $fecha_entrega, $fecha_terminado, $precio_hora_estimado, $precio_hora_total, $resuelto, $tecnico, $numFactura);
+		}
+	}
+	// Write the CSV back to the file
+	$fp = fopen('../../csv/moviles.csv', 'w');
+
+	foreach ($csv as $row) {
+		fputcsv($fp, $row);
+	}
+	if ($resuelto == "Si") {
+		updateCSVDatos($tecnico);
+	}
+	fclose($fp);
+}
+
+function updateCSVAdmin($array_movil)
+{
+	$id = $array_movil['id'];
+	$nombre = $array_movil['nombre'];
+	$email = $array_movil['email'];
+	$problema = $array_movil['problema'];
+	$fecha_entrega = $array_movil['fecha'];
+	$fecha_terminado = $array_movil['fecha_terminado'];
+	$precio_hora_estimado = $array_movil['horas_estimadas'];
+
+	$horas_trabajadas = $array_movil['horas_trabajadas'];
+	$precio_hora_total = (int)$horas_trabajadas * precio_hora;
+
+	$resuelto = $array_movil['resuelto'];
+	$tecnico = $array_movil['tecnico'];
 	$numFactura = $array_movil['num_factura'];
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file('../../csv/moviles.csv'));
@@ -195,10 +246,22 @@ function deleteSliceCSV($id, $file)
 	// Close the file
 	fclose($fp);
 }
+
 function countRowsCSV($archivo)
 {
 	$csv = csvtoarray($archivo);
 	$numero = count($csv);
+	return $numero;
+}
+
+function countRowsUser($tecnico){
+	$csv = csvtoarray('./csv/moviles.csv');
+	$numero = 0;
+	foreach ($csv as $row) {
+		if ($row[9] == $tecnico) {
+			$numero++;
+		}
+	}
 	return $numero;
 }
 
@@ -262,6 +325,15 @@ function estadisticas_trabajador($id, $file)
 			return $row;
 		}
 	}
+}
+
+function estadisticas_trabajadores($file)
+{
+	// Read the CSV file into an array
+	$csv = array_map('str_getcsv', file($file));
+	
+	//Return all the data
+	return $csv;
 }
 
 function total_horas($file)
@@ -329,7 +401,33 @@ function create_new_user($id,$nombre,$password){
 	fclose($fp);
 }
 
+function modify_user($id,$nombre,$password){
+    $csv = csvtoarray('../../csv/usuarios.csv');
+    $fp = fopen('../../csv/usuarios.csv', 'w');
+    foreach ($csv as $i => $row) {
+        if($row[0] == $id){
+            $csv[$i][1] = $nombre;
+            $csv[$i][2] = $password;
+        }
+        fputcsv($fp, $csv[$i]);
+    }
+    fclose($fp);
+}
+
+function modify_datos($id,$nombre){
+    $csv = array_map('str_getcsv', file('../../csv/datos_usuarios.csv'));
+    $fp = fopen('../../csv/datos_usuarios.csv', 'w');
+    foreach ($csv as $row) {
+        if($row[0] == $id){ 
+            $row[1] = $nombre;
+        }
+        fputcsv($fp, $row);
+    }
+    fclose($fp);
+}
+
 function create_new_datos($id,$nombre){
+	chmod('../../csv/datos_usuarios.csv', 0777);
 	$csv = csvtoarray('../../csv/datos_usuarios.csv');
 	$csv[] = array($id,$nombre,0,0);
 	$fp = fopen('../../csv/datos_usuarios.csv', 'w');

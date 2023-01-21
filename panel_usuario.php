@@ -26,6 +26,8 @@ if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser'])) {
 </head>
 
 <?php
+$file_datos_usuario = "./csv/datos_usuarios.csv";
+$file_usuario = "./csv/usuarios.csv";
 
 if (isset($_POST['estadistica'])) {
     $id = $_POST['id'];
@@ -34,10 +36,15 @@ if (isset($_POST['estadistica'])) {
 
 if (isset($_POST['borrar'])) {
     $id = $_POST['id'];
-    $file_datos_usuario = "./csv/datos_usuarios.csv";
-    $file_usuario = "./csv/usuarios.csv";
+
     deleteSliceCSV($id, $file_datos_usuario);
     deleteSliceCSV($id, $file_usuario);
+}
+
+if (isset($_POST['ver'])) {
+    $tecnico = $_POST['tecnico'];
+    $id = $_POST['id'];
+    header("Location: estadisticas_empleado.php?id=$id&tecnico=$tecnico");
 }
 ?>
 
@@ -87,20 +94,28 @@ if (isset($_POST['borrar'])) {
                         <div class="col-sm-6">
                             <h2>Datos de trabajadores</h2>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <span>
-                                    <i class="material-icons" style="margin-left: 180px;">
-                                        <a href="#insertar" class="btn btn-success" data-toggle="modal">INSERTAR</a>&#xE147;
-                                    </i>
-                                </span>
-                            </div>
-                        </div>
+                        <table>
+                            <tr>
+                                <td style="padding-right: 10px;">
+                                    <span>
+                                        <i class="material-icons">
+                                            <a href="#insertar" class="btn btn-success" data-toggle="modal">&#xE147;CREAR USUARIO</a>
+                                        </i>
+                                    </span>
+                                </td>
+                                <td style="padding-right: 10px;">
+                                    <span>
+                                        <i class="material-icons">
+                                            <a href="./phpspreadsheet/datos_completos_excel.php" class="btn btn-success" data-toggle="modal">&#xE147;DESCARGAR EXCEL</a>
+                                        </i>
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <?php
-                    $file_datos_usuario = "./csv/datos_usuarios.csv";
 
-                    $csv = array_map('str_getcsv', file('csv/datos_usuarios.csv'));
+                    $csv = array_map('str_getcsv', file($file_datos_usuario));
                     if (num_users() > 1) {
                         echo "<table class='table table-striped table-hover' style='width: 78%;'>";
                         echo "<thead>";
@@ -111,8 +126,10 @@ if (isset($_POST['borrar'])) {
                         echo "<th>Numero de telefonos arreglados</th>";
                         echo "<th>Porcentaje de horas trabajadas</th>";
                         echo "<th>Porcentaje de moviles trabajados</th>";
-                        echo "<th>Estadistica</th>";
-                        echo "<th>Borrar</th>";
+                        echo "<th>Descargar estadistica</th>";
+                        echo "<th>Ver tabla</th>";
+                        echo "<th>Modificar usuario</th>";
+                        echo "<th>Borrar usuario</th>";
                         echo "</tr>";
                         echo "</thead>";
                         echo "<tbody>";
@@ -124,95 +141,190 @@ if (isset($_POST['borrar'])) {
                             $porcentaje_horas =  porcentaje_horas($id, $file_datos_usuario);
                             $porcentaje_telefonos = porcentaje_moviles($id, $file_datos_usuario);
                             echo "<tr>";
-                            if ($id != 1) {
-                                echo "<td>$id</td>";
-                                echo "<td>$nombre</td>";
-                                echo "<td>" . $horas_trabajadas . "</td>";
-                                echo "<td>" . $telefono_arreglados . "</td>";
+                            echo "<td>$id</td>";
+                            echo "<td>$nombre</td>";
+                            echo "<td>" . $horas_trabajadas . "</td>";
+                            echo "<td>" . $telefono_arreglados . "</td>";
+                            if ($horas_trabajadas > 0 || $id != 1) {
                                 echo "<td>" . $porcentaje_horas . "%</td>";
-                                echo "<td>" . $porcentaje_telefonos . "%</td>";
-                                echo "<form action='panel_usuario.php' method='post'>";
-                                echo "<input type='hidden' name='id' value='$id'>";
-                                echo "<td><input type='submit' name='estadistica' value='Descargar estadistica'></td>";
-                    ?>
-                                <td><input type='submit' name='borrar' value='Borrar usuario' onclick='return confirm("Estas seguro que quieres borrar el usuario?");'></td>
-                    <?php
+                            } else {
+                                echo "<td style='color: red;'>" . $porcentaje_horas . "</td>";
                             }
-                            echo "</form>";
-                        }
-                        echo "</tr>";
+                            if ($telefono_arreglados > 0 || $id != 1) {
+                                echo "<td>" . $porcentaje_telefonos . "%</td>";
+                            } else {
+                                echo "<td style='color: red;'>" . $porcentaje_telefonos . "</td>";
+                            }
+                            echo "<form action='panel_usuario.php' method='post'>";
+                            echo "<input type='hidden' name='id' value='$id'>";
+                            echo "<input type='hidden' name='tecnico' value='$nombre'>";
+                            echo "<td>";
+                            echo "<i class='material-icons'>";
+                            if ($id != 1) {
+                                echo "<button type='submit' name='estadistica'>&#xE2C4;</button>";
+                            } else {
+                                echo "<button style='cursor: not-allowed' type='submit' name='estadistica' disabled>&#xE2C4;</button>";
+                            }
 
-                        echo "</tbody>";
-                    }
-                    else{
-                        echo "<h2>No hay usuarios registrados</h2>";
-                    }
+                            echo "</i>";
+                            echo "</td>";
+                            echo "<td>";
+                            echo "<i class='material-icons'>";
+                            if ($id != 1) {
+                                echo "<button type='submit' name='ver'>&#xE8EF;</button>";
+                            } else {
+                                echo "<button style='cursor: not-allowed' type='submit' name='ver' disabled>&#xE8EF;</button>";
+                            }
+                            echo "</i>";
+                            echo "</td>";
+                            echo "<td>";
+                            if ($id != 1) {
+                                echo "<button type='button' name='modificar' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-password='' data-target='#modificar'>";
+                                echo "<i class='material-icons'>&#xE254;</i>";
+                                echo "</button>";
+                                echo "</td>";
+                            }
+                            else{
+                                echo "<button style='cursor: not-allowed' type='button' name='modificar' disabled>";
+                                echo "<i class='material-icons'>&#xE254;</i>";
+                                echo "</button>";
+                                echo "</td>";
+                            }
+                            if ($id != 1) {
                     ?>
+                            <td>
+                                <i class='material-icons'>
+                                    <button type='submit' name='borrar' onclick='return confirm("Estas seguro que quieres borrar el usuario?");'>&#xE92B;</button>
+                                </i>
+                            </td>
+                            <?php
+                            } else {
+                                echo "<td>";
+                                echo "<i class='material-icons'>";
+                                echo "<button style='cursor: not-allowed' type='submit' name='borrar' disabled>&#xE92B;</button>";
+                                echo "</i>";
+                                echo "</td>";
+                            }
+                                    echo "</form>";
+                                }
+                                echo "</tr>";
+
+                                echo "</tbody>";
+                            } else {
+                                echo "<h2>No hay usuarios registrados</h2>";
+                            }
+                                    ?>
                     </table>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- FORMULARIO INSERTAR -->
-        <div id="insertar" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="post" id="formInsert" onsubmit="return false;">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Insertar</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <!-- FORMULARIO INSERTAR -->
+    <div id="insertar" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" id="formInsert" onsubmit="return false;">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Insertar</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nombre de usuario</label>
+                            <input type="text" id="nombre_user" name="nombre_user" class="form-control">
+                            <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo num_id() ?>">
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Nombre de usuario</label>
-                                <input type="text" id="nombre_user" name="nombre_user" class="form-control">
-                                <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo num_id() ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>Contraseña</label>
-                                <input type="password" id="password_user" name="password_user" class="form-control">
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                                <input type="submit" class="btn btn-info" value="Guardar" onclick="new_user()">
-                            </div>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input type="password" id="password_user" name="password_user" class="form-control">
                         </div>
-                    </form>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" class="btn btn-info" value="Guardar" onclick="new_user()">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMULARIO MODIFICAR -->
+    <div id="modificar" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" id="formModify" onsubmit="return false;">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modificar Usuario</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nombre de usuario</label>
+                            <input type="text" class="form-control" id="nombre_trabajador" name="nombre_trabajador" value="">
+                            <input type="hidden" id="id_trabajador" name="id_trabajador" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input type="password" id="password_trabajador" name="password_trabajador" class="form-control" value="">
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" class="btn btn-info" value="Modificar" onclick="modify_user()">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="pie-pagina">
+        <div class="grupo-1">
+            <div class="box">
+                <figure>
+                    <a href="inicio.php">
+                        <img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
+                    </a>
+                </figure>
+            </div>
+            <div class="box">
+                <h2>SOBRE NOSOTROS</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
+            </div>
+            <div class="box">
+                <h2>SIGUENOS</h2>
+                <div class="red-social">
+                    <a href="#">link 1</a>
+                    <a href="#">link 2</a>
+                    <a href="#">link 3</a>
                 </div>
             </div>
         </div>
+        <div class="grupo-2">
+            &copy; 2022 <b>Reparación de Móviles</b> - Tienda Virtual
+        </div>
+    </footer>
+    <script>
+        $('#modificar').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var id = button.data('id');
+            var nombre = button.data('nombre');
+            var password = button.data('password');
+            populateModalForm(id, nombre, password);
+        });
 
-        <!-- FOOTER -->
-        <footer class="pie-pagina">
-            <div class="grupo-1">
-                <div class="box">
-                    <figure>
-                        <a href="inicio.php">
-                            <img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
-                        </a>
-                    </figure>
-                </div>
-                <div class="box">
-                    <h2>SOBRE NOSOTROS</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
-                </div>
-                <div class="box">
-                    <h2>SIGUENOS</h2>
-                    <div class="red-social">
-                        <a href="#">link 1</a>
-                        <a href="#">link 2</a>
-                        <a href="#">link 3</a>
-                    </div>
-                </div>
-            </div>
-            <div class="grupo-2">
-                &copy; 2022 <b>Reparación de Móviles</b> - Tienda Virtual
-            </div>
-        </footer>
-        <script src="./assets/js/login.js"></script>
-        <script src="./assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/sweetalert2.all.min.js"></script>
+        function populateModalForm(id, nombre, password) {
+            var modal = $('#modificar');
+            modal.find('#nombre_trabajador').val(nombre);
+            modal.find('#id_trabajador').val(id);
+            modal.find('#password_trabajador').val(password);
+        }
+    </script>
+    <script src="./assets/js/login.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

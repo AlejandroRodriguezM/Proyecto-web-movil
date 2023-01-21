@@ -121,7 +121,6 @@ $conexion = $_SESSION['conexion'];
 									echo "<td>";
 									if ($resuelto == 'No') {
 										echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha_entrega' data-fecha_terminado='$fecha_terminado' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-										echo "<a class='delete' data-toggle='modal' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 										echo "</td>";
 										echo "</tr>";
 									}
@@ -193,7 +192,7 @@ $conexion = $_SESSION['conexion'];
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-						<input type="submit" class="btn btn-info" onclick="updateCSV()" value="Guardar">
+						<input type="submit" class="btn btn-info" onclick="editCSV()" value="Guardar">
 					</div>
 				</form>
 			</div>
