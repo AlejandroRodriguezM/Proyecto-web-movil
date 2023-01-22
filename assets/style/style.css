@@ -358,3 +358,13 @@ li:not(:last-child) {
         padding: 35px 0px;
     }
 }
+
+.edit:hover {
+    background-color: rgba(148, 141, 141, 0.712);
+    cursor: pointer;
+}
+
+.edit.disabled:hover {
+    cursor: not-allowed;
+    background-color: initial;
+}

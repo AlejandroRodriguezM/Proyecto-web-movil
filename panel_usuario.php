@@ -3,7 +3,7 @@ session_start();
 include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
-$conexion = $_SESSION['conexion'];
+$hora_conexion = $_SESSION['conexion'];
 
 if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser'])) {
     header('Location: inicio.php');
@@ -18,13 +18,12 @@ if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="assets/style/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/style/bootstrap3.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style/styleCrud.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>Panel de administracion</title>
 </head>
-
 <?php
 $file_datos_usuario = "./csv/datos_usuarios.csv";
 $file_usuario = "./csv/usuarios.csv";
@@ -50,43 +49,57 @@ if (isset($_POST['ver'])) {
 
 <body>
     <!-- NAVEGACION -->
-    <div class="countainer">
-        <ul class="menu navbar-collapse">
-            <li><a href="inicio.php">Inicio</a></li>
-            <li><a href="crud.php">Gestionar</a></li>
-            <?php
-            if ($_SESSION['user'] == 'admin') {
-                echo '<li><a href="panel_usuario.php">Panel de usuarios</a></li>';
-            }
-            ?>
-            <li><a href="#!">Acerca de</a></li>
-            <li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
-        </ul>
-        <div class="sesion">
-            <p>Hora de conexión: <?php echo $conexion ?></p>
-        </div>
-        <div class="sesion">
-            <p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
-        </div>
-        <!-- LOGO -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
             <div class="box">
                 <div class="title">
                     <span class="block"></span>
-                    <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
-                </div>
-
-                <div class="role">
-                    <div class="block"></div>
-                    <p>Tienda Virtual</p>
+                    <a href="inicio.php">
+                        <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="inicio.php">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="crud.php">Gestionar</a>
+                </li>
+                <?php
+                if ($_SESSION['user'] == 'admin') {
+                    echo '<li class="nav-item active">
+                    <a href="panel_usuario.php">Panel de usuarios</a>
+                    </li>';
+                }
+                ?>
+                <li class="nav-item active">
+                    <a href="#!">Acerca de</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+                    </li>
+                </ul>
+            </span>
+        </div>
     </nav>
 
     <!-- CONTENIDO -->
-    <div class="tabla" style='width: 55%;'>
+    <div class="tabla">
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -96,14 +109,14 @@ if (isset($_POST['ver'])) {
                         </div>
                         <table>
                             <tr>
-                                <td style="padding-right: 10px;">
+                                <td style="padding-left: 120px; padding-right: 10px;">
                                     <span>
                                         <i class="material-icons">
                                             <a href="#insertar" class="btn btn-success" data-toggle="modal">&#xE147;CREAR USUARIO</a>
                                         </i>
                                     </span>
                                 </td>
-                                <td style="padding-right: 10px;">
+                                <td>
                                     <span>
                                         <i class="material-icons">
                                             <a href="./phpspreadsheet/datos_completos_excel.php" class="btn btn-success" data-toggle="modal">&#xE147;DESCARGAR EXCEL</a>
@@ -117,7 +130,7 @@ if (isset($_POST['ver'])) {
 
                     $csv = array_map('str_getcsv', file($file_datos_usuario));
                     if (num_users() > 1) {
-                        echo "<table class='table table-striped table-hover' style='width: 78%;'>";
+                        echo "<table class='table table-striped table-hover' style='width: 100%;'>";
                         echo "<thead>";
                         echo "<tr>";
                         echo "<th>ID de usuario</th>";
@@ -161,9 +174,9 @@ if (isset($_POST['ver'])) {
                             echo "<td>";
                             echo "<i class='material-icons'>";
                             if ($id != 1) {
-                                echo "<button type='submit' name='estadistica'>&#xE2C4;</button>";
+                                echo "<button class='edit' type='submit' name='estadistica'>&#xE2C4;</button>";
                             } else {
-                                echo "<button style='cursor: not-allowed' type='submit' name='estadistica' disabled>&#xE2C4;</button>";
+                                echo "<button class='edit' style='cursor: not-allowed' type='submit' name='estadistica' disabled>&#xE2C4;</button>";
                             }
 
                             echo "</i>";
@@ -171,49 +184,47 @@ if (isset($_POST['ver'])) {
                             echo "<td>";
                             echo "<i class='material-icons'>";
                             if ($id != 1) {
-                                echo "<button type='submit' name='ver'>&#xE8EF;</button>";
+                                echo "<button class='edit' type='submit' name='ver'>&#xE8EF;</button>";
                             } else {
-                                echo "<button style='cursor: not-allowed' type='submit' name='ver' disabled>&#xE8EF;</button>";
+                                echo "<button class='edit' style='cursor: not-allowed' type='submit' name='ver' disabled>&#xE8EF;</button>";
                             }
                             echo "</i>";
                             echo "</td>";
                             echo "<td>";
                             if ($id != 1) {
-                                echo "<button type='button' name='modificar' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-password='' data-target='#modificar'>";
+                                echo "<button class='edit' type='button' name='modificar' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-password='' data-target='#modificar'>";
                                 echo "<i class='material-icons'>&#xE254;</i>";
                                 echo "</button>";
                                 echo "</td>";
-                            }
-                            else{
-                                echo "<button style='cursor: not-allowed' type='button' name='modificar' disabled>";
+                            } else {
+                                echo "<button class='edit' style='cursor: not-allowed' type='button' name='modificar' disabled>";
                                 echo "<i class='material-icons'>&#xE254;</i>";
                                 echo "</button>";
                                 echo "</td>";
                             }
                             if ($id != 1) {
                     ?>
-                            <td>
-                                <i class='material-icons'>
-                                    <button type='submit' name='borrar' onclick='return confirm("Estas seguro que quieres borrar el usuario?");'>&#xE92B;</button>
-                                </i>
-                            </td>
-                            <?php
+                                <td>
+                                    <i class='material-icons'>
+                                        <button class='edit' type='submit' name='borrar' onclick='return confirm("Estas seguro que quieres borrar el usuario?");'>&#xE92B;</button>
+                                    </i>
+                                </td>
+                    <?php
                             } else {
                                 echo "<td>";
                                 echo "<i class='material-icons'>";
-                                echo "<button style='cursor: not-allowed' type='submit' name='borrar' disabled>&#xE92B;</button>";
+                                echo "<button class='edit' style='cursor: not-allowed' type='submit' name='borrar' disabled>&#xE92B;</button>";
                                 echo "</i>";
                                 echo "</td>";
                             }
-                                    echo "</form>";
-                                }
-                                echo "</tr>";
-
-                                echo "</tbody>";
-                            } else {
-                                echo "<h2>No hay usuarios registrados</h2>";
-                            }
-                                    ?>
+                            echo "</form>";
+                        }
+                        echo "</tr>";
+                        echo "</tbody>";
+                    } else {
+                        echo "<h2>No hay usuarios registrados</h2>";
+                    }
+                    ?>
                     </table>
                 </div>
             </div>

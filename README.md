@@ -106,6 +106,9 @@ Se pueden modificar datos de los trabajadores, como el nombre y password
 Solamente el administrador puede modificar los datos de un movil ya reparado
 Solamente el administrador puede borrar moviles
 
+--> 22/01/2023 Alejandro Log 1
+Mejorado el nav-bar-menu de la pagina, queda mejorar las animaciones
+
 
 
 

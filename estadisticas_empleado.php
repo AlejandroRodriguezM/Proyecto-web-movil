@@ -3,7 +3,7 @@ session_start();
 include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
-$conexion = $_SESSION['conexion'];
+$hora_conexion = $_SESSION['conexion'];
 
 if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser']) || !isset($_GET['id'])) {
     header('Location: inicio.php');
@@ -26,7 +26,7 @@ if (!isset($_POST['editar'])) {
     <title>Tienda Virtual de Reparación de Móviles - Todos</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="assets/style/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/style/bootstrap3.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style/styleCrud.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -34,40 +34,56 @@ if (!isset($_POST['editar'])) {
 
 <body>
     <!-- NAVEGACION -->
-    <div class="countainer">
-        <ul class="menu navbar-collapse">
-            <li><a href="inicio.php">Inicio</a></li>
-            <li><a href="crud.php">Gestionar</a></li>
-            <?php
-            if ($_SESSION['user'] == 'admin') {
-                echo '<li><a href="panel_usuario.php">Panel de usuarios</a></li>';
-            }
-            ?>
-            <li><a href="#!">Acerca de</a></li>
-            <li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
-        </ul>
-        <div class="sesion">
-            <p>Hora de conexión: <?php echo $conexion ?></p>
-        </div>
-        <div class="sesion">
-            <p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
-        </div>
-        <!-- LOGO -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
             <div class="box">
                 <div class="title">
                     <span class="block"></span>
-                    <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
-                </div>
-
-                <div class="role">
-                    <div class="block"></div>
-                    <p>Tienda Virtual</p>
+                    <a href="inicio.php">
+                        <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="inicio.php">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="crud.php">Gestionar</a>
+                </li>
+                <?php
+                if ($_SESSION['user'] == 'admin') {
+                    echo '<li class="nav-item active">
+                    <a href="panel_usuario.php">Panel de usuarios</a>
+                    </li>';
+                }
+                ?>
+                <li class="nav-item active">
+                    <a href="#!">Acerca de</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+                    </li>
+                </ul>
+            </span>
+        </div>
     </nav>
+
+    <!-- CONTENIDO -->
     <div class="tabla">
         <div class="container">
             <div class="table-wrapper">
@@ -78,7 +94,7 @@ if (!isset($_POST['editar'])) {
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-hover" style="width: 78%;">
+                <table class='table table-striped table-hover' style='width: 100%;'>
                     <?php
                     $file = './csv/moviles.csv';
                     //mostrar todo apartir del 1º row
@@ -122,7 +138,6 @@ if (!isset($_POST['editar'])) {
                                     echo "<td>$fecha_entrega</td>";
                                     echo "<td>$resuelto</td>";
                                     echo "<td>";
-
                                     echo "<a href='#editEmployeeModal' class='edit' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-email='$email' data-problema='$problema' data-fecha='$fecha_entrega' data-fecha_terminado='$fecha_terminado' data-horas_estimadas='$horas_estimadas' data-resuelto='$resuelto' data-num_factura='$num_factura' data-tecnico='$tecnico'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
                                     echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
                                     //make input submit
@@ -138,9 +153,9 @@ if (!isset($_POST['editar'])) {
                                     echo "<td><button type='submit' class='edit' name='submit' value='submit'>Generar PDF</button></td>";
                                     echo "</form>";
                                     echo "</td>";
-                                    echo "</tr>";
                                 }
                             }
+                            echo "</tr>";
                             echo "</tbody>";
                         } else {
                             echo "<h2>No ha reparado ningun telefono</h2>";

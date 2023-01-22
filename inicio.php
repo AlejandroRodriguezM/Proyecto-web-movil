@@ -14,7 +14,7 @@ $hora_conexion = $_SESSION['conexion'];
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link rel="stylesheet" href="assets/style/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/style/bootstrap3.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style/style.css">
     <link rel="stylesheet" href="assets/style/styleInicio.css">
     <title>Tienda Virtual de Reparación de Móviles </title>
@@ -23,39 +23,54 @@ $hora_conexion = $_SESSION['conexion'];
 
 <body>
     <!-- NAVEGACION -->
-    <div class="countainer">
-        <ul class="menu navbar-collapse">
-            <li><a href="inicio.php">Inicio</a></li>
-            <li><a href="crud.php">Gestionar</a></li>
-            <?php
-            if ($_SESSION['user'] == 'admin') {
-                echo '<li><a href="panel_usuario.php">Panel de usuarios</a></li>';
-            }
-            ?>
-            <li><a href="#!">Acerca de</a></li>
-            <li><a onclick=closeSesion() style="cursor: pointer;">Salir</a></li>
-        </ul>
-        <div class="sesion">
-            <p>Hora de conexión: <?php echo $hora_conexion ?></p>
-        </div>
-        <div class="sesion">
-            <p>Bienvenindo: <?php echo $_SESSION['user'] ?></p>
-        </div>
-        <!-- LOGO -->
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
             <div class="box">
                 <div class="title">
                     <span class="block"></span>
-                    <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
-                </div>
-
-                <div class="role">
-                    <div class="block"></div>
-                    <p>Tienda Virtual</p>
+                    <a href="inicio.php">
+                        <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="inicio.php">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="crud.php">Gestionar</a>
+                </li>
+                <?php
+                if ($_SESSION['user'] == 'admin') {
+                    echo '<li class="nav-item active">
+                    <a href="panel_usuario.php">Panel de usuarios</a>
+                    </li>';
+                }
+                ?>
+                <li class="nav-item active">
+                    <a href="#!">Acerca de</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+                    </li>
+                </ul>
+            </span>
+        </div>
     </nav>
 
     <!-- CARDS INSERTAR Y GESTIONAR -->
