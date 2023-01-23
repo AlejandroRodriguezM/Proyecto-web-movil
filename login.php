@@ -30,8 +30,13 @@
           <input class="form-control" type="text" name="username" id="username" placeholder="Ponga su nombre" />
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input class="form-control" type="password" name="password" id="password" placeholder="********" />
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control" name="password" id="password" placeholder="********" placeholder="***********" name="current-password" autocomplete="current-password" class="form-control rounded" spellcheck="false" autocorrect="off" autocapitalize="off" />
+              <button id="toggle-password" type="button" class="d-none"></button>
+            </div>
+          </div>
         </div>
         <div class="m-t-lg">
           <input class="btn btn--form" id="submitBtn" type="button" value="Iniciar sesión" onclick="login()" />
@@ -39,7 +44,26 @@
       </form>
     </div>
   </div>
+  <script>
+    var ShowPasswordToggle = document.querySelector("[type='password']");
+    ShowPasswordToggle.onclick = function() {
+      document.querySelector("[type='password']").classList.add("input-password");
+      document.getElementById("toggle-password").classList.remove("d-none");
+      const passwordInput = document.querySelector("[type='password']");
+      const togglePasswordButton = document.getElementById("toggle-password");
+      togglePasswordButton.addEventListener("click", togglePassword);
 
+      function togglePassword() {
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          togglePasswordButton.setAttribute("aria-label", "Hide password.")
+        } else {
+          passwordInput.type = "password";
+          togglePasswordButton.setAttribute("aria-label", "Show password as plain text. " + "Warning: this will display your password on the screen.")
+        }
+      }
+    };
+  </script>
   <script src="assets/js/sweetalert2.all.min.js"></script>
   <script src="assets/js/login.js"></script>
 </body>
