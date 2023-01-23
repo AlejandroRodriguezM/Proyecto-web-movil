@@ -109,6 +109,9 @@ Solamente el administrador puede borrar moviles
 --> 22/01/2023 Alejandro Log 1
 Mejorado el nav-bar-menu de la pagina, queda mejorar las animaciones
 
+--> 23/01/2023 Alejandro Log 1
+Arreglado bug de models que no se veian correctamente.
+Cambiada la version de bootsrap a la 4.0
 
 
 

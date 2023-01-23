@@ -56,7 +56,7 @@ $hora_conexion = $_SESSION['conexion'];
 					<a href="#!">Acerca de</a>
 				</li>
 				<li class="nav-item active">
-					<a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+					<a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
 				</li>
 			</ul>
 			<span class="navbar-text">
@@ -70,16 +70,18 @@ $hora_conexion = $_SESSION['conexion'];
 				</ul>
 			</span>
 		</div>
+
 	</nav>
-	<!-- center the nav  -->
-	<nav class="center">
-		<div class="countainer">
-			<ul class="menu">
-				<li><a href="CRUD.php">Todos</a></li>
-				<li><a href="averiados.php">Averiados</a></li>
-				<li><a href="reparados.php">Arreglados</a></li>
-			</ul>
-	</nav>
+	<div>
+		<nav class="center">
+			<div class="countainer">
+				<ul class="menu">
+					<li><a href="CRUD.php">Todos</a></li>
+					<li><a href="averiados.php">Averiados</a></li>
+					<li><a href="reparados.php">Arreglados</a></li>
+				</ul>
+		</nav>
+	</div>
 	<div class="tabla">
 		<div class="container">
 			<div class="table-wrapper">
@@ -233,8 +235,8 @@ $hora_conexion = $_SESSION['conexion'];
 		}
 	</script>
 	<script src="./assets/js/login.js"></script>
-	<script src="./assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/sweetalert2.all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>	<script src="assets/js/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@ $hora_conexion = $_SESSION['conexion'];
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="assets/style/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/style/styleCrud.css">
 	<link rel="stylesheet" href="assets/style/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -24,63 +24,66 @@ $hora_conexion = $_SESSION['conexion'];
 
 <body>
 	<!-- NAVEGACION -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
-        <div class="container-logo">
-            <div class="box">
-                <div class="title">
-                    <span class="block"></span>
-                    <a href="inicio.php">
-                        <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-		<ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a href="inicio.php">Inicio</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="crud.php">Gestionar</a>
-                </li>
-                <?php
-                if ($_SESSION['user'] == 'admin') {
-                    echo '<li class="nav-item active">
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
+		<div class="container-logo">
+			<div class="box">
+				<div class="title">
+					<span class="block"></span>
+					<a href="inicio.php">
+						<h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
+					</a>
+				</div>
+			</div>
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a href="inicio.php">Inicio</a>
+				</li>
+				<li class="nav-item active">
+					<a href="crud.php">Gestionar</a>
+				</li>
+				<?php
+				if ($_SESSION['user'] == 'admin') {
+					echo '<li class="nav-item active">
                     <a href="panel_usuario.php">Panel de usuarios</a>
                     </li>';
-                }
-                ?>
-                <li class="nav-item active">
-                    <a href="#!">Acerca de</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
-                </li>
-            </ul>
-            <span class="navbar-text">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
-                    </li>
-                </ul>
-            </span>
-        </div>
-    </nav>
-	<!-- center the nav  -->
-	<nav class="center">
-		<div class="countainer">
-			<ul class="menu">
-				<li><a href="CRUD.php">Todos</a></li>
-				<li><a href="averiados.php">Averiados</a></li>
-				<li><a href="reparados.php">Arreglados</a></li>
+				}
+				?>
+				<li class="nav-item active">
+					<a href="#!">Acerca de</a>
+				</li>
+				<li class="nav-item active">
+					<a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+				</li>
 			</ul>
+			<span class="navbar-text">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+					</li>
+					<li class="nav-item active">
+						<a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+					</li>
+				</ul>
+			</span>
+		</div>
+
 	</nav>
+	<div>
+		<nav class="center">
+			<div class="countainer">
+				<ul class="menu">
+					<li><a href="CRUD.php">Todos</a></li>
+					<li><a href="averiados.php">Averiados</a></li>
+					<li><a href="reparados.php">Arreglados</a></li>
+				</ul>
+		</nav>
+	</div>
+
 	<div class="tabla">
 		<div class="container">
 			<div class="table-wrapper">
@@ -135,7 +138,7 @@ $hora_conexion = $_SESSION['conexion'];
 								echo "<td>";
 								if ($resuelto == 'Si') {
 									echo "<a class='edit' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-									if($_SESSION['user'] == 'admin'){
+									if ($_SESSION['user'] == 'admin') {
 										echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 									}
 									//make input submit
@@ -322,7 +325,8 @@ $hora_conexion = $_SESSION['conexion'];
 		}
 	</script>
 	<script src="./assets/js/login.js"></script>
-	<script src="./assets/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="assets/js/sweetalert2.all.min.js"></script>
 </body>
 
