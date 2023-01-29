@@ -19,14 +19,33 @@ $privilegio = privilegio_usuario($nombre);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style/styleCrud.css">
     <link rel="stylesheet" href="assets/style/style.css">
-    <link rel="stylesheet" href="assets/style/styleInicio.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <title>Tienda Virtual de Reparación de Móviles</title>
+    <title>Acerca de</title>
+    <style>
+        .enlace_git {
+            color: blue;
+            animation: colorchange 5s infinite;
+        }
 
+        @keyframes colorchange {
+            0% {
+                color: blue;
+            }
+
+            50% {
+                color: red;
+            }
+
+            100% {
+                color: blue;
+            }
+        }
+    </style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
+    <!-- NAVEGACION -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
             <div class="box">
                 <div class="title">
@@ -88,90 +107,102 @@ $privilegio = privilegio_usuario($nombre);
         </div>
     </nav>
 
-    <!-- CARDS INSERTAR Y GESTIONAR -->
-    <div class="card-category-3">
-        <ul>
-            <li>
-                <div class="ioverlay-card io-card-2">
-                    <div class="card-content">
-                        <span class="card-title">Insertar</span>
-                        <p class="card-text">
-                            Inserta la petición de reparación de móvil
-                        </p>
+    <div class="tabla">
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Acerca de <span>página</span></h2>
+                        </div>
                     </div>
-                    <span class="card-link">
-                        <a href="#insertar" class="edit" data-toggle="modal">
-                            <span>INSERTAR</span>
-                        </a>
-                    </span>
-                    <img src="assets/img/insertar.jpg" />
                 </div>
-            </li>
-
-
-            <li>
-                <div class="ioverlay-card io-card-2">
-                    <div class="card-content">
-                        <span class="card-title">Gestionar</span>
-                        <p class="card-text">
-                            Edita o elimina alguna reparación de móvil
-                        </p>
+                <table class="table table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <td>Nombre de la página</td>
+                            <td>Pagina Web moviles</td>
+                        </tr>
+                        <tr>
+                            <td>Objetivo</td>
+                            <td>Proyecto para instituto para control de usuarios y arreglo de telefonos</td>
+                        </tr>
+                        <tr>
+                            <td>Fecha de lanzamiento</td>
+                            <td>01/02/2023</td>
+                        </tr>
+                        <tr>
+                            <td>Curso</td>
+                            <td>Desarollo de aplicaciones Web (DAW)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Acerca del <span>creador</span></h2>
+                        </div>
                     </div>
-                    <span class="card-link">
-                        <a href="gestion_moviles.php">
-                            <span>GESTIONAR</span>
-                        </a>
-                    </span>
-                    <img src="assets/img/gestionar.jpg" />
                 </div>
-            </li>
-        </ul>
-    </div>
-
-
-    <!-- FORMULARIO INSERTAR -->
-    <div id="insertar" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form method="post" id="formInsert" onsubmit="return false;">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Insertar</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Nombre Completo</label>
-                            <input type="text" id="nombre_cliente" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" id="email_cliente" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Problema del móvil</label>
-                            <textarea class="form-control" id="problema_cliente" style="resize:none;"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Horas estimadas de trabajo</label>
-                            <input type="number" id="horas_cliente" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <!-- /$date with year month and day  -->
-                            <?php
-                            $fecha_entrega = date('Y-m-d');
-                            ?>
-                            <input type="hidden" id="fecha_entrega_cliente" class="form-control" value="<?php echo $fecha_entrega ?>">
-                            <input type="hidden" id="num_factura" value="<?php echo createInvocieNumer() ?>">
+                <table class="table table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <td>Nombre</td>
+                            <td>Alejandro Rodriguez Mena</td>
+                        </tr>
+                        <tr>
+                            <td>Nombre</td>
+                            <td>Información a completar</td>
+                        </tr>
+                        <tr>
+                            <td>Nombre</td>
+                            <td>Información a completar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h2>Redes sociales <span>creador</span></h2>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                        <input type="submit" class="btn btn-info" value="Guardar" onclick="insert_request()">
-                    </div>
-                </form>
+                </div>
+                <table class="table table-striped table-hover">
+                    <tbody>
+                        <tr>
+                            <td>Alejandro Rodriguez</td>
+                            <td>
+                            <a href="https://github.com/AlejandroRodriguezM" class="enlace_git" target="_blank">GitHub</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Alejandro Rodriguez</td>
+                            <td>
+                            <a href="https://www.infojobs.net/candidate/cv/view/index.xhtml?dgv=5797560250733159980" class="enlace_git" target="_blank">InfoJobs</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Nombre del creador</td>
+                            <td>GitHub</td>
+                        </tr>
+                        <tr>
+                            <td>Nombre del creador</td>
+                            <td>GitHub</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+
 
     <!-- FOOTER -->
     <footer class="pie-pagina">
@@ -203,6 +234,10 @@ $privilegio = privilegio_usuario($nombre);
     </footer>
 
     <!-- SCRIPTS -->
+    <script>
+        const link = document.querySelector('a[href="https://github.com/AlejandroRodriguezM"]');
+        link.classList.add('blink');
+    </script>
     <script src="./assets/js/login.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

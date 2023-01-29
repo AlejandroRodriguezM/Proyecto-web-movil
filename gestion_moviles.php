@@ -56,7 +56,7 @@ $privilegio = privilegio_usuario($nombre);
                 }
                 ?>
                 <li class="nav-item active">
-                    <a href="#!">Acerca de</a>
+                    <a href="acercade.php">Acerca de</a>
                 </li>
                 <li class="nav-item active">
                     <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>

@@ -12,6 +12,36 @@ body {
     background: rgb(78, 72, 72);
 }
 
+@media only screen and (min-width: 320px) and (max-width: 479px) {
+    body {
+        font-size: 9px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 599px) {
+    body {
+        font-size: 10px;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 767px) {
+    body {
+        font-size: 11px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    body {
+        font-size: 13px;
+    }
+}
+
 .sesion {
     font-family: 'Poppins', sans-serif;
     color: #ddd;

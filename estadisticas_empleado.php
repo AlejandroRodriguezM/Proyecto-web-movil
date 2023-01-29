@@ -25,13 +25,14 @@ if (!isset($_POST['editar'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tienda Virtual de Reparación de Móviles - Todos</title>
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="assets/style/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style/styleCrud.css">
     <link rel="stylesheet" href="assets/style/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>Estadisticas de empleado</title>
 </head>
 
 <body>
@@ -66,7 +67,7 @@ if (!isset($_POST['editar'])) {
                 }
                 ?>
                 <li class="nav-item active">
-                    <a href="#!">Acerca de</a>
+                    <a href="acercade.php">Acerca de</a>
                 </li>
                 <li class="nav-item active">
                     <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
