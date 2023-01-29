@@ -4,6 +4,8 @@ include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
 $hora_conexion = $_SESSION['conexion'];
+$nombre = $_SESSION['user'];
+$privilegio = privilegio_usuario($nombre);
 
 if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser']) || !isset($_GET['id'])) {
     header('Location: inicio.php');
@@ -33,8 +35,8 @@ if (!isset($_POST['editar'])) {
 </head>
 
 <body>
-    <!-- NAVEGACION -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
+<!-- NAVEGACION -->
+<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
             <div class="box">
                 <div class="title">
@@ -54,10 +56,10 @@ if (!isset($_POST['editar'])) {
                     <a href="inicio.php">Inicio</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="crud.php">Gestionar</a>
+                    <a href="gestion_moviles.php">Gestionar</a>
                 </li>
                 <?php
-                if ($_SESSION['user'] == 'admin') {
+                if ($privilegio == 'admin') {
                     echo '<li class="nav-item active">
                     <a href="panel_usuario.php">Panel de usuarios</a>
                     </li>';
@@ -76,8 +78,15 @@ if (!isset($_POST['editar'])) {
                     $file = './csv/usuarios.csv';
                     $login = $_SESSION['user'];
                     $picture = pictureProfile($file, $login);
-                    echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture'>";
+                    echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture' onclick='pictureProfileAvatar()'>";
                     ?>
+
+                    <div id="myModal" class="modal_picture" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <span class="close"></span>
+                        <!-- Modal Content (The Image) -->
+                        <img class="modal_picture-content" id="img01">
+                    </div>
+
                     <li class="nav-item active" style="margin-top: 15px;">
                         <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
                     </li>
@@ -337,6 +346,8 @@ if (!isset($_POST['editar'])) {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="assets/js/funciones.js"></script>
+
 </body>
 
 </html>

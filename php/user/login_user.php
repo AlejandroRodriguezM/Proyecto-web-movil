@@ -16,7 +16,7 @@ if ($_POST){
         $validate['userName'] = $nombre;
         $_SESSION['user'] = $nombre;
         $_SESSION['conexion'] = date('H:i:s');
-        if($_SESSION['user'] == 'admin'){
+        if ($nombre == 'admin') {
             cookiesUserAdmin($nombre);
         }
         cookiesUser($nombre, $password);

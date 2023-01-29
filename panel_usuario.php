@@ -4,6 +4,8 @@ include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
 $hora_conexion = $_SESSION['conexion'];
+$nombre = $_SESSION['user'];
+$privilegio = privilegio_usuario($nombre);
 
 if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser'])) {
     header('Location: inicio.php');
@@ -70,10 +72,10 @@ if (isset($_POST['ver'])) {
                     <a href="inicio.php">Inicio</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="crud.php">Gestionar</a>
+                    <a href="gestion_moviles.php">Gestionar</a>
                 </li>
                 <?php
-                if ($_SESSION['user'] == 'admin') {
+                if ($privilegio == 'admin') {
                     echo '<li class="nav-item active">
                     <a href="panel_usuario.php">Panel de usuarios</a>
                     </li>';
@@ -175,7 +177,10 @@ if (isset($_POST['ver'])) {
                             $porcentaje_telefonos = porcentaje_moviles($id, $file_datos_usuario);
                             echo "<tr>";
                     ?>
-                            <td><input type='hidden' name='avatarUser'><input type='image' src='<?php echo $picture ?>' class='avatarPicture' name='avatarUser' id='avatar' alt='Avatar'></td>
+                            <td>
+                                <input type='hidden' name='avatarUser'>
+                                <input type='image' src='<?php echo $picture ?>' class='avatarPicture' name='avatarUser' id='avatar_<?php echo $id ?>' alt='Avatar' onclick="pictureProfileUser('avatar_<?php echo $id ?>')">
+                            </td>
                             <?php
                             echo "<td>$id</td>";
                             echo "<td>$nombre</td>";

@@ -4,6 +4,8 @@ include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
 $hora_conexion = $_SESSION['conexion'];
+$nombre = $_SESSION['user'];
+$privilegio = privilegio_usuario($nombre);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,69 +25,76 @@ $hora_conexion = $_SESSION['conexion'];
 
 <body onload="comprobarLogin()">
 	<!-- NAVEGACION -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
-		<div class="container-logo">
-			<div class="box">
-				<div class="title">
-					<span class="block"></span>
-					<a href="inicio.php">
-						<h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
-					</a>
-				</div>
-			</div>
-		</div>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarText">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a href="inicio.php">Inicio</a>
-				</li>
-				<li class="nav-item active">
-					<a href="crud.php">Gestionar</a>
-				</li>
-				<?php
-				if ($_SESSION['user'] == 'admin') {
-					echo '<li class="nav-item active">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
+        <div class="container-logo">
+            <div class="box">
+                <div class="title">
+                    <span class="block"></span>
+                    <a href="inicio.php">
+                        <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="inicio.php">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="gestion_moviles.php">Gestionar</a>
+                </li>
+                <?php
+                if ($privilegio == 'admin') {
+                    echo '<li class="nav-item active">
                     <a href="panel_usuario.php">Panel de usuarios</a>
                     </li>';
-				}
-				?>
-				<li class="nav-item active">
-					<a href="#!">Acerca de</a>
-				</li>
-				<li class="nav-item active">
-					<a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
-				</li>
-			</ul>
-			<span class="navbar-text">
-				<ul class="navbar-nav mr-auto">
-					<?php
-					$file = './csv/usuarios.csv';
-					$login = $_SESSION['user'];
-					$picture = pictureProfile($file, $login);
-					echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture'>";
-					?>
-					<li class="nav-item active" style="margin-top: 15px;">
-						<a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
-					</li>
-					<li class="nav-item active" style="margin-top: 15px;">
-						<a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
-					</li>
-				</ul>
-			</span>
-		</div>
-	</nav>
+                }
+                ?>
+                <li class="nav-item active">
+                    <a href="#!">Acerca de</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                <ul class="navbar-nav mr-auto">
+                    <?php
+                    $file = './csv/usuarios.csv';
+                    $login = $_SESSION['user'];
+                    $picture = pictureProfile($file, $login);
+                    echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture' onclick='pictureProfileAvatar()'>";
+                    ?>
+
+                    <div id="myModal" class="modal_picture" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <span class="close"></span>
+                        <!-- Modal Content (The Image) -->
+                        <img class="modal_picture-content" id="img01">
+                    </div>
+
+                    <li class="nav-item active" style="margin-top: 15px;">
+                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+                    </li>
+                    <li class="nav-item active" style="margin-top: 15px;">
+                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+                    </li>
+                </ul>
+            </span>
+        </div>
+    </nav>
 
 	</nav>
 	<div>
 		<nav class="center">
 			<div class="countainer">
 				<ul class="menu">
-					<li><a href="CRUD.php">Todos</a></li>
-					<li><a href="averiados.php">Averiados</a></li>
-					<li><a href="reparados.php">Arreglados</a></li>
+					<li><a href="gestion_moviles.php">Todos</a></li>
+					<li><a href="gestion_averiados.php">Averiados</a></li>
+					<li><a href="gestion_reparados.php">Arreglados</a></li>
 				</ul>
 		</nav>
 	</div>
@@ -144,7 +153,7 @@ $hora_conexion = $_SESSION['conexion'];
 									if ($resuelto == 'Si') {
 										$numFactara = $row[10];
 										echo "<a class='edit' style='cursor: not-allowed'><i class='material-icons' data-toggle='tooltip' title='Editar'>&#xE254;</i></a>";
-										if ($_SESSION['user'] == 'admin') {
+										if ($privilegio == 'admin') {
 											echo "<a href='#deleteEmployeeModal' data-id_delete='$id' class='delete' data-toggle='modal' ><i class='material-icons' data-toggle='tooltip' title='Eliminar'>&#xE872;</i></a>";
 										}
 										//make input submit
@@ -245,6 +254,8 @@ $hora_conexion = $_SESSION['conexion'];
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="assets/js/sweetalert2.all.min.js"></script>
+	<script src="assets/js/funciones.js"></script>
+
 </body>
 
 </html>

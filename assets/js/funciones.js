@@ -15,19 +15,16 @@ var loadFile2 = function (event) {
     }
 }
 
-var pictureProfileUser = () => {
+var pictureProfileUser = (id) => {
     var modal = document.getElementById("myModal");
-    // Get the image and insert it inside the modal - use its "alt" text as a caption
-    var img = document.getElementById("avatarUser");
+    var img = document.getElementById(id);
     var modalImg = document.getElementById("img01");
-    img.onclick = function () {
+    img.onclick = function (event) {
+        event.stopPropagation();
         modal.style.display = "block";
         modalImg.src = this.src;
     }
-
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
     modal.addEventListener('click', function () {
         this.style.display = "none";
     })
@@ -38,12 +35,12 @@ function pictureProfileAvatar() {
     // Get the image and insert it inside the modal - use its "alt" text as a caption
     var img = document.getElementById("avatar");
     var modalImg = document.getElementById("img01");
-    img.onclick = function() {
+    img.onclick = function () {
         modal.style.display = "block";
         modalImg.src = this.src;
     }
 
-    modal.addEventListener('click', function() {
+    modal.addEventListener('click', function () {
         this.style.display = "none";
     })
 }

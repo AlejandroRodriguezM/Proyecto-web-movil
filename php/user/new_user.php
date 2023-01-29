@@ -10,6 +10,7 @@ if ($_POST) {
     $nombre_user = $_POST['nombre_user'];
     $password_user = $_POST['password_user'];
     $picture_profile = $_POST['userPicture'];
+    $privilegio = 'user';
     if (!empty($id_user) && !empty($nombre_user) && !empty($password_user)) {
         if (comprobar_nombre($nombre_user)) {
             $validate['success'] = false;
@@ -20,7 +21,7 @@ if ($_POST) {
             $validate['userName'] = $nombre_user;
             create_directory_img($id_user, $nombre_user);
             saveImage($id_user, $nombre_user, $picture_profile);
-            create_new_user($id_user, $nombre_user, $password_user);
+            create_new_user($id_user, $nombre_user, $password_user,$privilegio);
             create_new_datos($id_user, $nombre_user);
             insertURL($nombre_user, $id_user);
         }

@@ -43,7 +43,8 @@ function comprobarUsuarioCSV($usuario, $password)
 	return $encontrado;
 }
 
-function check_nombre($nombre){
+function check_nombre($nombre)
+{
 	$usuarios = csvtoarray('../../csv/usuarios.csv');
 	$encontrado = false;
 	foreach ($usuarios as $key => $value) {
@@ -68,10 +69,12 @@ function checkCSVUser()
 	if (!file_exists('../../csv/usuarios.csv')) {
 		$fp = fopen('../../csv/usuarios.csv', 'w');
 
-		$usuarios[] = array("1", "admin", "admin");
+		$usuarios[] = array("1", "admin", "admin", '', '', 'admin');
 		arraytocsv($usuarios, '../../csv/usuarios.csv');
 		fclose($fp);
 		chmod('../../csv/moviles.csv', 0777);
+		create_directory_img('1', 'admin');
+		insertURL('admin', '1');
 	}
 }
 
@@ -253,7 +256,8 @@ function countRowsCSV($archivo)
 	return $numero;
 }
 
-function countRowsUser($tecnico){
+function countRowsUser($tecnico)
+{
 	$csv = csvtoarray('./csv/moviles.csv');
 	$numero = 0;
 	foreach ($csv as $row) {
@@ -330,7 +334,7 @@ function estadisticas_trabajadores($file)
 {
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file($file));
-	
+
 	//Return all the data
 	return $csv;
 }
@@ -359,12 +363,11 @@ function porcentaje_horas($id, $file)
 {
 	$horas_trabajadas = estadisticas_trabajador($id, $file)[2];
 	$total_horas = total_horas($file);
-	if($total_horas > 0){
+	if ($total_horas > 0) {
 		$porcentaje = ($horas_trabajadas / $total_horas) * 100;
 		//redondear con 2 digitos
 		$porcentaje = round($porcentaje, 2);
-	}
-	else{
+	} else {
 		$porcentaje = 'No ha trabajado aún';
 	}
 	return $porcentaje;
@@ -374,25 +377,26 @@ function porcentaje_moviles($id, $file)
 {
 	$moviles_arreglados = estadisticas_trabajador($id, $file)[3];
 	$total_moviles = total_moviles($file);
-	if($total_moviles > 0){
-	$porcentaje = ($moviles_arreglados / $total_moviles) * 100;
-	$porcentaje = round($porcentaje, 2);
-	}
-	else{
+	if ($total_moviles > 0) {
+		$porcentaje = ($moviles_arreglados / $total_moviles) * 100;
+		$porcentaje = round($porcentaje, 2);
+	} else {
 		$porcentaje = 'No ha arreglado móviles aún';
 	}
 	return $porcentaje;
 }
 
-function num_id(){
+function num_id()
+{
 	$csv = csvtoarray('./csv/usuarios.csv');
 	$numero = count($csv);
 	return $numero + 1;
 }
 
-function create_new_user($id,$nombre,$password){
+function create_new_user($id, $nombre, $password,$privilegio)
+{
 	$csv = csvtoarray('../../csv/usuarios.csv');
-	$csv[] = array($id,$nombre,$password);
+	$csv[] = array($id, $nombre, $password,'',$privilegio);
 	$fp = fopen('../../csv/usuarios.csv', 'w');
 	foreach ($csv as $row) {
 		fputcsv($fp, $row);
@@ -400,36 +404,39 @@ function create_new_user($id,$nombre,$password){
 	fclose($fp);
 }
 
-function modify_user($id,$nombre,$password){
-    $csv = csvtoarray('../../csv/usuarios.csv');
-    $fp = fopen('../../csv/usuarios.csv', 'w');
-    foreach ($csv as $i => $row) {
-        if($row[0] == $id){
-            $csv[$i][1] = $nombre;
-            $csv[$i][2] = $password;
-        }
-        fputcsv($fp, $csv[$i]);
-    }
-    fclose($fp);
+function modify_user($id, $nombre, $password)
+{
+	$csv = csvtoarray('../../csv/usuarios.csv');
+	$fp = fopen('../../csv/usuarios.csv', 'w');
+	foreach ($csv as $i => $row) {
+		if ($row[0] == $id) {
+			$csv[$i][1] = $nombre;
+			$csv[$i][2] = $password;
+		}
+		fputcsv($fp, $csv[$i]);
+	}
+	fclose($fp);
 }
 
-function modify_datos($id,$nombre){
-    $csv = array_map('str_getcsv', file('../../csv/datos_usuarios.csv'));
-    $fp = fopen('../../csv/datos_usuarios.csv', 'w');
-    foreach ($csv as $row) {
-        if($row[0] == $id){ 
-            $row[1] = $nombre;
-        }
-        fputcsv($fp, $row);
-    }
-    fclose($fp);
+function modify_datos($id, $nombre)
+{
+	$csv = array_map('str_getcsv', file('../../csv/datos_usuarios.csv'));
+	$fp = fopen('../../csv/datos_usuarios.csv', 'w');
+	foreach ($csv as $row) {
+		if ($row[0] == $id) {
+			$row[1] = $nombre;
+		}
+		fputcsv($fp, $row);
+	}
+	fclose($fp);
 }
 
-function modify_imagen($id,$imagen){
+function modify_imagen($id, $imagen)
+{
 	$csv = array_map('str_getcsv', file('../../csv/usuarios.csv'));
 	$fp = fopen('../../csv/usuarios.csv', 'w');
 	foreach ($csv as $row) {
-		if($row[0] == $id){ 
+		if ($row[0] == $id) {
 			$row[3] = $imagen;
 		}
 		fputcsv($fp, $row);
@@ -437,12 +444,11 @@ function modify_imagen($id,$imagen){
 	fclose($fp);
 }
 
-
-
-function create_new_datos($id,$nombre){
+function create_new_datos($id, $nombre)
+{
 	chmod('../../csv/datos_usuarios.csv', 0777);
 	$csv = csvtoarray('../../csv/datos_usuarios.csv');
-	$csv[] = array($id,$nombre,0,0);
+	$csv[] = array($id, $nombre, 0, 0);
 	$fp = fopen('../../csv/datos_usuarios.csv', 'w');
 	foreach ($csv as $row) {
 		fputcsv($fp, $row);
@@ -450,24 +456,26 @@ function create_new_datos($id,$nombre){
 	fclose($fp);
 }
 
-function num_users(){
+function num_users()
+{
 	$csv = csvtoarray('./csv/usuarios.csv');
 	$numero = count($csv);
 	return $numero;
 }
 
-function comprobar_nombre($nombre){
+function comprobar_nombre($nombre)
+{
 	$csv = csvtoarray('../../csv/usuarios.csv');
 	$existe = false;
 	foreach ($csv as $row) {
-		if($row[1] == $nombre){
+		if ($row[1] == $nombre) {
 			$existe = true;
 		}
 	}
 	return $existe;
 }
 
-function imagen_usuario($archivo,$login)
+function imagen_usuario($archivo, $login)
 {
 	$csv = csvtoarray($archivo);
 	foreach ($csv as $row) {
@@ -483,14 +491,15 @@ function insertURL($nombre, $idUser)
 	$csv = csvtoarray('../../csv/usuarios.csv');
 	$fp = fopen('../../csv/usuarios.csv', 'w');
 	foreach ($csv as $i => $row) {
-		if($row[0] == $idUser){
+		if ($row[0] == $idUser) {
 			$csv[$i][3] = $file_path;
 		}
 		fputcsv($fp, $csv[$i]);
 	}
 }
 
-function nombre_usuario($id) {
+function nombre_usuario($id)
+{
 	$csv = csvtoarray('../../csv/usuarios.csv');
 	foreach ($csv as $row) {
 		if ($row[0] == $id) {
@@ -499,11 +508,22 @@ function nombre_usuario($id) {
 	}
 }
 
-function actualizar_tecnico($antiguo_nombre,$nuevo_nombre){
+function privilegio_usuario($nombre)
+{
+	$csv = csvtoarray('./csv/usuarios.csv');
+	foreach ($csv as $row) {
+		if ($row[1] == $nombre) {
+			return $row[4];
+		}
+	}
+}
+
+function actualizar_tecnico($antiguo_nombre, $nuevo_nombre)
+{
 	$csv = csvtoarray('../../csv/moviles.csv');
 	$fp = fopen('../../csv/moviles.csv', 'w');
 	foreach ($csv as $i => $row) {
-		if($row[9] == $antiguo_nombre){
+		if ($row[9] == $antiguo_nombre) {
 			$csv[$i][9] = $nuevo_nombre;
 		}
 		fputcsv($fp, $csv[$i]);

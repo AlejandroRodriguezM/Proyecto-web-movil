@@ -67,20 +67,21 @@ function reservedWords()
 	return $palabras;
 }
 
-function createInvocieNumer(){
+function createInvocieNumer()
+{
 	$number = rand(100000, 999999);
 	$letter = chr(rand(65, 90));
 	$number = $letter . $number;
 	return $number;
 }
 
-function pictureProfile($archivo,$login)
+function pictureProfile($archivo, $login)
 {
 	$profilePicture = imagen_usuario($archivo, $login);
 	return $profilePicture;
 }
 
-function saveImage($idUser,$nombre,$image)
+function saveImage($idUser, $nombre, $image)
 {
 	if (empty($image)) {
 		$pathDefault = '../../assets/pictureProfile/default/default.jpg';
@@ -95,14 +96,16 @@ function saveImage($idUser,$nombre,$image)
 	fclose($file);
 }
 
-function create_directory_img($id,$nombre){
-	$dir = '../../assets/pictureProfile/'.$id.'_'.$nombre;
+function create_directory_img($id, $nombre)
+{
+	$dir = '../../assets/pictureProfile/' . $id . '_' . $nombre;
 	if (!file_exists($dir)) {
 		mkdir($dir, 0777, true);
 	}
 }
 
-function delete_directory($id,$nombre){
+function delete_directory($id, $nombre)
+{
 	$file_path = '../../assets/pictureProfile/' . $id . "_" . $nombre;
 	if (file_exists($file_path)) {
 		$files = glob($file_path . '/*');
@@ -113,4 +116,3 @@ function delete_directory($id,$nombre){
 		rmdir($file_path);
 	}
 }
-

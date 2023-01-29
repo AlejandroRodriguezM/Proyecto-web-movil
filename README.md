@@ -20,7 +20,7 @@ creado php logOut.php para eliminar cockies y sesions
 
 --> 06/01/2023 Inma Log 2
 Dar estilo, creación del menú, footer y logo
-Renombrar CRUD por crud.php y eliminación de algún archivo css que no estaba en uso
+Renombrar CRUD por gestion_moviles.php y eliminación de algún archivo css que no estaba en uso
 Renombrar archivos de estilo para que quede más claro:
 - style.css es el estilo general para el menú de navegación, logo, footer, que se repite en las páginas inicio y crud
 - el styleCrud y styleInicio, los estilos individuales de cada una de las pags
@@ -121,6 +121,12 @@ Ahora es posible modificar usuarios incluyendo su imagen de perfil
 Se modifican los datos en moviles.csv si se modifica el nombre de quien arreglo dichos telefonos
 Agregados nuevas funciones en js
 Nuevo fichero llamado funciones.js
+
+--> 29/01/2023 Alejandro Log 2
+Se puede pinchar en la imagen y se vera en modal la imagen de perfil
+Se han modificado nombres de ficheros php para seer mas conscisos
+Se ha añadido el campo "privilegio" que sera user o admin
+Ahora se pueden ver las imagenes de perfil del resto de usuarios desde panel de administrador en modal
 
 
 
