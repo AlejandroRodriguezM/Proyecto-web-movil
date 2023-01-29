@@ -127,6 +127,9 @@ Se puede pinchar en la imagen y se vera en modal la imagen de perfil
 Se han modificado nombres de ficheros php para seer mas conscisos
 Se ha añadido el campo "privilegio" que sera user o admin
 Ahora se pueden ver las imagenes de perfil del resto de usuarios desde panel de administrador en modal
+Se ha añadido media para que funcione en diferentes dispositivos
+Se ha arreglado el style de "inicio.php" para que el navbar sea para al resto de las paginas
+Se ha creado el fichero "acercade.php" donde va la informacion de los creados y motivo de la web
 
 
 
