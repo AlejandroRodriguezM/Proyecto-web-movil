@@ -109,7 +109,7 @@ function createMovilRequest()
 	arraytocsv($moviles, '../../csv/moviles.csv');
 }
 
-function updateCSV($array_movil)
+function update_moviles($array_movil)
 {
 	$id = $array_movil['id'];
 	$nombre = $array_movil['nombre'];
@@ -215,7 +215,6 @@ function updateCSVDatos($nombre)
 
 function checkFile($file)
 {
-
 	$exist = True;
 	if (!file_exists($file)) {
 		$exist = False;
@@ -426,6 +425,20 @@ function modify_datos($id,$nombre){
     fclose($fp);
 }
 
+function modify_imagen($id,$imagen){
+	$csv = array_map('str_getcsv', file('../../csv/usuarios.csv'));
+	$fp = fopen('../../csv/usuarios.csv', 'w');
+	foreach ($csv as $row) {
+		if($row[0] == $id){ 
+			$row[3] = $imagen;
+		}
+		fputcsv($fp, $row);
+	}
+	fclose($fp);
+}
+
+
+
 function create_new_datos($id,$nombre){
 	chmod('../../csv/datos_usuarios.csv', 0777);
 	$csv = csvtoarray('../../csv/datos_usuarios.csv');
@@ -452,4 +465,47 @@ function comprobar_nombre($nombre){
 		}
 	}
 	return $existe;
+}
+
+function imagen_usuario($archivo,$login)
+{
+	$csv = csvtoarray($archivo);
+	foreach ($csv as $row) {
+		if ($row[1] == $login) {
+			return $row[3];
+		}
+	}
+}
+
+function insertURL($nombre, $idUser)
+{
+	$file_path = 'assets/pictureProfile/' . $idUser . "_" . $nombre . "/profile.jpg";
+	$csv = csvtoarray('../../csv/usuarios.csv');
+	$fp = fopen('../../csv/usuarios.csv', 'w');
+	foreach ($csv as $i => $row) {
+		if($row[0] == $idUser){
+			$csv[$i][3] = $file_path;
+		}
+		fputcsv($fp, $csv[$i]);
+	}
+}
+
+function nombre_usuario($id) {
+	$csv = csvtoarray('../../csv/usuarios.csv');
+	foreach ($csv as $row) {
+		if ($row[0] == $id) {
+			return $row[1];
+		}
+	}
+}
+
+function actualizar_tecnico($antiguo_nombre,$nuevo_nombre){
+	$csv = csvtoarray('../../csv/moviles.csv');
+	$fp = fopen('../../csv/moviles.csv', 'w');
+	foreach ($csv as $i => $row) {
+		if($row[9] == $antiguo_nombre){
+			$csv[$i][9] = $nuevo_nombre;
+		}
+		fputcsv($fp, $csv[$i]);
+	}
 }

@@ -59,17 +59,24 @@ $hora_conexion = $_SESSION['conexion'];
 					<a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
 				</li>
 			</ul>
-			<span class="navbar-text">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
-					</li>
-					<li class="nav-item active">
-						<a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
-					</li>
-				</ul>
-			</span>
-		</div>
+            <span class="navbar-text">
+                <ul class="navbar-nav mr-auto">
+                    <?php
+                    $file = './csv/usuarios.csv';
+                    $login = $_SESSION['user'];
+                    $picture = pictureProfile($file, $login);
+                    echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture'>";
+                    ?>
+                    <li class="nav-item active" style="margin-top: 15px;">
+                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+                    </li>
+                    <li class="nav-item active" style="margin-top: 15px;">
+                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+                    </li>
+                </ul>
+            </span>
+        </div>
+    </nav>
 
 	</nav>
 	<!-- center the nav  -->

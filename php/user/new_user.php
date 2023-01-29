@@ -9,17 +9,20 @@ if ($_POST) {
     $id_user = $_POST['id_user'];
     $nombre_user = $_POST['nombre_user'];
     $password_user = $_POST['password_user'];
-
+    $picture_profile = $_POST['userPicture'];
     if (!empty($id_user) && !empty($nombre_user) && !empty($password_user)) {
         if (comprobar_nombre($nombre_user)) {
             $validate['success'] = false;
             $validate['mensaje'] = "Nombre de usuario ya existente";
         } else {
             $validate['success'] = true;
-            $validate['mensaje'] = "Peticion de usuario enviada";
+            $validate['mensaje'] = "Usuario creado correctamente";
             $validate['userName'] = $nombre_user;
+            create_directory_img($id_user, $nombre_user);
+            saveImage($id_user, $nombre_user, $picture_profile);
             create_new_user($id_user, $nombre_user, $password_user);
             create_new_datos($id_user, $nombre_user);
+            insertURL($nombre_user, $id_user);
         }
     } else {
         $validate['success'] = false;

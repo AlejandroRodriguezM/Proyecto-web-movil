@@ -1,6 +1,7 @@
 //Validar nombre de usuario, email y passwords
 /*jshint -W033 */
 var sesion = localStorage.getItem('sesionUserName');
+var image;
 
 const comprobarSesion = () => {
     if (sesion != null) {
@@ -356,8 +357,12 @@ const updateCSV = async () => {
 
 const delete_slice_CSV = async () => {
     var id_cliente = document.querySelector("#id_eliminar").value;
-    // Serialize the form data
+    var nombre = document.querySelector('#nombre_eliminar').value;
     const data = new FormData();
+    if(nombre != null){
+        data.append('nombre', nombre);
+    }
+    // Serialize the form data
     data.append('id_cliente', id_cliente);
 
     var respond = await fetch("php/user/delete_slice_csv.php", {
@@ -419,13 +424,12 @@ const new_user = async () => {
         })
         return;
     }
-
     if (password_user.trim() === '') {
         Swal.fire({
             icon: "error",
             title: "ERROR",
             text: "email_cliente No dejes vacio esto",
-            footer: "Tienda Virual Reparación de móviles"
+            footer: "Tienda Virtual Reparación de móviles"
         })
         return;
     }
@@ -434,6 +438,11 @@ const new_user = async () => {
     data.append('id_user', id_user);
     data.append('nombre_user', nombre_user);
     data.append('password_user', password_user);
+    if (image == null) {
+        data.append("userPicture", "");
+    } else {
+        data.append("userPicture", image);
+    }
 
     var respond = await fetch("php/user/new_user.php", {
         method: "POST",
@@ -469,7 +478,6 @@ const modify_user = async () => {
     var id_user = document.querySelector("#id_trabajador").value;
     var nombre_user = document.querySelector("#nombre_trabajador").value;
     var password_user = document.querySelector("#password_trabajador").value;
-
     if (nombre_user.trim() === '') {
         Swal.fire({
             icon: "error",
@@ -494,6 +502,11 @@ const modify_user = async () => {
     data.append('id_user', id_user);
     data.append('nombre_user', nombre_user);
     data.append('password_user', password_user);
+    if (image == null) {
+        data.append("userPicture", "");
+    } else {
+        data.append("userPicture", image);
+    }
 
     var respond = await fetch("php/user/modify_user.php", {
         method: "POST",

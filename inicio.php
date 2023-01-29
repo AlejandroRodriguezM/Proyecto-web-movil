@@ -60,12 +60,20 @@ $hora_conexion = $_SESSION['conexion'];
                     <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
                 </li>
             </ul>
+            <!-- Aqui va la imagen -->
+
             <span class="navbar-text">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <?php
+                    $file = './csv/usuarios.csv';
+                    $login = $_SESSION['user'];
+                    $picture = pictureProfile($file, $login);
+                    echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture'>";
+                    ?>
+                    <li class="nav-item active" style="margin-top: 15px;">
                         <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item active" style="margin-top: 15px;">
                         <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
                     </li>
                 </ul>
@@ -191,7 +199,8 @@ $hora_conexion = $_SESSION['conexion'];
     <script src="./assets/js/login.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>    <script src="assets/js/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="assets/js/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

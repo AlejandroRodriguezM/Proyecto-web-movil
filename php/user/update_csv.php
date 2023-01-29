@@ -27,7 +27,7 @@ if ($_POST) {
             $validate['success'] = true;
             $validate['mensaje'] = "Peticion de arreglo solucionado";
             $validate['userName'] = $nombre;
-            updateCsv($datos_movil);
+            update_moviles($datos_movil);
         } else {
             $validate['success'] = false;
             $validate['mensaje'] = "No se ha podido solucionar el arreglo, faltan datos";

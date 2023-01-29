@@ -7,6 +7,7 @@ $validate['success'] = array('success' => false, 'mensaje' => "", "userName" => 
 
 if ($_POST) {
     $id = $_POST['id_cliente'];
+    $nombre = $_POST['nombre'];
     $file = '../../csv/moviles.csv';
     if (checkFile($file)) {
         deleteSliceCSV($id, $file);

@@ -113,6 +113,15 @@ Mejorado el nav-bar-menu de la pagina, queda mejorar las animaciones
 Arreglado bug de models que no se veian correctamente.
 Cambiada la version de bootsrap a la 4.0
 
+--> 29/01/2023 Alejandro Log 1
+Ahora las contraseñas pueden descubrirse mediante un boton
+Ahora los usuarios tienen fotos de perfil
+Ahora es posible crear usuarios con imagen de perfil
+Ahora es posible modificar usuarios incluyendo su imagen de perfil
+Se modifican los datos en moviles.csv si se modifica el nombre de quien arreglo dichos telefonos
+Agregados nuevas funciones en js
+Nuevo fichero llamado funciones.js
+
 
 
 
