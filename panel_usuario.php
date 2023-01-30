@@ -18,6 +18,7 @@ if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser'])) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="./assets/img/webico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -50,7 +51,7 @@ if (isset($_POST['ver'])) {
 }
 ?>
 
-<body>
+<body onload="comprobarLogin()">
     <!-- NAVEGACION -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
@@ -123,140 +124,139 @@ if (isset($_POST['ver'])) {
                         <div class="col-sm-6">
                             <h2>Datos de trabajadores</h2>
                         </div>
-                        <table>
-                            <tr>
-                                <td style="padding-left: 120px; padding-right: 10px;">
-                                    <span>
-                                        <i class="material-icons">
-                                            <a href="#insertar" class="btn btn-success" data-toggle="modal">&#xE147;CREAR USUARIO</a>
-                                        </i>
-                                    </span>
-                                </td>
-                                <td>
-                                    <span>
-                                        <i class="material-icons">
-                                            <a href="./phpspreadsheet/datos_completos_excel.php" class="btn btn-success" data-toggle="modal">&#xE147;DESCARGAR EXCEL</a>
-                                        </i>
-                                    </span>
-                                </td>
-                            </tr>
-                        </table>
                     </div>
-                    <?php
-
-                    $csv = array_map('str_getcsv', file($file_datos_usuario));
-                    if (num_users() > 1) {
-                        echo "<table class='table table-striped table-hover' style='width: 100%;'>";
-                        echo "<thead>";
-                        echo "<tr>";
-                        echo "<th>Imagen de perfil</th>";
-
-                        echo "<th>ID de usuario</th>";
-                        echo "<th>Nombre del trabajador</th>";
-                        echo "<th>Numero de horas trabajadas</th>";
-                        echo "<th>Numero de telefonos arreglados</th>";
-                        echo "<th>Porcentaje de horas trabajadas</th>";
-                        echo "<th>Porcentaje de moviles trabajados</th>";
-                        echo "<th>Descargar estadistica</th>";
-                        echo "<th>Ver tabla</th>";
-                        echo "<th>Modificar usuario</th>";
-                        echo "<th>Borrar usuario</th>";
-                        echo "</tr>";
-                        echo "</thead>";
-                        echo "<tbody>";
-                        $file = './csv/usuarios.csv';
-                        $picture = pictureProfile($file, $login);
-                        for ($i = 0; $i < count($csv); $i++) {
-                            $row = $csv[$i];
-                            $id = $row[0];
-                            $nombre = $row[1];
-                            $picture = pictureProfile($file, $nombre);
-                            $horas_trabajadas = $row['2'];
-                            $telefono_arreglados = $row['3'];
-                            $porcentaje_horas =  porcentaje_horas($id, $file_datos_usuario);
-                            $porcentaje_telefonos = porcentaje_moviles($id, $file_datos_usuario);
-                            echo "<tr>";
-                    ?>
-                            <td>
-                                <input type='hidden' name='avatarUser'>
-                                <input type='image' src='<?php echo $picture ?>' class='avatarPicture' name='avatarUser' id='avatar_<?php echo $id ?>' alt='Avatar' onclick="pictureProfileUser('avatar_<?php echo $id ?>')">
-                            </td>
-                            <?php
-                            echo "<td>$id</td>";
-                            echo "<td>$nombre</td>";
-                            echo "<td>" . $horas_trabajadas . "</td>";
-                            echo "<td>" . $telefono_arreglados . "</td>";
-                            if ($horas_trabajadas > 0 || $id != 1) {
-                                echo "<td>" . $porcentaje_horas . "%</td>";
-                            } else {
-                                echo "<td style='color: red;'>" . $porcentaje_horas . "</td>";
-                            }
-                            if ($telefono_arreglados > 0 || $id != 1) {
-                                echo "<td>" . $porcentaje_telefonos . "%</td>";
-                            } else {
-                                echo "<td style='color: red;'>" . $porcentaje_telefonos . "</td>";
-                            }
-                            echo "<form action='panel_usuario.php' method='post'>";
-                            echo "<input type='hidden' name='id' value='$id'>";
-                            echo "<input type='hidden' name='nombre' value='$nombre'>";
-                            echo "<input type='hidden' name='tecnico' value='$nombre'>";
-                            echo "<td>";
-                            echo "<i class='material-icons'>";
-                            if ($id != 1) {
-                                echo "<button class='edit' type='submit' name='estadistica'>&#xE2C4;</button>";
-                            } else {
-                                echo "<button class='edit' style='cursor: not-allowed' type='submit' name='estadistica' disabled>&#xE2C4;</button>";
-                            }
-
-                            echo "</i>";
-                            echo "</td>";
-                            echo "<td>";
-                            echo "<i class='material-icons'>";
-                            if ($id != 1) {
-                                echo "<button class='edit' type='submit' name='ver'>&#xE8EF;</button>";
-                            } else {
-                                echo "<button class='edit' style='cursor: not-allowed' type='submit' name='ver' disabled>&#xE8EF;</button>";
-                            }
-                            echo "</i>";
-                            echo "</td>";
-                            echo "<td>";
-                            if ($id != 1) {
-                                echo "<button class='edit' type='button' name='modificar' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-password='' data-target='#modificar'>";
-                                echo "<i class='material-icons'>&#xE254;</i>";
-                                echo "</button>";
-                                echo "</td>";
-                            } else {
-                                echo "<button class='edit' style='cursor: not-allowed' type='button' name='modificar' disabled>";
-                                echo "<i class='material-icons'>&#xE254;</i>";
-                                echo "</button>";
-                                echo "</td>";
-                            }
-                            if ($id != 1) {
-                            ?>
-                                <td>
-                                    <i class='material-icons'>
-                                        <button class='edit' type='submit' name='borrar' onclick='return confirm("Estas seguro que quieres borrar el usuario?");'>&#xE92B;</button>
-                                    </i>
-                                </td>
-                    <?php
-                            } else {
-                                echo "<td>";
-                                echo "<i class='material-icons'>";
-                                echo "<button class='edit' style='cursor: not-allowed' type='submit' name='borrar' disabled>&#xE92B;</button>";
-                                echo "</i>";
-                                echo "</td>";
-                            }
-                            echo "</form>";
-                        }
-                        echo "</tr>";
-                        echo "</tbody>";
-                    } else {
-                        echo "<h2>No hay usuarios registrados</h2>";
-                    }
-                    ?>
-                    </table>
                 </div>
+                <table>
+                    <tr>
+                        <td>
+                            <span>
+                                <i class="material-icons">
+                                    <a href="#insertar" class="btn btn-success" data-toggle="modal">&#xE147;CREAR USUARIO</a>
+                                </i>
+                            </span>
+                        </td>
+                        <td>
+                            <span>
+                                <i class="material-icons">
+                                    <a href="./phpspreadsheet/datos_completos_excel.php" class="btn btn-success" data-toggle="modal">&#xE147;DESCARGAR EXCEL</a>
+                                </i>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
             </div>
+            <br>
+            <?php
+            $csv = array_map('str_getcsv', file($file_datos_usuario));
+            if (num_users() > 1) {
+                echo "<table class=' table-striped table-hover'>";
+                echo "<thead>";
+                echo "<tr>";
+                echo "<th class='table-header'>Imagen de perfil</th>";
+                echo "<th class='table-header'>ID de usuario</th>";
+                echo "<th class='table-header'>Nombre del trabajador</th>";
+                echo "<th class='table-header'>Numero de horas trabajadas</th>";
+                echo "<th class='table-header'>Numero de telefonos arreglados</th>";
+                echo "<th class='table-header'>Porcentaje de horas trabajadas</th>";
+                echo "<th class='table-header'>Porcentaje de moviles trabajados</th>";
+                echo "<th class='table-header'>Descargar estadistica</th>";
+                echo "<th class='table-header'>Ver tabla</th>";
+                echo "<th class='table-header'>Modificar usuario</th>";
+                echo "<th class='table-header'>Borrar usuario</th>";
+                echo "</tr>";
+                echo "</thead>";
+                echo "<tbody>";
+                $file = './csv/usuarios.csv';
+                $picture = pictureProfile($file, $login);
+                for ($i = 0; $i < count($csv); $i++) {
+                    $row = $csv[$i];
+                    $id = $row[0];
+                    $nombre = $row[1];
+                    $picture = pictureProfile($file, $nombre);
+                    $horas_trabajadas = $row['2'];
+                    $telefono_arreglados = $row['3'];
+                    $porcentaje_horas =  porcentaje_horas($id, $file_datos_usuario);
+                    $porcentaje_telefonos = porcentaje_moviles($id, $file_datos_usuario);
+                    echo "<tr>";
+            ?>
+                    <td>
+                        <input type='hidden' name='avatarUser'>
+                        <input type='image' src='<?php echo $picture ?>' class='avatarPicture' name='avatarUser' id='avatar_<?php echo $id ?>' alt='Avatar' onclick="pictureProfileUser('avatar_<?php echo $id ?>')">
+                    </td>
+                    <?php
+                    echo "<td>$id</td>";
+                    echo "<td>$nombre</td>";
+                    echo "<td>" . $horas_trabajadas . "</td>";
+                    echo "<td>" . $telefono_arreglados . "</td>";
+                    if ($horas_trabajadas > 0 || $id != 1) {
+                        echo "<td>" . $porcentaje_horas . "%</td>";
+                    } else {
+                        echo "<td style='color: red;'>" . $porcentaje_horas . "</td>";
+                    }
+                    if ($telefono_arreglados > 0 || $id != 1) {
+                        echo "<td>" . $porcentaje_telefonos . "%</td>";
+                    } else {
+                        echo "<td style='color: red;'>" . $porcentaje_telefonos . "</td>";
+                    }
+                    echo "<form action='panel_usuario.php' method='post'>";
+                    echo "<input type='hidden' name='id' value='$id'>";
+                    echo "<input type='hidden' name='nombre' value='$nombre'>";
+                    echo "<input type='hidden' name='tecnico' value='$nombre'>";
+                    echo "<td>";
+                    echo "<i class='material-icons'>";
+                    if ($id != 1) {
+                        echo "<button class='edit' type='submit' name='estadistica'>&#xE2C4;</button>";
+                    } else {
+                        echo "<button class='edit' style='cursor: not-allowed' type='submit' name='estadistica' disabled>&#xE2C4;</button>";
+                    }
+
+                    echo "</i>";
+                    echo "</td>";
+                    echo "<td>";
+                    echo "<i class='material-icons'>";
+                    if ($id != 1) {
+                        echo "<button class='edit' type='submit' name='ver'>&#xE8EF;</button>";
+                    } else {
+                        echo "<button class='edit' style='cursor: not-allowed' type='submit' name='ver' disabled>&#xE8EF;</button>";
+                    }
+                    echo "</i>";
+                    echo "</td>";
+                    echo "<td>";
+                    if ($id != 1) {
+                        echo "<button class='edit' type='button' name='modificar' data-toggle='modal' data-id='$id' data-nombre='$nombre' data-password='' data-target='#modificar'>";
+                        echo "<i class='material-icons'>&#xE254;</i>";
+                        echo "</button>";
+                        echo "</td>";
+                    } else {
+                        echo "<button class='edit' style='cursor: not-allowed' type='button' name='modificar' disabled>";
+                        echo "<i class='material-icons'>&#xE254;</i>";
+                        echo "</button>";
+                        echo "</td>";
+                    }
+                    if ($id != 1) {
+                    ?>
+                        <td>
+                            <i class='material-icons'>
+                                <button class='edit' type='submit' name='borrar' onclick='return confirm("Estas seguro que quieres borrar el usuario?");'>&#xE92B;</button>
+                            </i>
+                        </td>
+            <?php
+                    } else {
+                        echo "<td>";
+                        echo "<i class='material-icons'>";
+                        echo "<button class='edit' style='cursor: not-allowed' type='submit' name='borrar' disabled>&#xE92B;</button>";
+                        echo "</i>";
+                        echo "</td>";
+                    }
+                    echo "</form>";
+                }
+                echo "</tr>";
+                echo "</tbody>";
+            } else {
+                echo "<h2>No hay usuarios registrados</h2>";
+            }
+            ?>
+            </table>
         </div>
     </div>
 
@@ -385,6 +385,8 @@ if (isset($_POST['ver'])) {
         <div class="grupo-1">
             <div class="box">
                 <figure>
+                    <a href="https://iesplayamar.es/" class="enlace_footer" target="_blank" style="margin-right: 150px;">
+                    </a>
                     <a href="inicio.php">
                         <img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
                     </a>
@@ -392,20 +394,19 @@ if (isset($_POST['ver'])) {
             </div>
             <div class="box">
                 <h2>SOBRE NOSOTROS</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
+                <p>Pagina web para el uso del instituto I.E.S PlayaMar</p>
+                <p>Pagina de reparacion de telefenos para uso educativo</p>
             </div>
             <div class="box">
                 <h2>SIGUENOS</h2>
                 <div class="red-social">
-                    <a href="#">link 1</a>
-                    <a href="#">link 2</a>
-                    <a href="#">link 3</a>
+                    <a href="https://iesplayamar.es/" class="enlace_instituto" target="_blank">
+                    </a>
                 </div>
             </div>
         </div>
         <div class="grupo-2">
-            &copy; 2022 <b>Reparación de Móviles</b> - Tienda Virtual
+            &copy; 2023 <b>Reparación de Móviles</b> - Tienda Virtual
         </div>
     </footer>
     <script>
@@ -442,7 +443,6 @@ if (isset($_POST['ver'])) {
         }
     </script>
 
-    <script src="assets/js/sweetalert2.all.min.js"></script>
     <script src="assets/js/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

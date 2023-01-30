@@ -15,6 +15,7 @@ function destroyCookiesUser()
 {
 	setcookie('loginUser', '', time() - 3600, '/');
 	setcookie('passwordUser', '', time() - 3600, '/');
+	setcookie('adminUser', '', time() - 3600, '/');
 	echo '<script type="text/JavaScript"> 
 	localStorage.clear();
  </script>';

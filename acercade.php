@@ -14,6 +14,7 @@ $privilegio = privilegio_usuario($nombre);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="./assets/img/webico.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="assets/style/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -22,9 +23,10 @@ $privilegio = privilegio_usuario($nombre);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>Acerca de</title>
     <style>
-        .enlace_git {
+        .enlace_git,
+        .enlace_job {
             color: blue;
-            animation: colorchange 5s infinite;
+            animation: colorchange 3s infinite;
         }
 
         @keyframes colorchange {
@@ -43,8 +45,8 @@ $privilegio = privilegio_usuario($nombre);
     </style>
 </head>
 
-<body>
-    <!-- NAVEGACION -->
+<body onload="comprobarLogin()">
+<!-- NAVEGACION -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
             <div class="box">
@@ -133,7 +135,7 @@ $privilegio = privilegio_usuario($nombre);
                         </tr>
                         <tr>
                             <td>Curso</td>
-                            <td>Desarollo de aplicaciones Web (DAW)</td>
+                            <td>Desarrollo de aplicaciones Web (DAW)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -180,13 +182,17 @@ $privilegio = privilegio_usuario($nombre);
                         <tr>
                             <td>Alejandro Rodriguez</td>
                             <td>
-                            <a href="https://github.com/AlejandroRodriguezM" class="enlace_git" target="_blank">GitHub</a>
+                                <a href="https://github.com/AlejandroRodriguezM" class="enlace_git" target="_blank">
+                                    <span>GitHub</span>
+                                </a>
                             </td>
                         </tr>
                         <tr>
                             <td>Alejandro Rodriguez</td>
                             <td>
-                            <a href="https://www.infojobs.net/candidate/cv/view/index.xhtml?dgv=5797560250733159980" class="enlace_git" target="_blank">InfoJobs</a>
+                                <a href="http://www.infojobs.net/alejandro-rodriguez-mena.prf" class="enlace_job" target="_blank">
+                                    <span>InfoJobs</span>
+                                </a>
                             </td>
                         </tr>
                         <tr>
@@ -209,6 +215,8 @@ $privilegio = privilegio_usuario($nombre);
         <div class="grupo-1">
             <div class="box">
                 <figure>
+                    <a href="https://iesplayamar.es/" class="enlace_footer" target="_blank" style="margin-right: 150px;">
+                    </a>
                     <a href="inicio.php">
                         <img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
                     </a>
@@ -216,20 +224,19 @@ $privilegio = privilegio_usuario($nombre);
             </div>
             <div class="box">
                 <h2>SOBRE NOSOTROS</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
+                <p>Pagina web para el uso del instituto I.E.S PlayaMar</p>
+                <p>Pagina de reparacion de telefenos para uso educativo</p>
             </div>
             <div class="box">
                 <h2>SIGUENOS</h2>
                 <div class="red-social">
-                    <a href="#">link 1</a>
-                    <a href="#">link 2</a>
-                    <a href="#">link 3</a>
+                    <a href="https://iesplayamar.es/" class="enlace_instituto" target="_blank">
+                    </a>
                 </div>
             </div>
         </div>
         <div class="grupo-2">
-            &copy; 2022 <b>Reparación de Móviles</b> - Tienda Virtual
+            &copy; 2023 <b>Reparación de Móviles</b> - Tienda Virtual
         </div>
     </footer>
 

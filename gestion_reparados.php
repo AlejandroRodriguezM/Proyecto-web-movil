@@ -14,12 +14,13 @@ $privilegio = privilegio_usuario($nombre);
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="assets/style/font-awesome.min.css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" href="assets/style/styleCrud.css">
-	<link rel="stylesheet" href="assets/style/style.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<link rel="shortcut icon" href="./assets/img/webico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/style/styleCrud.css">
+    <link rel="stylesheet" href="assets/style/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<title>Tienda Virtual de Reparación de Móviles - Reparados</title>
 
 </head>
@@ -211,33 +212,34 @@ $privilegio = privilegio_usuario($nombre);
 	</div>
 
 	<!-- FOOTER -->
-	<footer class="pie-pagina">
-		<div class="grupo-1">
-			<div class="box">
-				<figure>
-					<a href="inicio.php">
-						<img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
-					</a>
-				</figure>
-			</div>
-			<div class="box">
-				<h2>SOBRE NOSOTROS</h2>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, ipsa?</p>
-			</div>
-			<div class="box">
-				<h2>SIGUENOS</h2>
-				<div class="red-social">
-					<a href="#">link 1</a>
-					<a href="#">link 2</a>
-					<a href="#">link 3</a>
-				</div>
-			</div>
-		</div>
-		<div class="grupo-2">
-			&copy; 2022 <b>Reparación de Móviles</b> - Tienda Virtual
-		</div>
-	</footer>
+    <footer class="pie-pagina">
+        <div class="grupo-1">
+            <div class="box">
+                <figure>
+                    <a href="https://iesplayamar.es/" class="enlace_footer" target="_blank" style="margin-right: 150px;">
+                    </a>
+                    <a href="inicio.php">
+                        <img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
+                    </a>
+                </figure>
+            </div>
+            <div class="box">
+                <h2>SOBRE NOSOTROS</h2>
+                <p>Pagina web para el uso del instituto I.E.S PlayaMar</p>
+                <p>Pagina de reparacion de telefenos para uso educativo</p>
+            </div>
+            <div class="box">
+                <h2>SIGUENOS</h2>
+                <div class="red-social">
+                    <a href="https://iesplayamar.es/" class="enlace_instituto" target="_blank">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="grupo-2">
+            &copy; 2023 <b>Reparación de Móviles</b> - Tienda Virtual
+        </div>
+    </footer>
 
 	<!-- SCRIPTS -->
 	<script>

@@ -131,6 +131,10 @@ Se ha añadido media para que funcione en diferentes dispositivos
 Se ha arreglado el style de "inicio.php" para que el navbar sea para al resto de las paginas
 Se ha creado el fichero "acercade.php" donde va la informacion de los creados y motivo de la web
 
+--> 30/01/2023 Alejandro Log 1
+Modificado los footers
+Agregado nuevas animaciones
+
 
 
 
