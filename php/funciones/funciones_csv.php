@@ -359,6 +359,17 @@ function total_moviles($file)
 	return $moviles_arreglados;
 }
 
+function total_moviles_usuario($nombre,$file){
+	$csv = csvtoarray($file);
+	$moviles_arreglados = 0;
+	foreach ($csv as $row) {
+		if ($row[1] == $nombre) {
+			$moviles_arreglados += (int)$row[3];
+		}
+	}
+	return $moviles_arreglados;
+}
+
 function porcentaje_horas($id, $file)
 {
 	$horas_trabajadas = estadisticas_trabajador($id, $file)[2];

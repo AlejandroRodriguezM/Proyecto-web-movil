@@ -15,79 +15,79 @@ $privilegio = privilegio_usuario($nombre);
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="./assets/img/webico.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="assets/style/styleCrud.css">
-    <link rel="stylesheet" href="assets/style/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-	<title>Tienda Virtual de Reparación de Móviles - Reparados</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/style/styleCrud.css">
+	<link rel="stylesheet" href="assets/style/style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+	<title>Tienda Virtual de Reparación de Móviles - Mis telefonos Reparados</title>
 
 </head>
 
 <body onload="comprobarLogin()">
 	<!-- NAVEGACION -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
-        <div class="container-logo">
-            <div class="box">
-                <div class="title">
-                    <span class="block"></span>
-                    <a href="inicio.php">
-                        <h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a href="inicio.php">Inicio</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="gestion_moviles.php">Gestionar</a>
-                </li>
-                <?php
-                if ($privilegio == 'admin') {
-                    echo '<li class="nav-item active">
+	<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
+		<div class="container-logo">
+			<div class="box">
+				<div class="title">
+					<span class="block"></span>
+					<a href="inicio.php">
+						<h1 style="cursor: pointer;">Reparación de Móviles<span></span></h1>
+					</a>
+				</div>
+			</div>
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a href="inicio.php">Inicio</a>
+				</li>
+				<li class="nav-item active">
+					<a href="gestion_moviles.php">Gestionar</a>
+				</li>
+				<?php
+				if ($privilegio == 'admin') {
+					echo '<li class="nav-item active">
                     <a href="panel_usuario.php">Panel de usuarios</a>
                     </li>';
-                }
-                ?>
-                <li class="nav-item active">
-                    <a href="acercade.php">Acerca de</a>
-                </li>
-                <li class="nav-item active">
-                    <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
-                </li>
-            </ul>
-            <span class="navbar-text">
-                <ul class="navbar-nav mr-auto">
-                    <?php
-                    $file = './csv/usuarios.csv';
-                    $login = $_SESSION['user'];
-                    $picture = pictureProfile($file, $login);
-                    echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture' onclick='pictureProfileAvatar()'>";
-                    ?>
+				}
+				?>
+				<li class="nav-item active">
+					<a href="acercade.php">Acerca de</a>
+				</li>
+				<li class="nav-item active">
+					<a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+				</li>
+			</ul>
+			<span class="navbar-text">
+				<ul class="navbar-nav mr-auto">
+					<?php
+					$file = './csv/usuarios.csv';
+					$login = $_SESSION['user'];
+					$picture = pictureProfile($file, $login);
+					echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture' onclick='pictureProfileAvatar()'>";
+					?>
 
-                    <div id="myModal" class="modal_picture" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <span class="close"></span>
-                        <!-- Modal Content (The Image) -->
-                        <img class="modal_picture-content" id="img01">
-                    </div>
+					<div id="myModal" class="modal_picture" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<span class="close"></span>
+						<!-- Modal Content (The Image) -->
+						<img class="modal_picture-content" id="img01">
+					</div>
 
-                    <li class="nav-item active" style="margin-top: 15px;">
-                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
-                    </li>
-                    <li class="nav-item active" style="margin-top: 15px;">
-                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
-                    </li>
-                </ul>
-            </span>
-        </div>
-    </nav>
+					<li class="nav-item active" style="margin-top: 15px;">
+						<a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+					</li>
+					<li class="nav-item active" style="margin-top: 15px;">
+						<a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+					</li>
+				</ul>
+			</span>
+		</div>
+	</nav>
 
 	</nav>
 	<div>
@@ -119,7 +119,7 @@ $privilegio = privilegio_usuario($nombre);
 						echo "<h2>No hay datos</h2>";
 					} else {
 						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
-						if (countRowsCSVResueltos($file) >= 1) {
+						if (countRowsUser($nombre) >= 1) {
 					?>
 							<thead>
 								<tr>
@@ -133,6 +133,7 @@ $privilegio = privilegio_usuario($nombre);
 							</thead>
 							<tbody>
 						<?php
+							$num_moviles = 0;
 							foreach ($csv as $row) {
 								$id = $row[0];
 								$nombre = $row[1];
@@ -144,7 +145,9 @@ $privilegio = privilegio_usuario($nombre);
 								$horas_reales = $row[7];
 								$resuelto = $row[8];
 								$tecnico = $row[9];
-								if ($resuelto == 'Si') {
+								if ($nombre == $tecnico && $resuelto == 'Si') {
+									$num_moviles++;
+								echo $num_moviles;
 									echo "<tr>";
 									echo "<td>$id</td>";
 									echo "<td>$nombre</td>";
@@ -179,9 +182,10 @@ $privilegio = privilegio_usuario($nombre);
 									echo "</tr>";
 								}
 							}
+							echo "<h2 style='color: #70FF8B'>Has arreglado: $num_moviles telefonos/s en total</h2>";
 							echo "</tbody>";
 						} else {
-							echo "<h2>No hay moviles reparados</h2>";
+							echo "<h2>No has reparado ningun moviles</h2>";
 						}
 					}
 						?>
@@ -213,34 +217,34 @@ $privilegio = privilegio_usuario($nombre);
 	</div>
 
 	<!-- FOOTER -->
-    <footer class="pie-pagina">
-        <div class="grupo-1">
-            <div class="box">
-                <figure>
-                    <a href="https://iesplayamar.es/" class="enlace_footer" target="_blank" style="margin-right: 150px;">
-                    </a>
-                    <a href="inicio.php">
-                        <img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
-                    </a>
-                </figure>
-            </div>
-            <div class="box">
-                <h2>SOBRE NOSOTROS</h2>
-                <p>Pagina web para el uso del instituto I.E.S PlayaMar</p>
-                <p>Pagina de reparacion de telefenos para uso educativo</p>
-            </div>
-            <div class="box">
-                <h2>SIGUENOS</h2>
-                <div class="red-social">
-                    <a href="https://iesplayamar.es/" class="enlace_instituto" target="_blank">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="grupo-2">
-            &copy; 2023 <b>Reparación de Móviles</b> - Tienda Virtual
-        </div>
-    </footer>
+	<footer class="pie-pagina">
+		<div class="grupo-1">
+			<div class="box">
+				<figure>
+					<a href="https://iesplayamar.es/" class="enlace_footer" target="_blank" style="margin-right: 150px;">
+					</a>
+					<a href="inicio.php">
+						<img src="assets/img/logo.png" alt="Logo Tienda reparación de Móviles">
+					</a>
+				</figure>
+			</div>
+			<div class="box">
+				<h2>SOBRE NOSOTROS</h2>
+				<p>Pagina web para el uso del instituto I.E.S PlayaMar</p>
+				<p>Pagina de reparacion de telefenos para uso educativo</p>
+			</div>
+			<div class="box">
+				<h2>SIGUENOS</h2>
+				<div class="red-social">
+					<a href="https://iesplayamar.es/" class="enlace_instituto" target="_blank">
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="grupo-2">
+			&copy; 2023 <b>Reparación de Móviles</b> - Tienda Virtual
+		</div>
+	</footer>
 
 	<!-- SCRIPTS -->
 	<script>

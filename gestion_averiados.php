@@ -96,6 +96,7 @@ $privilegio = privilegio_usuario($nombre);
 				<li><a href="gestion_moviles.php">Todos</a></li>
 				<li><a href="gestion_averiados.php">Averiados</a></li>
 				<li><a href="gestion_reparados.php">Arreglados</a></li>
+				<li><a href="gestion_misArreglos.php">Mis estadisticas</a></li>
 			</ul>
 	</nav>
 	<div class="tabla">
