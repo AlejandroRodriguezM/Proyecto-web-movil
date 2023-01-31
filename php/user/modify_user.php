@@ -1,48 +1,54 @@
 <?php
+//Inicio de sesión
 session_start();
+
+//Inclusión de archivos con funciones necesarias
 include_once '../funciones/funciones.php';
 include_once '../funciones/funciones_csv.php';
 
+//Array para almacenar los datos de respuesta
 $validate['success'] = array('success' => false, 'mensaje' => "", "userName" => "");
 
-if ($_POST){
+//Verificación de la existencia de datos enviados por POST
+if ($_POST) {
+    //Asignación de valores a las variables
     $id = $_POST['id_user'];
     $nombre = $_POST['nombre_user'];
     $password = $_POST['password_user'];
     $picture_profile = $_POST['userPicture'];
-    $antiguo_nombre = nombre_usuario($id);
+    $antiguo_nombre = nombre_usuario($id); //Obtiene el nombre antiguo del usuario
 
-    if(comprobar_nombre($nombre) && $nombre != $antiguo_nombre){
-
+    //Comprobación de nombre de usuario
+    if (comprobar_nombre($nombre) && $nombre != $antiguo_nombre) { //El nombre está en uso y es diferente al antiguo
         $validate['success'] = false;
         $validate['mensaje'] = "Usuario incorrecto";
-    }
-    elseif($nombre == $antiguo_nombre){
+    } elseif ($nombre == $antiguo_nombre) { //El nombre es igual al antiguo
         $validate['success'] = true;
         $validate['mensaje'] = "Usuario modificado correctamente";
         $validate['userName'] = $nombre;
+        //Llamado a funciones de modificación
         saveImage($id, $nombre, $picture_profile);
-        modify_user($id,$nombre,$password);
-        modify_datos($id,$nombre);
+        modify_user($id, $nombre, $password);
+        modify_datos($id, $nombre);
         saveImage($id, $nombre, $picture_profile);
-    }
-    elseif(!comprobar_nombre($nombre) && $nombre != $antiguo_nombre){
+    } elseif (!comprobar_nombre($nombre) && $nombre != $antiguo_nombre) { //El nombre no está en uso y es diferente al antiguo
         $validate['success'] = true;
         $validate['mensaje'] = "Usuario modificado correctamente";
         $validate['userName'] = $nombre;
+        //Llamado a funciones de modificación
         actualizar_tecnico($antiguo_nombre, $nombre);
         delete_directory($id, $antiguo_nombre);
         create_directory_img($id, $nombre);
         saveImage($id, $nombre, $picture_profile);
-        modify_user($id,$nombre,$password);
-        modify_datos($id,$nombre);
+        modify_user($id, $nombre, $password);
+        modify_datos($id, $nombre);
         insertURL($nombre, $id);
-        
-    }
-    else{
+    } else {
+        //El nombre es incorrecto
         $validate['success'] = false;
         $validate['mensaje'] = "Usuario incorrecto";
     }
 }
 
+//Codificación del array de respuesta a formato JSON
 echo json_encode($validate);

@@ -1,8 +1,7 @@
 $(document).ready(function () {
-	// Activate tooltip
+	// Activar tooltip
 	$('[data-toggle="tooltip"]').tooltip();
-
-	// Select/Deselect checkboxes
+	// Seleccionar/deseleccionar las casillas de verificación
 	var checkbox = $('table tbody input[type="checkbox"]');
 	$("#selectAll").click(function () {
 		if (this.checked) {

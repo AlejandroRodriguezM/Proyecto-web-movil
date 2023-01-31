@@ -9,12 +9,6 @@ const comprobarSesion = () => {
     }
 }
 
-// const comprobarLogin = () => {
-//     if (sesion == null) {
-//         document.querySelector('#sesionUserName').innerHTML = sesion;
-//     }
-// }
-
 const closeSesion = () => {
     localStorage.clear();
     //window location in php/user
