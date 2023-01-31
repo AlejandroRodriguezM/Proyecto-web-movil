@@ -10,7 +10,7 @@ if ($_POST) {
     $nombre = $_POST['nombre'];
     $file = '../../csv/moviles.csv';
     if (checkFile($file)) {
-        deleteSliceCSV($id, $file);
+        deleteSliceCSV($id, $file); 
         $validate['success'] = true;
         $validate['mensaje'] = "Ha borrado correctamente los datos";
     } else {

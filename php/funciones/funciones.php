@@ -1,16 +1,31 @@
 <?php
 
+/**
+ * Funcion que crea cookies para el usuario
+ * @param mixed $user
+ * @param mixed $password
+ * @return void
+ */
 function cookiesUser($user, $password)
 {
 	setcookie('loginUser', $user, time() + 3600, '/');
 	setcookie('passwordUser', $password, time() + 3600, '/');
 }
 
+/**
+ * Funcion que crea cookies para el administrador
+ * @param mixed $user
+ * @return void
+ */
 function cookiesUserAdmin($user)
 {
 	setcookie('adminUser', $user, time() + 3600, '/');
 }
 
+/**
+ * Funcion que destruye las cookies
+ * @return void
+ */
 function destroyCookiesUser()
 {
 	setcookie('loginUser', '', time() - 3600, '/');
@@ -21,6 +36,10 @@ function destroyCookiesUser()
  </script>';
 }
 
+/**
+ * Funcion que comprueba si existe tanto cookie como session de un usuario
+ * @return void
+ */
 function checkCookiesUser()
 {
 	if (!isset($_SESSION['user']) || !isset($_COOKIE['loginUser'])) {
@@ -68,6 +87,10 @@ function reservedWords()
 	return $palabras;
 }
 
+/**
+ * Funcion que genera un numero de factura aleatorio
+ * @return string
+ */
 function createInvocieNumer()
 {
 	$number = rand(100000, 999999);
@@ -76,12 +99,25 @@ function createInvocieNumer()
 	return $number;
 }
 
+/**
+ * funcion que devuelve la direccion de la imagen de perfil de la persona loogueada
+ * @param mixed $archivo
+ * @param mixed $login
+ * @return mixed
+ */
 function pictureProfile($archivo, $login)
 {
 	$profilePicture = imagen_usuario($archivo, $login);
 	return $profilePicture;
 }
 
+/**
+ * Funcion que guarda la nueva imagen de perfil
+ * @param mixed $idUser
+ * @param mixed $nombre
+ * @param mixed $image
+ * @return void
+ */
 function saveImage($idUser, $nombre, $image)
 {
 	if (empty($image)) {
@@ -97,6 +133,12 @@ function saveImage($idUser, $nombre, $image)
 	fclose($file);
 }
 
+/**
+ * Funcion que crea el directorio de la imagen de perfil
+ * @param mixed $id
+ * @param mixed $nombre
+ * @return void
+ */
 function create_directory_img($id, $nombre)
 {
 	$dir = '../../assets/pictureProfile/' . $id . '_' . $nombre;
@@ -105,6 +147,12 @@ function create_directory_img($id, $nombre)
 	}
 }
 
+/**
+ * Funcion que elimina el directorio de la imagen de perfil
+ * @param mixed $id
+ * @param mixed $nombre
+ * @return void
+ */
 function delete_directory($id, $nombre)
 {
 	$file_path = '../../assets/pictureProfile/' . $id . "_" . $nombre;

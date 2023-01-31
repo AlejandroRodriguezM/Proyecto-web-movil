@@ -2,9 +2,15 @@
 
 include_once 'funciones.php';
 
-const precio_hora = 10;
+const precio_hora = 10; //Constante del valor del precio por hora de trabajo
 
-
+/**
+ * Funcion que convierte un array a un fichero csv
+ * @param mixed $array
+ * @param mixed $archivo
+ * @param mixed $delimitador
+ * @return void
+ */
 function arraytocsv($array, $archivo, $delimitador = ",")
 {
 	$fp = fopen($archivo, 'w');
@@ -14,6 +20,12 @@ function arraytocsv($array, $archivo, $delimitador = ",")
 	fclose($fp);
 }
 
+/**
+ * Funcion que convierte el contenido de un fichero csv a array
+ * @param mixed $archivo
+ * @param mixed $delimitador
+ * @return array<array>
+ */
 function csvtoarray($archivo, $delimitador = ",")
 {
 	$fila = 1;
@@ -31,6 +43,12 @@ function csvtoarray($archivo, $delimitador = ",")
 	return $array;
 }
 
+/**
+ * Funcion que devuelve un booleano cuyo estado varia si existe o no el usuario dentro del csv
+ * @param mixed $usuario
+ * @param mixed $password
+ * @return bool
+ */
 function comprobarUsuarioCSV($usuario, $password)
 {
 	$usuarios = csvtoarray('../../csv/usuarios.csv');
@@ -43,18 +61,12 @@ function comprobarUsuarioCSV($usuario, $password)
 	return $encontrado;
 }
 
-function check_nombre($nombre)
-{
-	$usuarios = csvtoarray('../../csv/usuarios.csv');
-	$encontrado = false;
-	foreach ($usuarios as $key => $value) {
-		if ($value[1] == $nombre) {
-			$encontrado = true;
-		}
-	}
-	return $encontrado;
-}
 
+
+/**
+ * Funcion que comprueba si existe el csv moviles, en caso de no existir, lo crea
+ * @return void
+ */
 function checkCSV()
 {
 	if (!file_exists('../../csv/moviles.csv')) {
@@ -64,6 +76,10 @@ function checkCSV()
 	}
 }
 
+/**
+ * Funcion que comprueba si existe el csv usuarios, en caso de no existir, lo crea
+ * @return void
+ */
 function checkCSVUser()
 {
 	if (!file_exists('../../csv/usuarios.csv')) {
@@ -78,6 +94,10 @@ function checkCSVUser()
 	}
 }
 
+/**
+ * Funcion que comprueba si existe el csv datos_usuarios, en caso de no existir, lo crea
+ * @return void
+ */
 function checkCSVdatos()
 {
 	if (!file_exists('../../csv/datos_usuarios.csv')) {
@@ -90,7 +110,10 @@ function checkCSVdatos()
 	}
 }
 
-
+/**
+ * Funcion que crea una peticion de arreglo de telefono
+ * @return void
+ */
 function createMovilRequest()
 {
 	checkCSV();
@@ -112,6 +135,11 @@ function createMovilRequest()
 	arraytocsv($moviles, '../../csv/moviles.csv');
 }
 
+/**
+ * Funcion que actualiza un slice del csv moviles
+ * @param mixed $array_movil
+ * @return void
+ */
 function update_moviles($array_movil)
 {
 	$id = $array_movil['id'];
@@ -152,46 +180,11 @@ function update_moviles($array_movil)
 	fclose($fp);
 }
 
-function updateCSVAdmin($array_movil)
-{
-	$id = $array_movil['id'];
-	$nombre = $array_movil['nombre'];
-	$email = $array_movil['email'];
-	$problema = $array_movil['problema'];
-	$fecha_entrega = $array_movil['fecha'];
-	$fecha_terminado = $array_movil['fecha_terminado'];
-	$precio_hora_estimado = $array_movil['horas_estimadas'];
-
-	$horas_trabajadas = $array_movil['horas_trabajadas'];
-	$precio_hora_total = (int)$horas_trabajadas * precio_hora;
-
-	$resuelto = $array_movil['resuelto'];
-	$tecnico = $array_movil['tecnico'];
-	$numFactura = $array_movil['num_factura'];
-	// Read the CSV file into an array
-	$csv = array_map('str_getcsv', file('../../csv/moviles.csv'));
-	// Loop through the rows of the array
-
-
-	foreach ($csv as $key => $row) {
-		// If the ID of the current row matches the ID of the row we're looking for
-		if ($row[0] == $id) {
-			// Update the row
-			$csv[$key] = array($id, $nombre, $email, $problema, $fecha_entrega, $fecha_terminado, $precio_hora_estimado, $precio_hora_total, $resuelto, $tecnico, $numFactura);
-		}
-	}
-	// Write the CSV back to the file
-	$fp = fopen('../../csv/moviles.csv', 'w');
-
-	foreach ($csv as $row) {
-		fputcsv($fp, $row);
-	}
-	if ($resuelto == "Si") {
-		updateCSVDatos($tecnico);
-	}
-	fclose($fp);
-}
-
+/**
+ * Funcion que actualiza el csv datos_usuarios
+ * @param mixed $nombre
+ * @return void
+ */
 function updateCSVDatos($nombre)
 {
 	$num_horas = numero_horas_trabajadas($nombre);
@@ -216,6 +209,11 @@ function updateCSVDatos($nombre)
 	fclose($fp);
 }
 
+/**
+ * Funcion que devuelve un booleano true si existe el fichero
+ * @param mixed $nombre
+ * @return boolean
+ */
 function checkFile($file)
 {
 	$exist = True;
@@ -225,6 +223,11 @@ function checkFile($file)
 	return $exist;
 }
 
+/**
+ * Funcion que elimina un slce de un fichero csv
+ * @param mixed $file
+ * @return void
+ */
 function deleteSliceCSV($id, $file)
 {
 	// Read the CSV file into an array
@@ -249,6 +252,11 @@ function deleteSliceCSV($id, $file)
 	fclose($fp);
 }
 
+/**
+ * Funcion que devuelve el numero de filas de un csv
+ * @param mixed $archivo
+ * @return int
+ */
 function countRowsCSV($archivo)
 {
 	$csv = csvtoarray($archivo);
@@ -256,6 +264,11 @@ function countRowsCSV($archivo)
 	return $numero;
 }
 
+/**
+ * Funcion que devuelve el numero de filas de un csv de un tecnico en concreto
+ * @param mixed $archivo
+ * @return int
+ */
 function countRowsUser($tecnico)
 {
 	$csv = csvtoarray('./csv/moviles.csv');
@@ -268,6 +281,11 @@ function countRowsUser($tecnico)
 	return $numero;
 }
 
+/**
+ * Funcion que devuelve el numero de filas de un csv resueltos
+ * @param mixed $archivo
+ * @return int
+ */
 function countRowsCSVResueltos($archivo)
 {
 	$csv = csvtoarray($archivo);
@@ -280,6 +298,11 @@ function countRowsCSVResueltos($archivo)
 	return $numero_resueltos;
 }
 
+/**
+ * Funcion que devuelve el numero de filas de un csv averiados
+ * @param mixed $archivo
+ * @return int
+ */
 function countRowsCSVAveriados($archivo)
 {
 	$csv = csvtoarray($archivo);
@@ -292,6 +315,11 @@ function countRowsCSVAveriados($archivo)
 	return $numero_averiados;
 }
 
+/**
+ * Funcion que devuelve el numero de horas trabajadas de un trabajador en concreto
+ * @param mixed $nombre
+ * @return int
+ */
 function numero_horas_trabajadas($nombre)
 {
 	$csv = csvtoarray('../../csv/moviles.csv');
@@ -304,6 +332,11 @@ function numero_horas_trabajadas($nombre)
 	return $horas_trabajadas;
 }
 
+/**
+ * Funcion que devuelve el numero de moviles arreglados arreglados de un trabajador en concreto
+ * @param mixed $nombre
+ * @return int
+ */
 function numero_moviles_arreglados($nombre)
 {
 	$csv = csvtoarray('../../csv/moviles.csv');
@@ -316,20 +349,28 @@ function numero_moviles_arreglados($nombre)
 	return $moviles_arreglados;
 }
 
+/**
+ * Devuelve un array con los datos de un trabajador en concreto
+ * @param mixed $id
+ * @param mixed $file
+ * @return array
+ */
 function estadisticas_trabajador($id, $file)
 {
-	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file($file));
-
-	// Iterate through the array to find the worker with the matching ID
 	foreach ($csv as $row) {
 		if ($row[0] == $id) {
-			// Return the data for the matching worker
 			return $row;
 		}
 	}
+	return null;
 }
 
+/**
+ * Devuelve un array con los datos de todos los trabajadores
+ * @param mixed $file
+ * @return array
+ */
 function estadisticas_trabajadores($file)
 {
 	// Read the CSV file into an array
@@ -339,6 +380,11 @@ function estadisticas_trabajadores($file)
 	return $csv;
 }
 
+/**
+ * Devuelve el total de horas trabajadas por todos los trabajadores
+ * @param mixed $file
+ * @return int
+ */
 function total_horas($file)
 {
 	$csv = csvtoarray($file);
@@ -349,6 +395,11 @@ function total_horas($file)
 	return $horas_trabajadas;
 }
 
+/**
+ * Devuelve el total de moviles arreglados por todos los trabajadores
+ * @param mixed $file
+ * @return int
+ */
 function total_moviles($file)
 {
 	$csv = csvtoarray($file);
@@ -359,6 +410,12 @@ function total_moviles($file)
 	return $moviles_arreglados;
 }
 
+/**
+ * Devuelve el total de moviles arreglados por un trabajador en concreto
+ * @param mixed $nombre
+ * @param mixed $file
+ * @return int
+ */
 function total_moviles_usuario($nombre,$file){
 	$csv = csvtoarray($file);
 	$moviles_arreglados = 0;
@@ -370,6 +427,12 @@ function total_moviles_usuario($nombre,$file){
 	return $moviles_arreglados;
 }
 
+/**
+ * Devuelve el total de horas trabajadas por un trabajador en concreto en porcentaje
+ * @param mixed $nombre
+ * @param mixed $file
+ * @return int
+ */
 function porcentaje_horas($id, $file)
 {
 	$horas_trabajadas = estadisticas_trabajador($id, $file)[2];
@@ -384,6 +447,12 @@ function porcentaje_horas($id, $file)
 	return $porcentaje;
 }
 
+/**
+ * Devuelve el total de moviles arreglados por un trabajador en concreto en porcentaje
+ * @param mixed $nombre
+ * @param mixed $file
+ * @return int
+ */
 function porcentaje_moviles($id, $file)
 {
 	$moviles_arreglados = estadisticas_trabajador($id, $file)[3];
@@ -397,6 +466,10 @@ function porcentaje_moviles($id, $file)
 	return $porcentaje;
 }
 
+/**
+ * devuelve el total de id en el csv y le suma 1. Se usa para asignar ID a nuevos trabajadores
+ * @return int
+ */
 function num_id()
 {
 	$csv = csvtoarray('./csv/usuarios.csv');
@@ -404,6 +477,14 @@ function num_id()
 	return $numero + 1;
 }
 
+/**
+ * Funcion para crear nuevos usuarios
+ * @param mixed $id
+ * @param mixed $nombre
+ * @param mixed $password
+ * @param mixed $privilegio
+ * @return void
+ */
 function create_new_user($id, $nombre, $password,$privilegio)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');
@@ -415,6 +496,14 @@ function create_new_user($id, $nombre, $password,$privilegio)
 	fclose($fp);
 }
 
+/**
+ * Funcion para modificar usuarios
+ * @param mixed $id
+ * @param mixed $nombre
+ * @param mixed $password
+ * @param mixed $privilegio
+ * @return void
+ */
 function modify_user($id, $nombre, $password)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');
@@ -429,6 +518,14 @@ function modify_user($id, $nombre, $password)
 	fclose($fp);
 }
 
+/**
+ * Funcion para modificar datos de usuarios
+ * @param mixed $id
+ * @param mixed $nombre
+ * @param mixed $password
+ * @param mixed $privilegio
+ * @return void
+ */
 function modify_datos($id, $nombre)
 {
 	$csv = array_map('str_getcsv', file('../../csv/datos_usuarios.csv'));
@@ -442,6 +539,14 @@ function modify_datos($id, $nombre)
 	fclose($fp);
 }
 
+/**
+ * Funcion para modificar imagen de usuarios
+ * @param mixed $id
+ * @param mixed $nombre
+ * @param mixed $password
+ * @param mixed $privilegio
+ * @return void
+ */
 function modify_imagen($id, $imagen)
 {
 	$csv = array_map('str_getcsv', file('../../csv/usuarios.csv'));
@@ -455,6 +560,14 @@ function modify_imagen($id, $imagen)
 	fclose($fp);
 }
 
+/**
+ * Funcion para crear nuevos datos de usuarios
+ * @param mixed $id
+ * @param mixed $nombre
+ * @param mixed $password
+ * @param mixed $privilegio
+ * @return void
+ */
 function create_new_datos($id, $nombre)
 {
 	chmod('../../csv/datos_usuarios.csv', 0777);
@@ -467,6 +580,10 @@ function create_new_datos($id, $nombre)
 	fclose($fp);
 }
 
+/**
+ * Devuelve el numero de usuarios
+ * @return int
+ */
 function num_users()
 {
 	$csv = csvtoarray('./csv/usuarios.csv');
@@ -474,6 +591,11 @@ function num_users()
 	return $numero;
 }
 
+/**
+ * Funcion que comprueba si existe un usuario en el csv usuarios
+ * @param mixed $nombre
+ * @return bool
+ */
 function comprobar_nombre($nombre)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');
@@ -486,6 +608,12 @@ function comprobar_nombre($nombre)
 	return $existe;
 }
 
+/**
+ * devuelve la imagen de un usuario concreto
+ * @param mixed $archivo
+ * @param mixed $login
+ * @return mixed
+ */
 function imagen_usuario($archivo, $login)
 {
 	$csv = csvtoarray($archivo);
@@ -496,6 +624,12 @@ function imagen_usuario($archivo, $login)
 	}
 }
 
+/**
+ * funcion que inserta la direccion de la imagen de perfil de un usuario
+ * @param mixed $nombre
+ * @param mixed $idUser
+ * @return void
+ */
 function insertURL($nombre, $idUser)
 {
 	$file_path = 'assets/pictureProfile/' . $idUser . "_" . $nombre . "/profile.jpg";
@@ -509,6 +643,11 @@ function insertURL($nombre, $idUser)
 	}
 }
 
+/**
+ * funcion que devuelve el nombre de un usuario
+ * @param mixed $id
+ * @return mixed
+ */
 function nombre_usuario($id)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');
@@ -519,6 +658,11 @@ function nombre_usuario($id)
 	}
 }
 
+/**
+ * funcion que devuelve el privilegio de un usuario
+ * @param mixed $id
+ * @return mixed
+ */
 function privilegio_usuario($nombre)
 {
 	$csv = csvtoarray('./csv/usuarios.csv');
@@ -529,6 +673,12 @@ function privilegio_usuario($nombre)
 	}
 }
 
+/**
+ * Funcion que actualiza los datos del tecnico del fichero moviles
+ * @param mixed $antiguo_nombre
+ * @param mixed $nuevo_nombre
+ * @return void
+ */
 function actualizar_tecnico($antiguo_nombre, $nuevo_nombre)
 {
 	$csv = csvtoarray('../../csv/moviles.csv');

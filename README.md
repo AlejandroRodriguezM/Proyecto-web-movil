@@ -135,6 +135,10 @@ Se ha creado el fichero "acercade.php" donde va la informacion de los creados y 
 Modificado los footers
 Agregado nuevas animaciones
 
+--> 31/01/2023 Alejandro Log 1
+Añadida la documentacion en funciones
+Eliminada animacion de login
+
 
 
 

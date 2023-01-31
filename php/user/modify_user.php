@@ -12,7 +12,7 @@ if ($_POST){
     $picture_profile = $_POST['userPicture'];
     $antiguo_nombre = nombre_usuario($id);
 
-    if(check_nombre($nombre) && $nombre != $antiguo_nombre){
+    if(comprobar_nombre($nombre) && $nombre != $antiguo_nombre){
 
         $validate['success'] = false;
         $validate['mensaje'] = "Usuario incorrecto";
@@ -26,7 +26,7 @@ if ($_POST){
         modify_datos($id,$nombre);
         saveImage($id, $nombre, $picture_profile);
     }
-    elseif(!check_nombre($nombre) && $nombre != $antiguo_nombre){
+    elseif(!comprobar_nombre($nombre) && $nombre != $antiguo_nombre){
         $validate['success'] = true;
         $validate['mensaje'] = "Usuario modificado correctamente";
         $validate['userName'] = $nombre;

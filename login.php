@@ -49,47 +49,47 @@
         </div>
       </form>
       <br>
-      <div class="mobile-phone">
+      <!-- <div class="mobile-phone">
         <img src="assets/img/logo-playamar.png" alt="Mobile Phone" style="width: 150px; height: 150px; display: block; margin: 0 auto;">
       </div>
-      <div id="text" style="color: black; margin-top: 150px;font-size: 20px">Bienvenido trabajador, logueate para empezar</div>
+      <div id="text" style="color: black; margin-top: 150px;font-size: 20px">Bienvenido trabajador, logueate para empezar</div> -->
     </div>
   </div>
 </body>
 <script>
-  var text = document.getElementById("text");
-  var saludo = document.getElementById("saludo");
-  var lema = document.getElementById("lema");
-  var boton_validar = document.getElementById("submitBtn");
-  var password_label = document.getElementById("password_label");
-  var username_label = document.getElementById("username_label");
-  var username = document.getElementById("username");
-  var password = document.getElementById("password");
+  // var text = document.getElementById("text");
+  // var saludo = document.getElementById("saludo");
+  // var lema = document.getElementById("lema");
+  // var boton_validar = document.getElementById("submitBtn");
+  // var password_label = document.getElementById("password_label");
+  // var username_label = document.getElementById("username_label");
+  // var username = document.getElementById("username");
+  // var password = document.getElementById("password");
 
-  text.addEventListener("click", function() {
-    saludo.style.color = getRandomColor();
-    lema.style.color = getRandomColor();
-    boton_validar.style.color = getRandomColor();
-    password_label.style.color = getRandomColor();
-    username_label.style.color = getRandomColor();
-    username.style.color = getRandomColor();
-    password.style.color = getRandomColor();
-    this.style.color = getRandomColor();
-  });
+  // text.addEventListener("click", function() {
+  //   saludo.style.color = getRandomColor();
+  //   lema.style.color = getRandomColor();
+  //   boton_validar.style.color = getRandomColor();
+  //   password_label.style.color = getRandomColor();
+  //   username_label.style.color = getRandomColor();
+  //   username.style.color = getRandomColor();
+  //   password.style.color = getRandomColor();
+  //   this.style.color = getRandomColor();
+  // });
 
-  text.addEventListener("mouseover", function() {
-    this.style.color = getRandomColor();
-  });
+  // text.addEventListener("mouseover", function() {
+  //   this.style.color = getRandomColor();
+  // });
 
 
-  function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
+  // function getRandomColor() {
+  //   const letters = "0123456789ABCDEF";
+  //   let color = "#";
+  //   for (let i = 0; i < 6; i++) {
+  //     color += letters[Math.floor(Math.random() * 16)];
+  //   }
+  //   return color;
+  // }
 
   function password_show_hide() {
     var x = document.getElementById("password");
