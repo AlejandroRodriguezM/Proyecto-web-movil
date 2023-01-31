@@ -4,8 +4,8 @@ include_once 'php/funciones/funciones.php';
 include_once 'php/funciones/funciones_csv.php';
 checkCookiesUser();
 $hora_conexion = $_SESSION['conexion'];
-$nombre = $_SESSION['user'];
-$privilegio = privilegio_usuario($nombre);
+$login = $_SESSION['user'];
+$privilegio = privilegio_usuario($login);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +67,6 @@ $privilegio = privilegio_usuario($nombre);
 				<ul class="navbar-nav mr-auto">
 					<?php
 					$file = './csv/usuarios.csv';
-					$login = $_SESSION['user'];
 					$picture = pictureProfile($file, $login);
 					echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture' onclick='pictureProfileAvatar()'>";
 					?>
@@ -119,7 +118,7 @@ $privilegio = privilegio_usuario($nombre);
 						echo "<h2>No hay datos</h2>";
 					} else {
 						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
-						if (countRowsUser($nombre) >= 1) {
+						if (countRowsUser($login) >= 1) {
 					?>
 							<thead>
 								<tr>
@@ -145,9 +144,8 @@ $privilegio = privilegio_usuario($nombre);
 								$horas_reales = $row[7];
 								$resuelto = $row[8];
 								$tecnico = $row[9];
-								if ($nombre == $tecnico && $resuelto == 'Si') {
+								if ($login == $tecnico && $resuelto == 'Si') {
 									$num_moviles++;
-								echo $num_moviles;
 									echo "<tr>";
 									echo "<td>$id</td>";
 									echo "<td>$nombre</td>";

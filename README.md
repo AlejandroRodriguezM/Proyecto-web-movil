@@ -138,6 +138,7 @@ Agregado nuevas animaciones
 --> 31/01/2023 Alejandro Log 1
 Añadida la documentacion en funciones
 Eliminada animacion de login
+Arreglado bug en gestion_misArreglos.php, ya funciona correctamente
 
 
 
