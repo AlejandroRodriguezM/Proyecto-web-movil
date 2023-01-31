@@ -140,6 +140,9 @@ Añadida la documentacion en funciones
 Eliminada animacion de login
 Arreglado bug en gestion_misArreglos.php, ya funciona correctamente
 
+--> 31/01/2023 Alejandro Log 2
+Comentados casi todas las funciones de php y js
+
 
 
 
