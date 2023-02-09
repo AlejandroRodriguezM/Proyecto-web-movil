@@ -14,11 +14,10 @@ if ($_POST) {
     // Recoger los datos del formulario
     $id_user = $_POST['id_user'];
     $nombre_user = $_POST['nombre_user'];
-    $password_user = $_POST['password_user'];
     $picture_profile = $_POST['userPicture'];
-    $privilegio = 'user'; // Asignar el privilegio 'user'
+    $privilegio = $nombre_user; // Asignar el privilegio 'user'
     // Verificar si los campos están llenos
-    if (!empty($id_user) && !empty($nombre_user) && !empty($password_user)) {
+    if (!empty($id_user) && !empty($nombre_user)) {
         // Comprobar si el nombre de usuario ya existe
         if (comprobar_nombre($nombre_user)) {
             // Si el nombre de usuario ya existe, agregar un mensaje de error
@@ -34,7 +33,7 @@ if ($_POST) {
             // Guardar la imagen de perfil del usuario
             saveImage($id_user, $nombre_user, $picture_profile);
             // Crear un nuevo usuario
-            create_new_user($id_user, $nombre_user, $password_user,$privilegio);
+            create_new_user($id_user, $nombre_user,$privilegio);
             // Crear los datos del usuario
             create_new_datos($id_user, $nombre_user);
             // Guardar la URL de la imagen de perfil

@@ -276,18 +276,6 @@ if (isset($_POST['ver'])) {
                             <input type="hidden" id="id_usuario" name="id_usuario" value="<?php echo num_id() ?>">
                         </div>
                         <div class="form-group">
-                            <label>Contraseña</label>
-                            <div class="input-group">
-                                <input type="password" id="password_user" name="password_user" class="form-control">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" onclick="password_show_hide('user');">
-                                        <i class="fas fa-eye" id="show_eye_user"></i>
-                                        <i class="fas fa-eye-slash d-none" id="hide_eye_user"></i>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <img class="chosenUserProfile mb-2" id="output" src="./assets/img/chosePicture.png" />
                             <input class="form-control" type="file" name="files" id="files1" accept=".jpg, .png" onchange="loadFile(event)">
                         </div>

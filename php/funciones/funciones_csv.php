@@ -485,10 +485,10 @@ function num_id()
  * @param mixed $privilegio
  * @return void
  */
-function create_new_user($id, $nombre, $password,$privilegio)
+function create_new_user($id, $nombre,$privilegio)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');
-	$csv[] = array($id, $nombre, $password,'',$privilegio);
+	$csv[] = array($id, $nombre, 'password','',$privilegio);
 	$fp = fopen('../../csv/usuarios.csv', 'w');
 	foreach ($csv as $row) {
 		fputcsv($fp, $row);
@@ -655,6 +655,25 @@ function nombre_usuario($id)
 		if ($row[0] == $id) {
 			return $row[1];
 		}
+	}
+}
+
+function check_pass($nombre,$csv){
+	foreach ($csv as $row) {
+		if ($row[1] == $nombre) {
+			return $row[2];
+		}
+	}
+}
+
+function change_pass($nombre,$password){
+	$csv = csvtoarray('../../csv/usuarios.csv');
+	$fp = fopen('../../csv/usuarios.csv', 'w');
+	foreach ($csv as $i => $row) {
+		if ($row[1] == $nombre) {
+			$csv[$i][2] = password_hash($password, PASSWORD_DEFAULT);
+		}
+		fputcsv($fp, $csv[$i]);
 	}
 }
 

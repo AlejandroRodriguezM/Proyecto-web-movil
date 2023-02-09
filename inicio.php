@@ -6,6 +6,8 @@ checkCookiesUser();
 $hora_conexion = $_SESSION['conexion'];
 $nombre = $_SESSION['user'];
 $privilegio = privilegio_usuario($nombre);
+$csv = csvtoarray('./csv/usuarios.csv');
+$pass = check_pass($nombre,$csv);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +29,7 @@ $privilegio = privilegio_usuario($nombre);
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
             <div class="box">
                 <div class="title">
@@ -88,6 +90,32 @@ $privilegio = privilegio_usuario($nombre);
             </span>
         </div>
     </nav>
+
+    <?php if ($pass == $nombre) { ?>
+        <!-- FORMULARIO INSERTAR -->
+        <div id="new_pass" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" id="modal_pass" onsubmit="return false;">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Insertar</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Nueva contraseña</label>
+                                <input type="hidden" id="nombre_trabajador" value='<?php echo $nombre ?>' class="form-control">
+                                <input type="text" id="password_trabajador" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-info" value="Guardar" onclick="modify_pass()">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
 
     <!-- CARDS INSERTAR Y GESTIONAR -->
     <div class="card-category-3">
@@ -203,6 +231,16 @@ $privilegio = privilegio_usuario($nombre);
             &copy; 2023 <b>Reparación de Móviles</b> - Tienda Virtual
         </div>
     </footer>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            OpenBootstrapPopup();
+        };
+
+        function OpenBootstrapPopup() {
+            $("#new_pass").modal('show');
+        }
+    </script>
 
     <!-- SCRIPTS -->
     <script src="./assets/js/login.js"></script>
