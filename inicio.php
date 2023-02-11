@@ -7,7 +7,7 @@ $hora_conexion = $_SESSION['conexion'];
 $nombre = $_SESSION['user'];
 $privilegio = privilegio_usuario($nombre);
 $csv = csvtoarray('./csv/usuarios.csv');
-$pass = check_pass($nombre,$csv);
+$pass = check_pass($nombre, $csv);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,24 +45,24 @@ $pass = check_pass($nombre,$csv);
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item active efecto">
                     <a href="inicio.php">Inicio</a>
                 </li>
-                <li class="nav-item active">
-                    <a href="gestion_moviles.php">Gestionar</a>
+                <li class="nav-item active efecto"">
+                    <a href=" gestion_moviles.php">Gestionar</a>
                 </li>
                 <?php
                 if ($privilegio == 'admin') {
-                    echo '<li class="nav-item active">
+                    echo '<li class="nav-item active efecto"">
                     <a href="panel_usuario.php">Panel de usuarios</a>
                     </li>';
                 }
                 ?>
-                <li class="nav-item active">
-                    <a href="acercade.php">Acerca de</a>
+                <li class="nav-item active efecto"">
+                    <a href=" acercade.php">Acerca de</a>
                 </li>
-                <li class="nav-item active">
-                    <a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+                <li class="nav-item active efecto"">
+                    <a href=" #!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
                 </li>
             </ul>
             <span class="navbar-text">
@@ -80,11 +80,11 @@ $pass = check_pass($nombre,$csv);
                         <img class="modal_picture-content" id="img01">
                     </div>
 
-                    <li class="nav-item active" style="margin-top: 15px;">
-                        <a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+                    <li class="nav-item usuario" style="margin-top: 15px;">
+                        Bienvenido <?php echo $_SESSION['user'] ?>
                     </li>
-                    <li class="nav-item active" style="margin-top: 15px;">
-                        <a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+                    <li class="nav-item usuario" style=" margin-top: 15px;">
+                        Hora de conexión: <?php echo $hora_conexion ?>
                     </li>
                 </ul>
             </span>
@@ -215,15 +215,16 @@ $pass = check_pass($nombre,$csv);
                 </figure>
             </div>
             <div class="box">
-                <h2>SOBRE NOSOTROS</h2>
-                <p>Pagina web para el uso del instituto I.E.S PlayaMar</p>
-                <p>Pagina de reparacion de telefenos para uso educativo</p>
+                <h2>SOBRE LA WEB</h2>
+                <p>Proyecto de reparación de móviles enfocado para el uso por parte del alumnado de FP Básica del Instituto I.E.S. Playamar. </p>
+                <p>Este proyecto forma parte de los módulos Desarrollo Web en Entorno Cliente y Desarrollo Web en Entorno de Servidor.</p>
             </div>
             <div class="box">
-                <h2>SIGUENOS</h2>
+                <h2>REDES SOCIALES</h2>
                 <div class="red-social">
-                    <a href="https://iesplayamar.es/" class="enlace_instituto" target="_blank">
-                    </a>
+                    <a href="https://twitter.com/iesplayamar" target="_blank"> <img src="assets/icons/Twitter.svg" alt="Twitter" width="50px"></a>
+                    <a href="https://www.facebook.com/profile.php?id=100075955310474" target="_blank"> <img src="assets/icons/Facebook.svg" alt="Facebook" width="50px"></a>
+                    <a href="https://www.instagram.com/iesplayamar/" target="_blank"> <img src="assets/icons/Instagram.svg" alt="Instagram" width="50px"></a>
                 </div>
             </div>
         </div>

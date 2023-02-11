@@ -143,6 +143,16 @@ Arreglado bug en gestion_misArreglos.php, ya funciona correctamente
 --> 31/01/2023 Alejandro Log 2
 Comentados casi todas las funciones de php y js
 
+--> 11/02/2023 Inma Log 1
+Arreglado el menú principal, tamaño del logo y el tamaño de las letras es responsivo
+Arreglado errores del hover: ahora al pasar el ratón por el logo animado, usuario y hora no se ve subrayado
+Arreglado pequeños errores de estilo
+Arreglado la animación del menú que antes a penas se veía al pasar el ratón
+Modificado la información sobre la web
+Añadido redes sociales
+Añadido estilo de submenú de gestionar
+Añadido pequeño logo para la generación del pdf
+
 
 
 

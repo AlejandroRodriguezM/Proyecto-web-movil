@@ -20,6 +20,7 @@ $privilegio = privilegio_usuario($login);
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="assets/style/styleCrud.css">
 	<link rel="stylesheet" href="assets/style/style.css">
+	<link rel="stylesheet" href="assets/style/styleSubmenu.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 	<title>Tienda Virtual de Reparación de Móviles - Mis telefonos Reparados</title>
 
@@ -43,30 +44,31 @@ $privilegio = privilegio_usuario($login);
 		</button>
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
+				<li class="nav-item active efecto">
 					<a href="inicio.php">Inicio</a>
 				</li>
-				<li class="nav-item active">
-					<a href="gestion_moviles.php">Gestionar</a>
+				<li class="nav-item active efecto"">
+                    <a href=" gestion_moviles.php">Gestionar</a>
 				</li>
 				<?php
 				if ($privilegio == 'admin') {
-					echo '<li class="nav-item active">
+					echo '<li class="nav-item active efecto"">
                     <a href="panel_usuario.php">Panel de usuarios</a>
                     </li>';
 				}
 				?>
-				<li class="nav-item active">
-					<a href="acercade.php">Acerca de</a>
+				<li class="nav-item active efecto"">
+                    <a href=" acercade.php">Acerca de</a>
 				</li>
-				<li class="nav-item active">
-					<a href="#!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
+				<li class="nav-item active efecto"">
+                    <a href=" #!" onclick=closeSesion() style="cursor: pointer;">Salir</a>
 				</li>
 			</ul>
 			<span class="navbar-text">
 				<ul class="navbar-nav mr-auto">
 					<?php
 					$file = './csv/usuarios.csv';
+					$login = $_SESSION['user'];
 					$picture = pictureProfile($file, $login);
 					echo "<img src='$picture' id='avatar' alt='Avatar' class='avatarPicture' onclick='pictureProfileAvatar()'>";
 					?>
@@ -77,11 +79,11 @@ $privilegio = privilegio_usuario($login);
 						<img class="modal_picture-content" id="img01">
 					</div>
 
-					<li class="nav-item active" style="margin-top: 15px;">
-						<a href="#!" style="color: white;">Bienvenido <?php echo $_SESSION['user'] ?></a>
+					<li class="nav-item usuario" style="margin-top: 15px;">
+						Bienvenido <?php echo $_SESSION['user'] ?>
 					</li>
-					<li class="nav-item active" style="margin-top: 15px;">
-						<a href="#!" style="color: white;">Hora de conexión: <?php echo $hora_conexion ?></a>
+					<li class="nav-item usuario" style=" margin-top: 15px;">
+						Hora de conexión: <?php echo $hora_conexion ?>
 					</li>
 				</ul>
 			</span>
@@ -89,17 +91,14 @@ $privilegio = privilegio_usuario($login);
 	</nav>
 
 	</nav>
-	<div>
-		<nav class="center">
-			<div class="countainer">
-				<ul class="menu">
-					<li><a href="gestion_moviles.php">Todos</a></li>
-					<li><a href="gestion_averiados.php">Averiados</a></li>
-					<li><a href="gestion_reparados.php">Arreglados</a></li>
-					<li><a href="gestion_misArreglos.php">Mis estadisticas</a></li>
-				</ul>
-		</nav>
+	<!-- SUBMENU -->
+	<div class="navbar2" id="myNavbar">
+		<a href="gestion_moviles.php" class="submenu">Todos</a>
+		<a href="gestion_averiados.php" class="submenu">Averiados</a>
+		<a href="gestion_reparados.php" class="submenu">Arreglados</a>
+		<a href="gestion_misArreglos.php" class="active submenu">Mis estadísticas</a>
 	</div>
+
 	<div class="tabla">
 		<div class="container">
 			<div class="table-wrapper">
@@ -180,7 +179,7 @@ $privilegio = privilegio_usuario($login);
 									echo "</tr>";
 								}
 							}
-							echo "<h2 style='color: #70FF8B'>Has arreglado: $num_moviles telefonos/s en total</h2>";
+							echo "<h2 style='color: #e91e63'>Has arreglado: $num_moviles telefonos/s en total</h2>";
 							echo "</tbody>";
 						} else {
 							echo "<h2>No has reparado ningun moviles</h2>";
@@ -227,15 +226,16 @@ $privilegio = privilegio_usuario($login);
 				</figure>
 			</div>
 			<div class="box">
-				<h2>SOBRE NOSOTROS</h2>
-				<p>Pagina web para el uso del instituto I.E.S PlayaMar</p>
-				<p>Pagina de reparacion de telefenos para uso educativo</p>
+				<h2>SOBRE LA WEB</h2>
+				<p>Proyecto de reparación de móviles enfocado para el uso por parte del alumnado de FP Básica del Instituto I.E.S. Playamar. </p>
+				<p>Este proyecto forma parte de los módulos Desarrollo Web en Entorno Cliente y Desarrollo Web en Entorno de Servidor.</p>
 			</div>
 			<div class="box">
-				<h2>SIGUENOS</h2>
+				<h2>REDES SOCIALES</h2>
 				<div class="red-social">
-					<a href="https://iesplayamar.es/" class="enlace_instituto" target="_blank">
-					</a>
+					<a href="https://twitter.com/iesplayamar" target="_blank"> <img src="assets/icons/Twitter.svg" alt="Twitter" width="50px"></a>
+					<a href="https://www.facebook.com/profile.php?id=100075955310474" target="_blank"> <img src="assets/icons/Facebook.svg" alt="Facebook" width="50px"></a>
+					<a href="https://www.instagram.com/iesplayamar/" target="_blank"> <img src="assets/icons/Instagram.svg" alt="Instagram" width="50px"></a>
 				</div>
 			</div>
 		</div>

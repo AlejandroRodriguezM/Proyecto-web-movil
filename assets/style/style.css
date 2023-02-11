@@ -76,6 +76,10 @@ body {
     }
 }
 
+
+
+
+
 .sesion {
     font-family: 'Poppins', sans-serif;
     color: #ddd;
@@ -117,22 +121,23 @@ body {
 }
 
 .menu li {
-    width: 105px;
+    width: 100%;
     height: 50px;
     transition: background-position-x 0.9s linear;
     text-align: center;
 }
 
 a {
-    font-size: 18px;
+    font-size: 1vw;
     color: orange;
     text-decoration: none;
-    transition: all 0.45s;
+    transition: all 0.75s;
+    text-align: center;
 }
 
-li:hover {
+li.efecto:hover {
     background: url("../img/lineamenu.svg");
-    animation: line 1s;
+    animation: line 2s;
 }
 
 li:hover a {
@@ -144,6 +149,12 @@ li:not(:last-child) {
     margin-right: 30px;
 }
 
+li.usuario {
+    font-size: 1vw;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
 
 @keyframes line {
     0% {
@@ -156,7 +167,7 @@ li:not(:last-child) {
 ******************/
 
 .container-logo {
-    width: 30%;
+    width: 25%;
     height: 70px;
     background: #333;
     display: flex;
@@ -165,7 +176,7 @@ li:not(:last-child) {
 }
 
 .container-logo .box {
-    width: 450px;
+    width: 250px;
     height: 150px;
     position: relative;
     display: flex;
@@ -193,7 +204,7 @@ li:not(:last-child) {
 .container-logo .box .title h1 {
     font-family: 'Poppins';
     color: #fff;
-    font-size: 32px;
+    font-size: 22px;
     -webkit-animation: mainFadeIn 2s forwards;
     -o-animation: mainFadeIn 2s forwards;
     animation: mainFadeIn 2s forwards;
@@ -250,6 +261,10 @@ li:not(:last-child) {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 5px;
+}
+
+.container-logo :hover {
+    text-decoration: none;
 }
 
 @keyframes mainBlock {
@@ -381,28 +396,31 @@ li:not(:last-child) {
     color: orange;
     margin-bottom: 25px;
     font-size: 20px;
+    text-align: center;
 }
 
 .pie-pagina .grupo-1 .box p {
     color: #efefef;
     margin-bottom: 10px;
+    text-align: justify;
 }
 
 .pie-pagina .grupo-1 .red-social a {
-    display: inline-block;
-    text-decoration: none;
-    width: 35px;
-    height: 35px;
-    line-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
     margin-right: 10px;
     background-color: #333;
-    text-align: center;
-    transition: all 300ms ease;
+
 }
 
 .pie-pagina .grupo-1 .red-social a:hover {
-    color: #ccc;
+    color: #250808;
+    -webkit-transform: rotateY(180deg);
+    -webkit-transform-style: preserve-3d;
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
 }
 
 .pie-pagina .grupo-2 {
@@ -503,7 +521,8 @@ li:not(:last-child) {
 }
 
 /* Add Animation - Zoom in the Modal */
-.modal_picture-content, #caption {
+.modal_picture-content,
+#caption {
     animation-name: zoom;
     animation-duration: 0.6s;
 }
@@ -542,7 +561,10 @@ li:not(:last-child) {
     /* padding: 8px; */
 }
 
-.enlace_git, .enlace_job, .enlace_instituto, .enlace_footer {
+.enlace_git,
+.enlace_job,
+.enlace_instituto,
+.enlace_footer {
     display: inline-block;
     position: relative;
     padding-left: 30px;
@@ -574,9 +596,9 @@ li:not(:last-child) {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-  }
+}
 
-  .enlace_instituto:before {
+.enlace_instituto:before {
     content: "";
     display: inline-block;
     width: 50px;
@@ -588,9 +610,9 @@ li:not(:last-child) {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-  }
+}
 
-  .enlace_footer:before {
+.enlace_footer:before {
     content: "";
     width: 150px;
     height: 150px;
@@ -601,4 +623,4 @@ li:not(:last-child) {
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-  }
+}

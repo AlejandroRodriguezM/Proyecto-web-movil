@@ -53,6 +53,10 @@ function comprobarUsuarioCSV($usuario, $password)
 {
 	$usuarios = csvtoarray('../../csv/usuarios.csv');
 	$encontrado = false;
+	if ($password != $usuario) {
+		//desencripta hash
+		$password =  check_pass($usuario, $usuarios);
+	}
 	foreach ($usuarios as $key => $value) {
 		if ($value[1] == $usuario && $value[2] == $password) {
 			$encontrado = true;
@@ -60,8 +64,6 @@ function comprobarUsuarioCSV($usuario, $password)
 	}
 	return $encontrado;
 }
-
-
 
 /**
  * Funcion que comprueba si existe el csv moviles, en caso de no existir, lo crea
@@ -416,7 +418,8 @@ function total_moviles($file)
  * @param mixed $file
  * @return int
  */
-function total_moviles_usuario($nombre,$file){
+function total_moviles_usuario($nombre, $file)
+{
 	$csv = csvtoarray($file);
 	$moviles_arreglados = 0;
 	foreach ($csv as $row) {
@@ -485,10 +488,10 @@ function num_id()
  * @param mixed $privilegio
  * @return void
  */
-function create_new_user($id, $nombre,$privilegio)
+function create_new_user($id, $nombre, $privilegio)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');
-	$csv[] = array($id, $nombre, 'password','',$privilegio);
+	$csv[] = array($id, $nombre, 'password', '', $privilegio);
 	$fp = fopen('../../csv/usuarios.csv', 'w');
 	foreach ($csv as $row) {
 		fputcsv($fp, $row);
@@ -658,7 +661,8 @@ function nombre_usuario($id)
 	}
 }
 
-function check_pass($nombre,$csv){
+function check_pass($nombre, $csv)
+{
 	foreach ($csv as $row) {
 		if ($row[1] == $nombre) {
 			return $row[2];
@@ -666,7 +670,8 @@ function check_pass($nombre,$csv){
 	}
 }
 
-function change_pass($nombre,$password){
+function change_pass($nombre, $password)
+{
 	$csv = csvtoarray('../../csv/usuarios.csv');
 	$fp = fopen('../../csv/usuarios.csv', 'w');
 	foreach ($csv as $i => $row) {
