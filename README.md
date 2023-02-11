@@ -153,6 +153,9 @@ Añadido redes sociales
 Añadido estilo de submenú de gestionar
 Añadido pequeño logo para la generación del pdf
 
+--> 11/02/2023 Alejandro Log 1
+Arreglado problemas con tablas de usuarios
+
 
 
 
