@@ -1,4 +1,8 @@
+
 <?php
+/**
+ * API que sirve para modificar la contraseña de un usuario
+ */
 //Inicio de sesión
 session_start();
 

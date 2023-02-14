@@ -1,3 +1,6 @@
+/**
+ * Crea una factura con los datos especificos de un movil 
+ */
 <?php
 
 // Include the main TCPDF library (search for installation path).

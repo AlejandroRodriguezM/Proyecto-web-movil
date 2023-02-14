@@ -1,4 +1,8 @@
+
 <?php
+/**
+ * API que permite eliminar una linea de un csv.
+ */
 session_start(); // Inicia la sesión
 include_once '../funciones/funciones.php'; // Incluye el archivo con funciones útiles
 include_once '../funciones/funciones_csv.php'; // Incluye el archivo con funciones específicas para trabajar con CSV

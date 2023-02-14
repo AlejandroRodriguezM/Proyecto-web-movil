@@ -51,7 +51,7 @@ if (isset($_POST['ver'])) {
 }
 ?>
 
-<body onload="comprobarLogin()">
+<body>
     <!-- NAVEGACION -->
     <nav class="navbar navbar-expand-lg navbar-light bg-dark" style="background-color: #333 !important;">
         <div class="container-logo">
@@ -188,12 +188,12 @@ if (isset($_POST['ver'])) {
                     echo "<td>$nombre</td>";
                     echo "<td>" . $horas_trabajadas . "</td>";
                     echo "<td>" . $telefono_arreglados . "</td>";
-                    if ($horas_trabajadas > 0 || $id != 1) {
+                    if ($horas_trabajadas > 0 && $id != 1) {
                         echo "<td>" . $porcentaje_horas . "%</td>";
                     } else {
                         echo "<td style='color: red;'>" . $porcentaje_horas . "</td>";
                     }
-                    if ($telefono_arreglados > 0 || $id != 1) {
+                    if ($telefono_arreglados > 0 && $id != 1) {
                         echo "<td>" . $porcentaje_telefonos . "%</td>";
                     } else {
                         echo "<td style='color: red;'>" . $porcentaje_telefonos . "</td>";

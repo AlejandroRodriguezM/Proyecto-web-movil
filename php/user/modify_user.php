@@ -1,4 +1,8 @@
+
 <?php
+/**
+ * API que sirve para modificar un usuario en concreto
+ */
 //Inicio de sesión
 session_start();
 

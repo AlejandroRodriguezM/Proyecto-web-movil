@@ -1,5 +1,8 @@
-<?php
 
+<?php
+/**
+ * API que sirve para actualizar el estado de un movil a reparar
+ */
 // Inicio de sesión
 session_start();
 

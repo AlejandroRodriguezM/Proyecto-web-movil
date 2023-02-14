@@ -51,18 +51,33 @@ function csvtoarray($archivo, $delimitador = ",")
  */
 function comprobarUsuarioCSV($usuario, $password)
 {
-	$usuarios = csvtoarray('../../csv/usuarios.csv');
-	$encontrado = false;
-	if ($password != $usuario) {
-		//desencripta hash
-		$password =  check_pass($usuario, $usuarios);
+	$csv = csvtoarray('../../csv/usuarios.csv');
+	$existe = false;
+	if ($csv === false) {
+		throw new Exception("No se pudo leer el archivo CSV de usuarios");
 	}
-	foreach ($usuarios as $key => $value) {
-		if ($value[1] == $usuario && $value[2] == $password) {
-			$encontrado = true;
+	foreach ($csv as $value) {
+		if ($value[1] == $usuario && password_verify($password, $value[2])) {
+			$existe = true;
 		}
 	}
-	return $encontrado;
+	return $existe;
+}
+
+/**
+ * Funcion que devuelve la contraseña de un usuario
+ *
+ * @param [type] $nombre
+ * @param [type] $csv
+ * @return String
+ */
+function check_pass($nombre, $csv)
+{
+	foreach ($csv as $row) {
+		if ($row[1] == $nombre) {
+			return $row[2];
+		}
+	}
 }
 
 /**
@@ -481,22 +496,38 @@ function num_id()
 }
 
 /**
- * Funcion para crear nuevos usuarios
+ * Funcion para crear nuevos usuarios. Tambien hace llamada al resto de funciones referente a la creacion del usuario
  * @param mixed $id
  * @param mixed $nombre
  * @param mixed $password
  * @param mixed $privilegio
- * @return void
+ * @return bool
  */
-function create_new_user($id, $nombre, $privilegio)
+function create_new_user($id, $nombre, $privilegio, $picture_profile)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');
-	$csv[] = array($id, $nombre, 'password', '', $privilegio);
+	$password_hash = password_hash($nombre, PASSWORD_DEFAULT);
+	$csv[] = array($id, $nombre, $password_hash, '', $privilegio);
 	$fp = fopen('../../csv/usuarios.csv', 'w');
+	if ($fp === false) {
+		return false;
+	}
 	foreach ($csv as $row) {
-		fputcsv($fp, $row);
+		if (fputcsv($fp, $row) === false) {
+			fclose($fp);
+			return false;
+		}
 	}
 	fclose($fp);
+	// Crear la carpeta para las imágenes del usuario
+	create_directory_img($id, $nombre);
+	// Guardar la imagen de perfil del usuario
+	saveImage($id, $nombre, $picture_profile);
+	// Crear los datos del usuario
+	create_new_datos($id, $nombre);
+	// Guardar la URL de la imagen de perfil
+	insertURL($nombre, $id);
+	return true;
 }
 
 /**
@@ -661,15 +692,15 @@ function nombre_usuario($id)
 	}
 }
 
-function check_pass($nombre, $csv)
-{
-	foreach ($csv as $row) {
-		if ($row[1] == $nombre) {
-			return $row[2];
-		}
-	}
-}
 
+
+/**
+ * Funcion que se utiliza para cambiar la contraseña de un usuario
+ *
+ * @param [type] $nombre
+ * @param [type] $password
+ * @return void
+ */
 function change_pass($nombre, $password)
 {
 	$csv = csvtoarray('../../csv/usuarios.csv');

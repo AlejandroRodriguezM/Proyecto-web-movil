@@ -1,5 +1,8 @@
-<?php
 
+<?php
+/**
+ * API que sirve para loguearse dentro de la pagina
+ */
 session_start();
 include_once '../funciones/funciones.php';
 include_once '../funciones/funciones_csv.php';

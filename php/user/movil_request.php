@@ -1,4 +1,8 @@
+
 <?php
+/**
+ * API que sirve para crear un nuevo movil para arreglar
+ */
 //Iniciamos la sesión
 session_start();
 //Incluimos las funciones necesarias

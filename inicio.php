@@ -91,7 +91,7 @@ $pass = check_pass($nombre, $csv);
         </div>
     </nav>
 
-    <?php if ($pass == $nombre) { ?>
+    <?php if (password_verify($nombre, $pass)) { ?>
         <!-- FORMULARIO INSERTAR -->
         <div id="new_pass" class="modal fade" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
