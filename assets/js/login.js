@@ -461,6 +461,9 @@ const modify_user = async () => {
     var id_user = document.querySelector("#id_trabajador").value;
     var nombre_user = document.querySelector("#nombre_trabajador").value;
     var password_user = document.querySelector("#password_trabajador").value;
+    console.log(id_user)
+    console.log(nombre_user)
+    console.log(password_user)
     if (nombre_user.trim() === '') {
         Swal.fire({
             icon: "error",
@@ -505,9 +508,9 @@ const modify_user = async () => {
             text: result.mensaje,
             footer: "Tienda Virtual Reparación de móviles"
         })
-        document.querySelector('#formInsert').reset();
+        document.querySelector('#formModify').reset();
         setTimeout(() => {
-            window.location.href = "panel_usuario.php";
+            window.location.reload();
         }, 2000);
     }
     else{

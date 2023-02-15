@@ -62,10 +62,13 @@ if (!isset($_POST['editar'])) {
                 <?php
                 if ($privilegio == 'admin') {
                     echo '<li class="nav-item active efecto"">
-                    <a href="panel_usuario.php">Panel de usuarios</a>
+                    <a href="panel_administrador.php">Panel de administracion</a>
                     </li>';
                 }
                 ?>
+                <li class="nav-item active efecto"">
+                    <a href=" panel_usuario.php">Panel de usuario</a>
+                </li>
                 <li class="nav-item active efecto"">
                     <a href=" acercade.php">Acerca de</a>
                 </li>
@@ -182,7 +185,7 @@ if (!isset($_POST['editar'])) {
                 <!-- boton volver  -->
                 <div class="row">
                     <div class="col-sm-6" style="margin-bottom: 10px;">
-                        <a href="panel_usuario.php" class="btn btn-primary">Volver</a>
+                        <a href="panel_administrador.php" class="btn btn-primary">Volver</a>
                     </div>
                 </div>
             </div>

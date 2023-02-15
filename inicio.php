@@ -49,15 +49,18 @@ $pass = check_pass($nombre, $csv);
                     <a href="inicio.php">Inicio</a>
                 </li>
                 <li class="nav-item active efecto"">
-                    <a href=" gestion_moviles.php">Gestionar</a>
+                    <a href="gestion_moviles.php">Gestionar</a>
                 </li>
                 <?php
                 if ($privilegio == 'admin') {
                     echo '<li class="nav-item active efecto"">
-                    <a href="panel_usuario.php">Panel de usuarios</a>
+                    <a href="panel_administrador.php">Panel de administracion</a>
                     </li>';
                 }
                 ?>
+                <li class="nav-item active efecto"">
+                    <a href="panel_usuario.php">Panel de usuario</a>
+                </li>
                 <li class="nav-item active efecto"">
                     <a href=" acercade.php">Acerca de</a>
                 </li>

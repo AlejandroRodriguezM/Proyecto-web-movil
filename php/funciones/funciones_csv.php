@@ -69,15 +69,17 @@ function comprobarUsuarioCSV($usuario, $password)
  *
  * @param [type] $nombre
  * @param [type] $csv
- * @return String
+ * @return string
  */
 function check_pass($nombre, $csv)
 {
-	foreach ($csv as $row) {
-		if ($row[1] == $nombre) {
-			return $row[2];
-		}
-	}
+    foreach ($csv as $row) {
+        if ($row[1] == $nombre) {
+            return $row[2];
+        }
+    }
+    // Si no se encuentra el nombre, devolver un valor predeterminado o lanzar una excepción
+    return null;
 }
 
 /**
@@ -94,15 +96,17 @@ function checkCSV()
 }
 
 /**
- * Funcion que comprueba si existe el csv usuarios, en caso de no existir, lo crea
+ * Funcion que comprueba si existe el csv usuarios. Si no existe, crea uno con 1 usuario, que es el administrador de la pagina. Cuya contraseña es admin
  * @return void
  */
 function checkCSVUser()
 {
 	if (!file_exists('../../csv/usuarios.csv')) {
 		$fp = fopen('../../csv/usuarios.csv', 'w');
-
-		$usuarios[] = array("1", "admin", "admin", '', '', 'admin');
+		$password = password_hash('admin', PASSWORD_DEFAULT);
+		create_directory_img(1, 'admin');
+		saveImage(1, 'admin', '');
+		$usuarios[] = array("1", "admin", "$password", '', 'admin');
 		arraytocsv($usuarios, '../../csv/usuarios.csv');
 		fclose($fp);
 		chmod('../../csv/moviles.csv', 0777);
@@ -155,10 +159,9 @@ function createMovilRequest()
 /**
  * Funcion que actualiza un slice del csv moviles
  * @param mixed $array_movil
- * @return void
+ * @return boolean
  */
-function update_moviles($array_movil)
-{
+function update_moviles($array_movil) {
 	$id = $array_movil['id'];
 	$nombre = $array_movil['nombre'];
 	$email = $array_movil['email'];
@@ -173,11 +176,11 @@ function update_moviles($array_movil)
 	$resuelto = $array_movil['resuelto'];
 	$tecnico = $array_movil['tecnico'];
 	$numFactura = $array_movil['num_factura'];
+	
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file('../../csv/moviles.csv'));
+
 	// Loop through the rows of the array
-
-
 	foreach ($csv as $key => $row) {
 		// If the ID of the current row matches the ID of the row we're looking for
 		if ($row[0] == $id) {
@@ -185,27 +188,38 @@ function update_moviles($array_movil)
 			$csv[$key] = array($id, $nombre, $email, $problema, $fecha_entrega, $fecha_terminado, $precio_hora_estimado, $precio_hora_total, $resuelto, $tecnico, $numFactura);
 		}
 	}
+
 	// Write the CSV back to the file
 	$fp = fopen('../../csv/moviles.csv', 'w');
 
 	foreach ($csv as $row) {
 		fputcsv($fp, $row);
 	}
-	if ($resuelto == "Si") {
-		updateCSVDatos($tecnico);
-	}
+
 	fclose($fp);
+
+	if ($resuelto == "Si") {
+		$result = updateCSVDatos($tecnico);
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return true;
+	}
 }
 
 /**
  * Funcion que actualiza el csv datos_usuarios
  * @param mixed $nombre
- * @return void
+ * @return boolean
  */
 function updateCSVDatos($nombre)
 {
 	$num_horas = numero_horas_trabajadas($nombre);
 	$num_moviles = numero_moviles_arreglados($nombre);
+	$success = true;
 	// Read the CSV file into an array
 	$csv = array_map('str_getcsv', file('../../csv/datos_usuarios.csv'));
 	// Loop through the rows of the array
@@ -218,12 +232,17 @@ function updateCSVDatos($nombre)
 	}
 	// Write the CSV back to the file
 	$fp = fopen('../../csv/datos_usuarios.csv', 'w');
-
-	foreach ($csv as $row) {
-		fputcsv($fp, $row);
+	if ($fp) {
+		foreach ($csv as $row) {
+			if (!fputcsv($fp, $row)) {
+				$success = false;
+			}
+		}
+		fclose($fp);
+	} else {
+		$success = false;
 	}
-
-	fclose($fp);
+	return $success;
 }
 
 /**
@@ -692,8 +711,6 @@ function nombre_usuario($id)
 	}
 }
 
-
-
 /**
  * Funcion que se utiliza para cambiar la contraseña de un usuario
  *
@@ -743,5 +760,32 @@ function actualizar_tecnico($antiguo_nombre, $nuevo_nombre)
 			$csv[$i][9] = $nuevo_nombre;
 		}
 		fputcsv($fp, $csv[$i]);
+	}
+}
+
+/**
+ * Funcion que devuelve el ID de un trabajador
+ */
+function id_user($nombre){
+	$csv = csvtoarray('csv/usuarios.csv');
+	foreach ($csv as $row) {
+		if ($row[1] == $nombre) {
+			return $row[0];
+		}
+	}
+}
+
+/**
+ * funcion que devuelve el nombre de un usuario
+ * @param mixed $id
+ * @return mixed
+ */
+function nombre_tecnico($id)
+{
+	$csv = csvtoarray('csv/usuarios.csv');
+	foreach ($csv as $row) {
+		if ($row[0] == $id) {
+			return $row[1];
+		}
 	}
 }

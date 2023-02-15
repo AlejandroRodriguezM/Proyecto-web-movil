@@ -16,6 +16,7 @@ if ($_POST){
     $nombre = $_POST['user'];
     $password = $_POST['password'];
     // Comprobar si los archivos CSV necesarios existen y están disponibles
+    checkCSV();
     checkCSVUser();
     checkCSVdatos();
     // Verificar si el usuario existe y la contraseña es correcta

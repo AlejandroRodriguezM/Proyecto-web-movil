@@ -156,6 +156,10 @@ Añadido pequeño logo para la generación del pdf
 --> 11/02/2023 Alejandro Log 1
 Arreglado problemas con tablas de usuarios
 
+--> 15/02/2023 Alejandro Log 1
+Añadida opcion cambiar datos de usuario desde panel de usuario
+Arreglada diferentes funciones que no funcionaban correctamente
+
 
 
 

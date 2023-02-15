@@ -32,14 +32,20 @@ if ($_POST) {
 
             // Crea un arreglo con los datos del móvil
             $datos_movil = array('id' => $id, 'nombre' => $nombre, 'email' => $email, 'problema' => $problema, 'fecha' => $fecha,'fecha_terminado' => $fecha_terminado,'horas_estimadas' => $horas_estimadas,'horas_trabajadas' => $horas_trabajadas, 'resuelto' => $resuelto, 'num_factura' => $num_factura, 'tecnico' => $tecnico);
-    
             // Actualiza los datos del móvil en el archivo CSV
-            update_moviles($datos_movil);
-            
+            if(update_moviles($datos_movil)){
             // Agrega un mensaje de éxito
             $validate['success'] = true;
             $validate['mensaje'] = "Petición de arreglo solucionada";
             $validate['userName'] = $nombre;
+            }
+            else{
+                // Agrega un mensaje de error si no se ha podido actualizar el archivo CSV
+                $validate['success'] = false;
+                $validate['mensaje'] = "No se ha podido solucionar el arreglo, hable con un administrador";
+                $validate['userName'] = $nombre;
+            }
+
         } else {
             // Agrega un mensaje de error si faltan datos
             $validate['success'] = false;
