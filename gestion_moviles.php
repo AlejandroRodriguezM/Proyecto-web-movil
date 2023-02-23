@@ -119,7 +119,7 @@ $privilegio = privilegio_usuario($nombre);
 					if (!file_exists($file)) {
 						echo "<h2>No hay datos</h2>";
 					} else {
-						$csv = array_map('str_getcsv', file('csv/moviles.csv'));
+						$csv = array_map('str_getcsv', file('./csv/moviles.csv'));
 						if (countRowsCSV($file) >= 1) {
 					?>
 							<thead>

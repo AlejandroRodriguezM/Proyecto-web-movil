@@ -22,7 +22,7 @@ if ($_POST) {
     $password_hash = check_pass($nombre,$csv);
 
     //Comprobación de nombre de usuario
-    if (password_verify($password,$password_hash)) { //El nombre está en uso y es diferente al antiguo
+    if (password_verify($password,$password_hash) || strtolower($password) ==  $nombre) { //El nombre está en uso y es diferente al antiguo
         $validate['success'] = false;
         $validate['mensaje'] = "No puedes usar la misma contraseña";
     } else{

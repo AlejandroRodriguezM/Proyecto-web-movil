@@ -14,7 +14,6 @@ $validate['success'] = array('success' => false, 'mensaje' => "", "userName" => 
 if ($_POST) {
     // Recoge el ID del cliente y su nombre
     $id = $_POST['id_cliente'];
-    $nombre = $_POST['nombre'];
     // Archivo CSV donde se almacenan los datos
     $file = '../../csv/moviles.csv';
     // Comprueba si el archivo existe

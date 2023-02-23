@@ -7,6 +7,7 @@ $hora_conexion = $_SESSION['conexion'];
 $nombre = $_SESSION['user'];
 $privilegio = privilegio_usuario($nombre);
 
+
 if (!isset($_SESSION['user']) || !isset($_COOKIE['adminUser'])) {
     header('Location: inicio.php');
 }
@@ -191,15 +192,15 @@ if (isset($_POST['ver'])) {
                     echo "<td>$nombre</td>";
                     echo "<td>" . $horas_trabajadas . "</td>";
                     echo "<td>" . $telefono_arreglados . "</td>";
-                    if ($horas_trabajadas > 0 && $id != 1) {
+                    if ($horas_trabajadas > 0 && $privilegio != 'admin') {
                         echo "<td>" . $porcentaje_horas . "%</td>";
                     } else {
-                        echo "<td style='color: red;'>" . $porcentaje_horas . "</td>";
+                        echo "<td style='color: red;'> No ha trabajado aún </td>";
                     }
-                    if ($telefono_arreglados > 0 && $id != 1) {
+                    if ($telefono_arreglados > 0 && $privilegio != 'admin') {
                         echo "<td>" . $porcentaje_telefonos . "%</td>";
                     } else {
-                        echo "<td style='color: red;'>" . $porcentaje_telefonos . "</td>";
+                        echo "<td style='color: red;'> No ha trabajado aún </td>";
                     }
                     echo "<form action='panel_administrador.php' method='post'>";
                     echo "<input type='hidden' name='id' value='$id'>";
@@ -269,7 +270,7 @@ if (isset($_POST['ver'])) {
             <div class="modal-content">
                 <form method="post" id="formInsert" onsubmit="return false;">
                     <div class="modal-header">
-                        <h4 class="modal-title">Insertar</h4>
+                        <h4 class="modal-title">Nuevo usuario</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">

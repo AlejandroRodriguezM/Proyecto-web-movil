@@ -101,7 +101,7 @@ $pass = check_pass($nombre, $csv);
                 <div class="modal-content">
                     <form method="post" id="modal_pass" onsubmit="return false;">
                         <div class="modal-header">
-                            <h4 class="modal-title">Insertar</h4>
+                            <h4 class="modal-title">Nueva solicitud</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -172,11 +172,11 @@ $pass = check_pass($nombre, $csv);
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nombre Completo</label>
+                            <label>Nombre del cliente</label>
                             <input type="text" id="nombre_cliente" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
+                            <label>Email del cliente</label>
                             <input type="email" id="email_cliente" class="form-control">
                         </div>
                         <div class="form-group">

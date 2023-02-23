@@ -478,8 +478,9 @@ function porcentaje_horas($id, $file)
 		$porcentaje = ($horas_trabajadas / $total_horas) * 100;
 		//redondear con 2 digitos
 		$porcentaje = round($porcentaje, 2);
-	} else {
-		$porcentaje = 'No ha trabajado aún';
+	}
+	else{
+		$porcentaje = 0;
 	}
 	return $porcentaje;
 }

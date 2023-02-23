@@ -351,11 +351,7 @@ const updateCSV = async () => {
 
 const delete_slice_CSV = async () => {
     var id_cliente = document.querySelector("#id_eliminar").value;
-    var nombre = document.querySelector('#nombre_eliminar').value;
     const data = new FormData();
-    if(nombre != null){
-        data.append('nombre', nombre);
-    }
     // Serialize the form data
     data.append('id_cliente', id_cliente);
 
@@ -375,10 +371,12 @@ const delete_slice_CSV = async () => {
         })
         document.querySelector('#editForm').reset();
         setTimeout(() => {
-            window.location.href = "crud.php";
+            window.location.reload();
         }, 2000);
     }
 }
+
+
 
 const callPHPScript = async () => {
     var nombre_cliente = document.querySelector("#nombre_cliente_test").value;
@@ -443,7 +441,7 @@ const new_user = async () => {
         })
         document.querySelector('#formInsert').reset();
         setTimeout(() => {
-            window.location.href = "panel_usuario.php";
+            window.location.reload();
         }, 2000);
     }
     else{
@@ -533,10 +531,12 @@ const modify_pass = async () => {
             icon: "error",
             title: "ERROR",
             text: "Password No dejes vacio esto",
-            footer: "Tienda Virual Reparación de móviles"
+            footer: "Tienda Virtual Reparación de móviles"
         })
         return;
     }
+
+    
 
     const data = new FormData();
     data.append('nombre_user', nombre_user);
@@ -566,7 +566,7 @@ const modify_pass = async () => {
             icon: "error",
             title: "ERROR",
             text: result.mensaje,
-            footer: "Tienda Virual Reparación de móviles"
+            footer: "Tienda Virtual Reparación de móviles"
         })
         return;
     }
